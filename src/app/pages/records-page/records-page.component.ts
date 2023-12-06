@@ -45,7 +45,6 @@ export class RecordsPageComponent {
 
   addStudent() {
     if(this.studentForm.valid) {
-      console.log(this.studentForm.value)
       this.showLoader = true;
       this.stService.create(this.studentForm.value)
         .subscribe({
