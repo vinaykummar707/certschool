@@ -1,0 +1,7 @@
+{
+  "/api/*": {
+    "target": "https://ec2-3-108-184-93.ap-south-1.compute.amazonaws.com",
+    "secure": true,
+    "logLevel": "debug"
+  }
+}

@@ -1,0 +1,11 @@
+
+
+
+<div class="h-100 w-100 flex flex-column justify-center items-center">
+  <div class="h-30 w-15 text-center flex-column flex justify-between items-center">
+    <h4 class="ma0 b">No Classes Found</h4>
+    <p class="ma0" *ngIf="classes.length == 0">Please create latest one class by tapping the button below</p>
+    <button class="btn-primary btn" (click)="createClass()">Create Class</button>
+  </div>
+
+</div>

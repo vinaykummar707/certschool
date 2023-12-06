@@ -1,0 +1,58 @@
+<div class="main-container">
+  <header class="header-3">
+    <div class="branding">
+      <a href="..." class="nav-link">
+        <div class="pr2 tc">
+          <img
+            src="https://images.pexels.com/photos/18103225/pexels-photo-18103225/free-photo-of-horses-in-prairie.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
+            class="br-100 h2 w2 dib" alt="avatar">
+        </div>
+        <span class="title b">Cert-School</span>
+      </a>
+    </div>
+
+    <div class="header-actions">
+      <a *ngIf="user && (user.role.name === 'admin' || user.role.name === 'user')" routerLink="/home/activities" [ngClass]="routerService.getCurrentRoute === 'activity' ? 'active' : ''"
+         class=" nav-link nav-icon-text" aria-current="page">
+        <cds-icon shape="announcement"></cds-icon>
+        <span class="nav-text">Activities</span>
+      </a>
+      <a routerLink="/home/students" [ngClass]="routerService.getCurrentRoute === 'students' ? 'active' : ''"
+         class="nav-link nav-icon-text">
+        <cds-icon shape="users"></cds-icon>
+        <span class="nav-text">Students</span></a>
+      <a *ngIf="user && (user.role.name === 'admin' || user.role.name === 'user')" routerLink="/home/certificates" [ngClass]="routerService.getCurrentRoute === 'certificates' ? 'active' : ''"
+         class="nav-link nav-icon-text">
+        <cds-icon shape="certificate"></cds-icon>
+        <span class="nav-text">Certificates</span></a>
+      <a *ngIf="user && user.role.name === 'admin' " routerLink="/home/users" [ngClass]="routerService.getCurrentRoute === 'users' ? 'active' : ''"
+         class="nav-link nav-icon-text">
+        <cds-icon shape="assign-user"></cds-icon>
+        <span class="nav-text">Users</span></a>
+      <!--        <a href="..." class="nav-link"><span class="nav-text">Settings</span></a>-->
+<!--      <a *ngIf="user" class="nav-link nav-icon-text">-->
+<!--        <cds-icon shape="user" solid="true"></cds-icon>-->
+<!--        <span class="nav-text">{{user.username}}</span>-->
+<!--        <span class="nav-text">()</span>-->
+<!--      </a>-->
+      <clr-dropdown *ngIf="user" >
+        <button class="nav-icon" clrDropdownTrigger aria-label="toggle settings menu">
+          <cds-icon shape="cog"></cds-icon>
+          <cds-icon shape="angle" direction="down"></cds-icon>
+        </button>
+        <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
+          <a clrDropdownItem>   {{user.username}}/{{user.role.name}} </a>
+          <a (click)="logout()" clrDropdownItem>Log out</a>
+        </clr-dropdown-menu>
+      </clr-dropdown>
+    </div>
+  </header>
+  <div class="content-container">
+
+    <div class="content-area ">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+
+

@@ -1,0 +1,172 @@
+<div class="main-container">
+  <div class="content-container">
+    <div class="content-area" >
+      <h3 class="ma0 b  "  >Student Registration</h3>
+
+      <div class="pa2 bg-white mt2">
+
+      <form [formGroup]="studentForm" clrForm clrLayout="vertical">
+        <div class="clr-row">
+          <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
+            <clr-input-container>
+              <label>Family Name</label>
+              <input clrInput type="text" formControlName="FamilyName"  class="w-100"/>
+            </clr-input-container>
+          </div>
+          <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
+            <clr-input-container>
+              <label>Full Name</label>
+              <input clrInput type="text" formControlName="StudentName" class="w-100"/>
+            </clr-input-container>
+          </div>
+          <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
+            <clr-input-container>
+              <label>Father Name</label>
+              <input clrInput type="text" formControlName="FatherName" class="w-100"/>
+            </clr-input-container>
+          </div>
+          <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
+            <clr-input-container>
+              <label>Address</label>
+              <input clrInput type="text" formControlName="Address" class="w-100"/>
+            </clr-input-container>
+          </div>
+          <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
+            <clr-input-container>
+              <label>City</label>
+              <input clrInput type="text" formControlName="City" class="w-100"/>
+            </clr-input-container>
+          </div>
+          <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
+            <clr-input-container>
+              <label>State</label>
+              <input clrInput type="text" formControlName="State" class="w-100"/>
+            </clr-input-container>
+          </div>
+          <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
+            <clr-input-container>
+              <label>Mobile Number</label>
+              <input clrInput type="text" formControlName="MobileNumber" class="w-100"/>
+            </clr-input-container>
+          </div>
+          <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
+            <clr-date-container>
+              <label>Admission Year</label>
+              <input type="date" autocomplete="off" formControlName="GraduationDate" clrDate name="demo"/>
+            </clr-date-container>
+          </div>
+
+
+        </div>
+      </form>
+
+      <form [formGroup]="activityForm" clrForm clrLayout="vertical">
+        <div class="clr-row">
+          <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
+            <clr-select-container class="w-100">
+              <label>Registration Type</label>
+              <select class="w-100" clrSelect formControlName="ActivityType">
+                <option value="education">Education</option>
+                <option value="event">Event/Competition</option>
+              </select>
+            </clr-select-container>
+          </div>
+          <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
+            <clr-date-container>
+              <label> {{activityForm.controls['ActivityType'].value === 'education' ? 'Graduation Date' : 'Event Date' }} </label>
+              <input type="date" autocomplete="off" formControlName="EventDate" clrDate/>
+            </clr-date-container>
+          </div>
+
+        </div>
+      </form>
+      <div *ngIf="activityForm.controls['ActivityType'].value === 'education'">
+        <form [formGroup]="activityForm" clrForm clrLayout="vertical">
+          <div class="clr-row">
+            <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
+              <clr-input-container>
+                <label>Education Passed</label>
+                <input clrInput type="text" placeholder="ex: Btech, Degree, Diploma" formControlName="EducationPassed" class="w-100"/>
+              </clr-input-container>
+            </div>
+            <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
+              <clr-input-container>
+                <label>Board Type</label>
+                <input clrInput type="text" placeholder="JNTUH, Osmania University, etc" formControlName="BoardType" class="w-100"/>
+              </clr-input-container>
+            </div>
+            <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
+              <clr-input-container>
+                <label>Board Stream</label>
+                <input clrInput type="text" placeholder="CSE, BCOM, MSC etc" formControlName="BoardStream" class="w-100"/>
+              </clr-input-container>
+            </div>
+            <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
+              <clr-input-container>
+                <label>Grade</label>
+                <input clrInput type="text" placeholder="ex: A,B,C" formControlName="Grade" class="w-100"/>
+              </clr-input-container>
+            </div>
+            <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
+              <clr-input-container>
+                <label>Total Marks</label>
+                <input clrInput type="text" placeholder="ex: 976/1000" formControlName="TotalMarks" class="w-100"/>
+              </clr-input-container>
+            </div>
+            <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
+              <clr-input-container>
+                <label>Percentage</label>
+                <input clrInput type="text" placeholder="ex: 97%" formControlName="Percentage" class="w-100"/>
+              </clr-input-container>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div *ngIf="activityForm.controls['ActivityType'].value === 'event'">
+        <form [formGroup]="activityForm" clrForm clrLayout="vertical">
+          <div class="clr-row">
+            <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
+              <clr-input-container>
+                <label>Event Title</label>
+                <input clrInput type="text" placeholder="ex: Singing Competition 2022" formControlName="EventTitle" class="w-100"/>
+              </clr-input-container>
+            </div>
+            <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
+              <clr-input-container>
+                <label>Event Description</label>
+                <input clrInput type="text" placeholder="ex: National Level, District Wide" formControlName="EventDescription" class="w-100"/>
+              </clr-input-container>
+            </div>
+            <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
+              <clr-input-container>
+                <label>Event Reward</label>
+                <input clrInput type="text" placeholder="ex: 1st Rank, Gold Medal, etc" formControlName="EventReward" class="w-100"/>
+              </clr-input-container>
+            </div>
+
+
+
+          </div>
+        </form>
+      </div>
+
+
+      </div>
+
+
+
+      <button (click)="addStudent()" class="btn btn-primary">Submit Details</button>
+
+
+    </div>
+
+  </div>
+</div>
+
+
+
+
+
+
+
+

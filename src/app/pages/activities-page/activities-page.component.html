@@ -1,0 +1,336 @@
+<clr-modal [clrModalOpen]="showModal" [clrModalSize]="'lg'">
+  <h3 class="modal-title">Activity Registration Form</h3>
+  <div class="modal-body">
+    <div *ngIf="showError" class="alert alert-danger" role="alert">
+      <div class="alert-items">
+        <div class="alert-item static">
+          <div class="alert-icon-wrapper">
+            <cds-icon class="alert-icon" shape="exclamation-circle"></cds-icon>
+          </div>
+          <span class="alert-text">Registration error,Please fill all fields to submit the form</span>
+        </div>
+      </div>
+    </div>
+    <form [formGroup]="activityForm" clrForm clrLayout="vertical">
+      <div class="clr-row">
+        <div class="clr-col-4">
+          <clr-select-container>
+            <label>Activity Type</label>
+            <select clrSelect formControlName="ActivityType">
+              <option value="education">Education</option>
+              <option value="event">Event/Competition</option>
+            </select>
+          </clr-select-container>
+        </div>
+        <div class="clr-col-4">
+          <clr-select-container>
+            <label>Select Student</label>
+            <select clrSelect formControlName="StudentId">
+              <option *ngFor="let student of students"
+                      [value]="student.id">{{student.FamilyName}} {{student.StudentName}}</option>
+            </select>
+          </clr-select-container>
+        </div>
+        <div class="clr-col-4">
+          <clr-date-container>
+            <label>Date</label>
+            <input type="date" autocomplete="off" formControlName="EventDate" clrDate/>
+          </clr-date-container>
+        </div>
+      </div>
+    </form>
+    <div *ngIf="activityForm.controls['ActivityType'].value === 'education'">
+      <form [formGroup]="activityForm" clrForm clrLayout="vertical">
+        <div class="clr-row">
+          <div class="clr-col-4">
+            <clr-input-container>
+              <label>Education Passed</label>
+              <input clrInput type="text" formControlName="EducationPassed" name="example"/>
+            </clr-input-container>
+          </div>
+          <div class="clr-col-4">
+            <clr-input-container>
+              <label>Board Type</label>
+              <input clrInput type="text" formControlName="BoardType" name="example"/>
+            </clr-input-container>
+          </div>
+          <div class="clr-col-4">
+            <clr-input-container>
+              <label>Board Stream</label>
+              <input clrInput type="text" formControlName="BoardStream" name="example"/>
+            </clr-input-container>
+          </div>
+          <div class="clr-col-4">
+            <clr-input-container>
+              <label>Grade</label>
+              <input clrInput type="text" formControlName="Grade" name="example"/>
+            </clr-input-container>
+          </div>
+          <div class="clr-col-4">
+            <clr-input-container>
+              <label>Total Marks</label>
+              <input clrInput type="text" formControlName="TotalMarks" name="example"/>
+            </clr-input-container>
+          </div>
+          <div class="clr-col-4">
+            <clr-input-container>
+              <label>Percentage</label>
+              <input clrInput type="text" formControlName="Percentage" name="example"/>
+            </clr-input-container>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div *ngIf="activityForm.controls['ActivityType'].value === 'event'">
+      <form [formGroup]="activityForm" clrForm clrLayout="vertical">
+        <div class="clr-row">
+          <div class="clr-col-4">
+            <clr-input-container>
+              <label>Event Title</label>
+              <input clrInput type="text" formControlName="EventTitle" name="example"/>
+            </clr-input-container>
+          </div>
+          <div class="clr-col-4">
+            <clr-input-container>
+              <label>Event Description</label>
+              <input clrInput type="text" formControlName="EventDescription" name="example"/>
+            </clr-input-container>
+          </div>
+          <div class="clr-col-4">
+            <clr-input-container>
+              <label>Event Reward</label>
+              <input clrInput type="text" formControlName="EventReward" name="example"/>
+            </clr-input-container>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline" (click)="showModal = false">Cancel</button>
+    <button  type="button" class="btn btn-primary" (click)="addUser()">Submit</button>
+<!--    <button *ngIf="uploadType === 'edit'" type="button" class="btn btn-primary" (click)="editUser()">Update</button>-->
+  </div>
+</clr-modal>
+<clr-modal [clrModalOpen]="showEditModal" [clrModalSize]="'lg'">
+  <h3 class="modal-title">Activity Edit Form</h3>
+  <div class="modal-body">
+    <div *ngIf="showError" class="alert alert-danger" role="alert">
+      <div class="alert-items">
+        <div class="alert-item static">
+          <div class="alert-icon-wrapper">
+            <cds-icon class="alert-icon" shape="exclamation-circle"></cds-icon>
+          </div>
+          <span class="alert-text">Registration error,Please fill all fields to submit the form</span>
+        </div>
+      </div>
+    </div>
+    <form [formGroup]="activityEditForm" clrForm clrLayout="vertical">
+      <div class="clr-row">
+        <div class="clr-col-4">
+          <clr-select-container>
+            <label>Activity Type</label>
+            <select clrSelect formControlName="ActivityType">
+              <option value="education">Education</option>
+              <option value="event">Event/Competition</option>
+            </select>
+          </clr-select-container>
+        </div>
+        <div class="clr-col-4">
+          <clr-select-container>
+            <label>Select Student</label>
+            <select clrSelect formControlName="StudentId">
+              <option *ngFor="let student of students"
+                      [value]="student.id">{{student.FamilyName}} {{student.StudentName}}</option>
+            </select>
+          </clr-select-container>
+        </div>
+        <div class="clr-col-4">
+          <clr-date-container>
+            <label>Date</label>
+            <input type="date" autocomplete="off" formControlName="EventDate" clrDate/>
+          </clr-date-container>
+        </div>
+      </div>
+    </form>
+    <div *ngIf="activityEditForm.controls['ActivityType'].value === 'education'">
+      <form [formGroup]="activityEditForm" clrForm clrLayout="vertical">
+        <div class="clr-row">
+          <div class="clr-col-4">
+            <clr-input-container>
+              <label>Education Passed</label>
+              <input clrInput type="text" formControlName="EducationPassed" name="example"/>
+            </clr-input-container>
+          </div>
+          <div class="clr-col-4">
+            <clr-input-container>
+              <label>Board Type</label>
+              <input clrInput type="text" formControlName="BoardType" name="example"/>
+            </clr-input-container>
+          </div>
+          <div class="clr-col-4">
+            <clr-input-container>
+              <label>Board Stream</label>
+              <input clrInput type="text" formControlName="BoardStream" name="example"/>
+            </clr-input-container>
+          </div>
+          <div class="clr-col-4">
+            <clr-input-container>
+              <label>Grade</label>
+              <input clrInput type="text" formControlName="Grade" name="example"/>
+            </clr-input-container>
+          </div>
+          <div class="clr-col-4">
+            <clr-input-container>
+              <label>Total Marks</label>
+              <input clrInput type="text" formControlName="TotalMarks" name="example"/>
+            </clr-input-container>
+          </div>
+          <div class="clr-col-4">
+            <clr-input-container>
+              <label>Percentage</label>
+              <input clrInput type="text" formControlName="Percentage" name="example"/>
+            </clr-input-container>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div *ngIf="activityEditForm.controls['ActivityType'].value === 'event'">
+      <form [formGroup]="activityEditForm" clrForm clrLayout="vertical">
+        <div class="clr-row">
+          <div class="clr-col-4">
+            <clr-input-container>
+              <label>Event Title</label>
+              <input clrInput type="text" formControlName="EventTitle" name="example"/>
+            </clr-input-container>
+          </div>
+          <div class="clr-col-4">
+            <clr-input-container>
+              <label>Event Description</label>
+              <input clrInput type="text" formControlName="EventDescription" name="example"/>
+            </clr-input-container>
+          </div>
+          <div class="clr-col-4">
+            <clr-input-container>
+              <label>Event Reward</label>
+              <input clrInput type="text" formControlName="EventReward" name="example"/>
+            </clr-input-container>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline" (click)="showEditModal = false">Cancel</button>
+<!--    <button *ngIf="uploadType === 'create'" type="button" class="btn btn-primary" (click)="addUser()">Submit</button>-->
+    <button type="button" class="btn btn-primary" (click)="editUser()">Update</button>
+  </div>
+</clr-modal>
+
+
+<clr-modal [clrModalOpen]="showDeleteModal">
+  <h3 class="modal-title">Are you sure to delete ?</h3>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline" (click)="showDeleteModal = false">Cancel</button>
+    <button type="button" class="btn btn-danger" (click)="deleteUser()">Delete</button>
+  </div>
+</clr-modal>
+
+<div>
+  <div class="flex flex-row justify-between items-center">
+    <div  >
+      <h3 class="b ma0">Activities</h3>
+      <p class="b ma0">Showing all {{activitys.length}} results</p>
+    </div>
+<!--    <div class="flex flex-row justify-end items-end">-->
+<!--      <button *ngIf="activitys.length > 0" (click)="openModal()" class="btn btn-primary btn-icon clr-align-self-end">-->
+<!--        <cds-icon shape="plus" solid="true"></cds-icon>-->
+<!--        Add Activity-->
+<!--      </button>-->
+
+<!--      <clr-select-container>-->
+<!--        <label>Filter Type</label>-->
+<!--        <select clrSelect [(ngModel)]="activityType" (change)="onActivityTypeChange($event)">-->
+<!--          <option value="all">All</option>-->
+<!--          <option value="education">Education</option>-->
+<!--          <option value="event">Event/Competition</option>-->
+<!--        </select>-->
+<!--      </clr-select-container>-->
+<!--    </div>-->
+
+  </div>
+
+  <clr-datagrid  *ngIf="activitys.length > 0 ">
+    <clr-dg-column [clrDgField]="'studentName'">studentName</clr-dg-column>
+    <clr-dg-column [clrDgField]="'EducationPassed'">EducationPassed</clr-dg-column>
+    <clr-dg-column [clrDgField]="'BoardType'">BoardType</clr-dg-column>
+    <clr-dg-column [clrDgField]="'BoardStream'">BoardStream</clr-dg-column>
+    <clr-dg-column [clrDgField]="'Grade'">Grade</clr-dg-column>
+    <clr-dg-column [clrDgField]="'TotalMarks'">TotalMarks</clr-dg-column>
+    <clr-dg-column [clrDgField]="'Percentage'">Percentage</clr-dg-column>
+    <clr-dg-column [clrDgField]="'EventDate'">EventDate</clr-dg-column>
+    <clr-dg-column [clrDgField]="'EventTitle'">EventTitle</clr-dg-column>
+    <clr-dg-column [clrDgField]="'EventDescription'">EventDesc</clr-dg-column>
+    <clr-dg-column [clrDgField]="'EventReward'">EventReward</clr-dg-column>
+    <clr-dg-column [clrDgField]="'ActivityType'">ActivityType</clr-dg-column>
+    <clr-dg-column [clrDgField]="'createdAt'">CreatedDate</clr-dg-column>
+    <clr-dg-column [clrDgField]="'createdAt'">Actions</clr-dg-column>
+
+    <clr-dg-row *clrDgItems="let activity of activitys">
+      <clr-dg-cell>{{ activity.student.FamilyName }} {{ activity.student.StudentName }}</clr-dg-cell>
+      <clr-dg-cell>{{ activity.EducationPassed }}</clr-dg-cell>
+      <clr-dg-cell>{{ activity.BoardType }}</clr-dg-cell>
+      <clr-dg-cell>{{ activity.BoardStream }}</clr-dg-cell>
+      <clr-dg-cell>{{ activity.Grade }}</clr-dg-cell>
+      <clr-dg-cell>{{ activity.TotalMarks }}</clr-dg-cell>
+      <clr-dg-cell>{{ activity.Percentage }}</clr-dg-cell>
+      <clr-dg-cell>{{ getDate(activity.EventDate) }}</clr-dg-cell>
+      <clr-dg-cell>{{ activity.EventTitle }}</clr-dg-cell>
+      <clr-dg-cell>{{ activity.EventDescription }}</clr-dg-cell>
+      <clr-dg-cell>{{ activity.EventReward }}</clr-dg-cell>
+      <clr-dg-cell>{{ activity.ActivityType }}</clr-dg-cell>
+      <clr-dg-cell>{{ getDate(activity.createdAt)}}</clr-dg-cell>
+      <clr-dg-cell>
+        <clr-dropdown>
+          <button class="btn-icon btn btn-primary btn-sm" clrDropdownTrigger aria-label="toggle settings menu">
+            <cds-icon shape="cog"></cds-icon>
+            <cds-icon shape="angle" direction="down"></cds-icon>
+          </button>
+          <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
+            <a (click)="editStudent(activity)" clrDropdownItem>Edit</a>
+            <a (click)="deleteModel(activity)" clrDropdownItem>Delete</a>
+            <a (click)="createCertificateRecord(activity)"  clrDropdownItem>Issue Certificate</a>
+          </clr-dropdown-menu>
+        </clr-dropdown>
+      </clr-dg-cell>
+    </clr-dg-row>
+    <clr-dg-footer>
+      <clr-dg-pagination #pagination [clrDgPageSize]="10">
+        <clr-dg-page-size [clrPageSizeOptions]="[10, 20, 50, 100]">Users per page</clr-dg-page-size>
+        {{ pagination.firstItem + 1 }} - {{ pagination.lastItem + 1 }} of {{ pagination.totalItems }} activitys
+      </clr-dg-pagination>
+    </clr-dg-footer>
+  </clr-datagrid>
+
+
+  <!--  education activities-->
+
+
+  <!--  event activities-->
+</div>
+
+
+<div *ngIf="activitys.length <= 0 && dataLoaded" class="h-100 w-100 flex flex-column justify-center items-center">
+  <h3 class="ma0 b">No Activities Found</h3>
+  <p class="ma0 text-center mb2">Please add atleast one activity to view the recods here</p>
+  <button (click)="openModal()" class="btn btn-primary btn-icon">
+    <cds-icon shape="plus" solid="true"></cds-icon>
+    Add Activity
+  </button>
+</div>
+
+
+<div *ngIf="activitys.length <= 0 && !dataLoaded" class="h-100 w-100 flex flex-column justify-center items-center">
+  <span class="spinner spinner-sm">Loading...</span>
+  <span>Loading...</span>
+</div>

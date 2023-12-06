@@ -1,0 +1,31 @@
+clr-vertical-nav{
+  background-color: #fff !important;
+  width: 9rem !important;
+}
+
+
+
+.content-area {
+  background-color: var(--cds-global-color-slate-50) !important;
+}
+
+.clr-vertical-nav .nav-link.active {
+  color: var(--cds-global-color-violet-900) !important;
+  font-weight:800 !important;
+  font-size: 0.7rem;
+  text-decoration: underline;
+  background-color: var(--cds-global-color-violet-50) !important;
+}
+
+
+.clr-vertical-nav .nav-link.active .nav-icon {
+  fill:var(--cds-global-color-violet-900) !important;
+
+}
+
+.clr-vertical-nav .nav-link.active::before {
+  border: none !important;
+}
+cds-icon {
+  margin-left: 0 !important;
+}

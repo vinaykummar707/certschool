@@ -1,0 +1,68 @@
+<div class="main-container">
+  <div class="content-container">
+    <div class="content-area flex flex-column justify-center items-center">
+
+      <div class="w-20 bg-white  pv3 ph3">
+
+        <form [formGroup]="loginForm" class="clr-form mb3">
+
+          <h2 class="b ma0">Login</h2>
+
+          <div *ngIf="showError" class="alert alert-danger" role="alert">
+            <div class="alert-items">
+              <div class="alert-item static">
+                <div class="alert-icon-wrapper">
+                  <cds-icon class="alert-icon" shape="exclamation-circle"></cds-icon>
+                </div>
+                <span class="alert-text">username or password is incorrect</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="clr-form-control">
+            <label for="example" class="clr-control-label">Username</label>
+            <div class="clr-control-container">
+              <div class="clr-input-wrapper">
+                <input
+                  type="text"
+                  id="example"
+                  formControlName="username"
+                  placeholder="ex: johndoe@gmail.com"
+                  class="clr-input"
+                />
+                <cds-icon
+                  class="clr-validate-icon"
+                  shape="exclamation-circle"
+                ></cds-icon>
+              </div>
+            </div>
+          </div>
+
+          <div class="clr-form-control">
+            <label for="example" class="clr-control-label">Password</label>
+            <div class="clr-control-container">
+              <div class="clr-input-wrapper">
+                <input
+                  type="password"
+                  id="example"
+                  formControlName="password"
+                  placeholder="********"
+                  class="clr-input"
+                />
+                <cds-icon
+                  class="clr-validate-icon"
+                  shape="exclamation-circle"
+                ></cds-icon>
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <button (click)="login()" class="btn btn-primary btn-block ">Submit</button>
+        <p class="ma0 text-center pt2" > Please use your credentials to login or contact admin for credentials</p>
+
+      </div>
+
+    </div>
+  </div>
+</div>

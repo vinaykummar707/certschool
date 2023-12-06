@@ -1,0 +1,95 @@
+
+<!--<button class="btn btn-primary">Create Activity</button>-->
+<clr-modal [(clrModalOpen)]="showAddUserDialog" clrModalSize="sm" [clrModalClosable]='false'>
+  <div class="modal-body">
+  <h3 class="ma0">Add User</h3>
+
+    <form [formGroup]="userForm" class="clr-form">
+      <div class="clr-form-control">
+        <label for="example" class="clr-control-label">Username</label>
+        <div class="clr-control-container">
+          <div class="clr-input-wrapper">
+            <input type="text" id="example" formControlName="username" placeholder="Example Input" class="clr-input" />
+            <cds-icon class="clr-validate-icon" shape="exclamation-circle"></cds-icon>
+          </div>
+        </div>
+      </div>
+
+      <div class="clr-form-control">
+        <label for="example" class="clr-control-label">Password</label>
+        <div class="clr-control-container">
+          <div class="clr-input-wrapper">
+            <input type="text" id="example" formControlName="password" placeholder="Example Input" class="clr-input" />
+            <cds-icon class="clr-validate-icon" shape="exclamation-circle"></cds-icon>
+          </div>
+        </div>
+      </div>
+
+      <clr-select-container>
+        <label>Select Role</label>
+        <select formControlName="roleId" clrSelect name="options">
+          <option [value]="role.id" *ngFor="let role of roles" value="one"> {{role.name}} </option>
+        </select>
+      </clr-select-container>
+    </form>
+  </div>
+  <div class="modal-footer ">
+    <button type="button" class="btn btn-outline" (click)="showAddUserDialog = false">Cancel</button>
+    <button (click)="submitUser()" type="button" class="btn btn-primary" (click)="showAddUserDialog = false">Submit</button>
+  </div>
+</clr-modal>
+<div class="clr-row">
+  <div class="clr-col-8">
+    <div class="flex flex-row justify-between items-center">
+      <div >
+        <h3 class="b ma0" >Users</h3>
+        <p class="ma0">showing all {{users.length}} users </p>
+      </div>
+            <button (click)="addUser()" class="btn btn-primary">Add User
+              <cds-icon shape="plus"></cds-icon>
+            </button>
+
+    </div>
+
+    <clr-datagrid>
+      <clr-dg-column [clrDgField]="'username'">Username</clr-dg-column>
+      <clr-dg-column [clrDgField]="'password'">Password</clr-dg-column>
+      <clr-dg-column [clrDgField]="'role.name'">Role</clr-dg-column>
+      <clr-dg-column [clrDgField]="'createdAt'">Created At</clr-dg-column>
+      <clr-dg-column [clrDgField]="'updatedAt'">Updated At</clr-dg-column>
+      <clr-dg-column [clrDgField]="'updatedAt'">Actions</clr-dg-column>
+
+      <clr-dg-row *clrDgItems="let user of users">
+        <clr-dg-cell>{{ user.username }}</clr-dg-cell>
+        <clr-dg-cell>{{ user.password }}</clr-dg-cell>
+        <clr-dg-cell>{{ user.role?.name }}</clr-dg-cell>
+        <clr-dg-cell>{{ getDate(user.createdAt)}}</clr-dg-cell>
+        <clr-dg-cell>{{ getDate(user.updatedAt)}}</clr-dg-cell>
+        <clr-dg-cell>
+          <button class="btn-primary btn btn-sm">Edit</button>
+          <button (click)="deleteUser(user)" class="btn-danger btn btn-sm">Delete</button>
+        </clr-dg-cell>
+      </clr-dg-row>
+      <clr-dg-footer>
+        <clr-dg-pagination #pagination [clrDgPageSize]="10">
+          <clr-dg-page-size [clrPageSizeOptions]="[10, 20, 50, 100]">Users per page</clr-dg-page-size>
+          {{ pagination.firstItem + 1 }} - {{ pagination.lastItem + 1 }} of {{ pagination.totalItems }} users
+        </clr-dg-pagination>
+      </clr-dg-footer>
+    </clr-datagrid>
+  </div>
+  <div class="clr-col-4">
+    <h3 class="b ma0" >Roles</h3>
+    <p class="ma0">Indicates competitions,events or any others</p>
+    <clr-datagrid>
+      <clr-dg-column [clrDgField]="'name'">Role Name</clr-dg-column>
+      <clr-dg-column [clrDgField]="'createdAt'">Created At</clr-dg-column>
+
+      <clr-dg-row *clrDgItems="let role of roles">
+        <clr-dg-cell>{{ role.name }}</clr-dg-cell>
+        <clr-dg-cell>{{ role.name }}</clr-dg-cell>
+      </clr-dg-row>
+      <clr-dg-footer>{{ roles.length }} users</clr-dg-footer>
+    </clr-datagrid>
+  </div>
+</div>

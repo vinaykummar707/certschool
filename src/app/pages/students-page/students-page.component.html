@@ -1,0 +1,226 @@
+<clr-modal [clrModalOpen]="showModal">
+  <h3 class="modal-title">Student Registration Form</h3>
+  <div class="modal-body">
+    <div *ngIf="showError" class="alert alert-danger" role="alert">
+      <div class="alert-items">
+        <div class="alert-item static">
+          <div class="alert-icon-wrapper">
+            <cds-icon class="alert-icon" shape="exclamation-circle"></cds-icon>
+          </div>
+          <span class="alert-text">Registration error,Please fill all fields to submit the form</span>
+        </div>
+      </div>
+    </div>
+
+
+    <form [formGroup]="studentForm" clrForm clrLayout="vertical">
+      <div class="clr-row">
+        <div class="clr-col-6">
+          <clr-input-container>
+            <label>Family Name</label>
+            <input clrInput type="text" formControlName="FamilyName" name="example"/>
+          </clr-input-container>
+        </div>
+        <div class="clr-col-6">
+          <clr-input-container>
+            <label>First Name</label>
+            <input clrInput type="text" formControlName="StudentName" name="example"/>
+          </clr-input-container>
+        </div>
+        <div class="clr-col-6">
+          <clr-input-container>
+            <label>Father Name</label>
+            <input clrInput type="text" formControlName="FatherName" name="example"/>
+          </clr-input-container>
+        </div>
+        <div class="clr-col-6">
+          <clr-input-container>
+            <label>Address</label>
+            <input clrInput type="text" formControlName="Address" name="example"/>
+          </clr-input-container>
+        </div>
+        <div class="clr-col-6">
+          <clr-input-container>
+            <label>City</label>
+            <input clrInput type="text" formControlName="City" name="example"/>
+          </clr-input-container>
+        </div>
+        <div class="clr-col-6">
+          <clr-input-container>
+            <label>State</label>
+            <input clrInput type="text" formControlName="State" name="example"/>
+          </clr-input-container>
+        </div>
+        <div class="clr-col-6">
+          <clr-input-container>
+            <label>Mobile Number</label>
+            <input clrInput type="text" formControlName="MobileNumber" name="example"/>
+          </clr-input-container>
+        </div>
+        <div class="clr-col-6">
+          <clr-date-container>
+            <label>Date Graduated</label>
+            <input type="date" autocomplete="off" formControlName="GraduationDate" clrDate name="demo"/>
+          </clr-date-container>
+        </div>
+      </div>
+    </form>
+
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline" (click)="showModal = false">Cancel</button>
+    <button *ngIf="uploadType === 'create'" type="button" class="btn btn-primary" (click)="addUser()">Submit</button>
+    <!--    <button *ngIf="uploadType === 'edit'" type="button" class="btn btn-primary" (click)="editUser()">Update</button>-->
+  </div>
+</clr-modal>
+
+<clr-modal [clrModalOpen]="showEditModal">
+  <h3 class="modal-title">Student Edit Form</h3>
+  <div class="modal-body">
+    <div *ngIf="showError" class="alert alert-danger" role="alert">
+      <div class="alert-items">
+        <div class="alert-item static">
+          <div class="alert-icon-wrapper">
+            <cds-icon class="alert-icon" shape="exclamation-circle"></cds-icon>
+          </div>
+          <span class="alert-text">Registration error,Please fill all fields to submit the form</span>
+        </div>
+      </div>
+    </div>
+    <div class="clr-row">
+      <div class="clr-col-6">
+        <form [formGroup]="studentEditForm" clrForm clrLayout="vertical">
+          <clr-input-container>
+            <label>Family Name</label>
+            <input clrInput type="text" formControlName="FamilyName" name="example"/>
+          </clr-input-container>
+          <clr-input-container>
+            <label>Address</label>
+            <input clrInput type="text" formControlName="Address" name="example"/>
+          </clr-input-container>
+
+        </form>
+      </div>
+      <div class="clr-col-6">
+        <form [formGroup]="studentEditForm" clrForm clrLayout="vertical">
+          <clr-input-container>
+            <label>First Name</label>
+            <input clrInput type="text" formControlName="StudentName" name="example"/>
+          </clr-input-container>
+
+          <clr-input-container>
+            <label>City</label>
+            <input clrInput type="text" formControlName="City" name="example"/>
+          </clr-input-container>
+        </form>
+      </div>
+      <div class="clr-col-6">
+        <form [formGroup]="studentEditForm">
+          <clr-input-container>
+            <label>Father Name</label>
+            <input clrInput type="text" formControlName="FatherName" name="example"/>
+          </clr-input-container>
+
+          <clr-input-container>
+            <label>State</label>
+            <input clrInput type="text" formControlName="State" name="example"/>
+          </clr-input-container>
+        </form>
+      </div>
+      <div class="clr-col-6">
+        <form [formGroup]="studentEditForm" clrForm clrLayout="vertical">
+          <clr-input-container>
+            <label>Mobile Number</label>
+            <input clrInput type="text" formControlName="MobileNumber" name="example"/>
+          </clr-input-container>
+
+          <clr-date-container>
+            <label>Date Graduated</label>
+            <input type="date" autocomplete="off" formControlName="GraduationDate" clrDate name="demo"/>
+          </clr-date-container>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline" (click)="showEditModal = false">Cancel</button>
+    <!-- <button *ngIf="uploadType === 'create'" type="button" class="btn btn-primary" (click)="addUser()">Submit</button> -->
+    <button type="button" class="btn btn-primary" (click)="editUser()">Update</button>
+  </div>
+</clr-modal>
+
+
+<clr-modal [clrModalOpen]="showDeleteModal">
+  <h3 class="modal-title">Are you sure to delete ?</h3>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline" (click)="showDeleteModal = false">Cancel</button>
+    <button type="button" class="btn btn-danger" (click)="deleteUser()">Delete</button>
+  </div>
+</clr-modal>
+
+<div *ngIf="students.length > 0 && dataLoaded">
+  <div class="flex flex-row justify-between items-center">
+    <div>
+      <h3 class="b ma0">Students</h3>
+      <p class="b ma0">Showing all {{students.length}} results</p>
+    </div>
+    <div>
+      <button (click)="openModal()" class="btn btn-primary btn-icon clr-align-self-end">
+        <cds-icon shape="plus" solid="true"></cds-icon>
+        Add Student
+      </button>
+    </div>
+  </div>
+
+  <clr-datagrid>
+    <clr-dg-column [clrDgField]="'FamilyName'">Family Name</clr-dg-column>
+    <clr-dg-column [clrDgField]="'StudentName'">Student Name</clr-dg-column>
+    <clr-dg-column [clrDgField]="'FatherName'">Father Name</clr-dg-column>
+    <clr-dg-column [clrDgField]="'Address'">Address</clr-dg-column>
+    <clr-dg-column [clrDgField]="'City'">City</clr-dg-column>
+    <clr-dg-column [clrDgField]="'State'">State</clr-dg-column>
+    <clr-dg-column [clrDgField]="'MobileNumber'">Mobile Number</clr-dg-column>
+    <clr-dg-column [clrDgField]="'GraduationDate'">Graduated Date</clr-dg-column>
+    <clr-dg-column [clrDgField]="'createdAt'">Date Created</clr-dg-column>
+    <clr-dg-column [clrDgField]="'createdAt'">Actions</clr-dg-column>
+
+    <clr-dg-row *clrDgItems="let student of students">
+      <clr-dg-cell>{{ student.FamilyName }}</clr-dg-cell>
+      <clr-dg-cell>{{ student.StudentName }}</clr-dg-cell>
+      <clr-dg-cell>{{ student.FatherName }}</clr-dg-cell>
+      <clr-dg-cell>{{ student.Address }}</clr-dg-cell>
+      <clr-dg-cell>{{ student.City }}</clr-dg-cell>
+      <clr-dg-cell>{{ student.State }}</clr-dg-cell>
+      <clr-dg-cell>{{ student.MobileNumber }}</clr-dg-cell>
+      <clr-dg-cell>{{ getDate(student.GraduationDate)}}</clr-dg-cell>
+      <clr-dg-cell>{{ getDate(student.createdAt)}}</clr-dg-cell>
+      <clr-dg-cell>
+        <button class="btn-primary btn btn-sm " (click)="editStudent(student)">Edit</button>
+        <button class="btn-danger btn btn-sm " (click)="deleteModel(student)">Delete</button>
+      </clr-dg-cell>
+    </clr-dg-row>
+    <clr-dg-footer>
+      <clr-dg-pagination #pagination [clrDgPageSize]="10">
+        <clr-dg-page-size [clrPageSizeOptions]="[10, 20, 50, 100]">Users per page</clr-dg-page-size>
+        {{ pagination.firstItem + 1 }} - {{ pagination.lastItem + 1 }} of {{ pagination.totalItems }} students
+      </clr-dg-pagination>
+    </clr-dg-footer>
+  </clr-datagrid>
+</div>
+
+
+<div *ngIf="students.length <= 0 && dataLoaded" class="h-100 w-100 flex flex-column justify-center items-center">
+  <h3 class="ma0 b">No Students Found</h3>
+  <p class="ma0 text-center mb2">Please add atleast one student to view the recods here</p>
+  <button (click)="openModal()" class="btn btn-primary btn-icon">
+    <cds-icon shape="plus" solid="true"></cds-icon>
+    Add Student
+  </button>
+</div>
+
+<div *ngIf="students.length <= 0 && !dataLoaded" class="h-100 w-100 flex flex-column justify-center items-center">
+  <span class="spinner spinner-sm">Loading...</span>
+  <span>Loading...</span>
+</div>
