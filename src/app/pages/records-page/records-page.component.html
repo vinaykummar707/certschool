@@ -1,6 +1,6 @@
 <div class="main-container">
   <div class="content-container">
-    <div class="content-area" >
+    <div *ngIf="!dataSubmitted && !showLoader" class="content-area" >
       <h3 class="ma0 b  "  >Student Registration</h3>
 
       <div class="pa2 bg-white mt2">
@@ -160,6 +160,17 @@
 
     </div>
 
+      <div *ngIf="!dataSubmitted && showLoader" class="h-100 w-100 flex flex-column justify-center items-center content-area">
+        <span class="spinner spinner-sm"></span>
+        <span>Uploading Details</span>
+      </div>
+
+    <div *ngIf="dataSubmitted && !showLoader" class="content-area" >
+      <div class="w-100 h-100 flex flex-column justify-center items-center">
+        <h3>Thanks for submitting Details</h3>
+        <p>You details are sent to the administration for any modifications please contact your administration</p>
+      </div>
+    </div>
   </div>
 </div>
 

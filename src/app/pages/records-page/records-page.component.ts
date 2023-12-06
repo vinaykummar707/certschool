@@ -37,6 +37,8 @@ export class RecordsPageComponent {
     ActivityType: new FormControl('education'),
     schoolId: new FormControl('skl1'),
   })
+  dataSubmitted: boolean = false;
+  showLoader: Boolean = false;
 
   constructor(private atService: ActivityService, private stService: StudentsService) {
   }
@@ -44,6 +46,7 @@ export class RecordsPageComponent {
   addStudent() {
     if(this.studentForm.valid) {
       console.log(this.studentForm.value)
+      this.showLoader = true;
       this.stService.create(this.studentForm.value)
         .subscribe({
           next: (value: any) => {
@@ -67,7 +70,8 @@ export class RecordsPageComponent {
             this.activityForm.reset();
             this.studentForm.reset();
             this.activityForm.controls['ActivityType'].setValue('education');
-
+            this.dataSubmitted = true;
+            this.showLoader = false;
           }
         })
     } else {
