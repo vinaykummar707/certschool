@@ -18,7 +18,8 @@
             <label>Activity Type</label>
             <select clrSelect formControlName="ActivityType">
               <option value="education">Education</option>
-              <option value="event">Event/Competition</option>
+              <option value="event">Sports/Competition</option>
+              <option value="ssc">SSC Model Paper</option>
             </select>
           </clr-select-container>
         </div>
@@ -31,9 +32,15 @@
             </select>
           </clr-select-container>
         </div>
-        <div class="clr-col-4">
+<!--        <div *ngIf="activityForm.controls['ActivityType'].value === 'event' || activityForm.controls['ActivityType'].value === 'education'" class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">-->
+<!--          <clr-date-container>-->
+<!--            <label> {{activityForm.controls['ActivityType'].value === 'education' ? 'Passing Year' : 'Sports/Competition Year' }} </label>-->
+<!--            <input type="date" autocomplete="off" formControlName="EventDate" clrDate/>-->
+<!--          </clr-date-container>-->
+<!--        </div>-->
+        <div *ngIf="activityForm.controls['ActivityType'].value === 'event' || activityForm.controls['ActivityType'].value === 'education'"  class="clr-col-4">
           <clr-date-container>
-            <label>Date</label>
+            <label>{{activityForm.controls['ActivityType'].value === 'education' ? 'Passing Year' : 'Sports/Competition Year' }}</label>
             <input type="date" autocomplete="off" formControlName="EventDate" clrDate/>
           </clr-date-container>
         </div>
@@ -50,7 +57,7 @@
           </div>
           <div class="clr-col-4">
             <clr-input-container>
-              <label>Board Type</label>
+              <label>Board/University</label>
               <input clrInput type="text" formControlName="BoardType" name="example"/>
             </clr-input-container>
           </div>
@@ -86,19 +93,19 @@
         <div class="clr-row">
           <div class="clr-col-4">
             <clr-input-container>
-              <label>Event Title</label>
+              <label>Sports/Competition Title</label>
               <input clrInput type="text" formControlName="EventTitle" name="example"/>
             </clr-input-container>
           </div>
           <div class="clr-col-4">
             <clr-input-container>
-              <label>Event Description</label>
+              <label>Participation Description</label>
               <input clrInput type="text" formControlName="EventDescription" name="example"/>
             </clr-input-container>
           </div>
           <div class="clr-col-4">
             <clr-input-container>
-              <label>Event Reward</label>
+              <label>Award</label>
               <input clrInput type="text" formControlName="EventReward" name="example"/>
             </clr-input-container>
           </div>
@@ -132,7 +139,8 @@
             <label>Activity Type</label>
             <select clrSelect formControlName="ActivityType">
               <option value="education">Education</option>
-              <option value="event">Event/Competition</option>
+              <option value="event">Sports/Competition</option>
+              <option value="ssc">SSC Model Paper</option>
             </select>
           </clr-select-container>
         </div>
@@ -145,9 +153,9 @@
             </select>
           </clr-select-container>
         </div>
-        <div class="clr-col-4">
+        <div *ngIf="activityForm.controls['ActivityType'].value === 'event' || activityForm.controls['ActivityType'].value === 'education'"  class="clr-col-4">
           <clr-date-container>
-            <label>Date</label>
+            <label>{{activityForm.controls['ActivityType'].value === 'education' ? 'Passing Year' : 'Sports/Competition Year' }}</label>
             <input type="date" autocomplete="off" formControlName="EventDate" clrDate/>
           </clr-date-container>
         </div>
@@ -164,7 +172,7 @@
           </div>
           <div class="clr-col-4">
             <clr-input-container>
-              <label>Board Type</label>
+              <label>Board/University</label>
               <input clrInput type="text" formControlName="BoardType" name="example"/>
             </clr-input-container>
           </div>
@@ -200,19 +208,19 @@
         <div class="clr-row">
           <div class="clr-col-4">
             <clr-input-container>
-              <label>Event Title</label>
+              <label>Sports/Competition Title</label>
               <input clrInput type="text" formControlName="EventTitle" name="example"/>
             </clr-input-container>
           </div>
           <div class="clr-col-4">
             <clr-input-container>
-              <label>Event Description</label>
+              <label>Participation Description</label>
               <input clrInput type="text" formControlName="EventDescription" name="example"/>
             </clr-input-container>
           </div>
           <div class="clr-col-4">
             <clr-input-container>
-              <label>Event Reward</label>
+              <label>Award</label>
               <input clrInput type="text" formControlName="EventReward" name="example"/>
             </clr-input-container>
           </div>
@@ -242,18 +250,18 @@
       <h3 class="b ma0">Activities</h3>
       <p class="b ma0">Showing all {{activitys.length}} results</p>
     </div>
-<!--    <div class="flex flex-row justify-end items-end">-->
-<!--      <button *ngIf="activitys.length > 0" (click)="openModal()" class="btn btn-primary btn-icon clr-align-self-end">-->
-<!--        <cds-icon shape="plus" solid="true"></cds-icon>-->
-<!--        Add Activity-->
-<!--      </button>-->
+      <button  *ngIf="activitys.length > 0 && user && user.role.name === 'admin' " (click)="openModal()" class="btn btn-primary btn-icon clr-align-self-end">
+        <cds-icon shape="plus" solid="true"></cds-icon>
+        Add Activity
+      </button>
+
 
 <!--      <clr-select-container>-->
 <!--        <label>Filter Type</label>-->
 <!--        <select clrSelect [(ngModel)]="activityType" (change)="onActivityTypeChange($event)">-->
 <!--          <option value="all">All</option>-->
 <!--          <option value="education">Education</option>-->
-<!--          <option value="event">Event/Competition</option>-->
+<!--          <option value="event">Sports/Competition</option>-->
 <!--        </select>-->
 <!--      </clr-select-container>-->
 <!--    </div>-->
@@ -261,23 +269,25 @@
   </div>
 
   <clr-datagrid  *ngIf="activitys.length > 0 ">
-    <clr-dg-column [clrDgField]="'studentName'">studentName</clr-dg-column>
-    <clr-dg-column [clrDgField]="'EducationPassed'">EducationPassed</clr-dg-column>
-    <clr-dg-column [clrDgField]="'BoardType'">BoardType</clr-dg-column>
-    <clr-dg-column [clrDgField]="'BoardStream'">BoardStream</clr-dg-column>
+    <clr-dg-column [clrDgField]="'student.StudentName'">Student Name</clr-dg-column>
+    <clr-dg-column [clrDgField]="'student.StudyingSsc'">Studying SSC</clr-dg-column>
+    <clr-dg-column [clrDgField]="'EducationPassed'">Education Passed</clr-dg-column>
+    <clr-dg-column [clrDgField]="'BoardType'">Board/University</clr-dg-column>
+    <clr-dg-column [clrDgField]="'BoardStream'">Board Stream</clr-dg-column>
     <clr-dg-column [clrDgField]="'Grade'">Grade</clr-dg-column>
-    <clr-dg-column [clrDgField]="'TotalMarks'">TotalMarks</clr-dg-column>
+    <clr-dg-column [clrDgField]="'TotalMarks'">Total Marks</clr-dg-column>
     <clr-dg-column [clrDgField]="'Percentage'">Percentage</clr-dg-column>
-    <clr-dg-column [clrDgField]="'EventDate'">EventDate</clr-dg-column>
-    <clr-dg-column [clrDgField]="'EventTitle'">EventTitle</clr-dg-column>
-    <clr-dg-column [clrDgField]="'EventDescription'">EventDesc</clr-dg-column>
-    <clr-dg-column [clrDgField]="'EventReward'">EventReward</clr-dg-column>
-    <clr-dg-column [clrDgField]="'ActivityType'">ActivityType</clr-dg-column>
-    <clr-dg-column [clrDgField]="'createdAt'">CreatedDate</clr-dg-column>
+    <clr-dg-column [clrDgField]="'EventDate'">Sports/Competition Year</clr-dg-column>
+    <clr-dg-column [clrDgField]="'EventTitle'">Sports/Competition Title</clr-dg-column>
+    <clr-dg-column [clrDgField]="'EventDescription'">Participation Description</clr-dg-column>
+    <clr-dg-column [clrDgField]="'EventReward'">Award</clr-dg-column>
+    <clr-dg-column [clrDgField]="'ActivityType'">Activity Type</clr-dg-column>
+    <clr-dg-column [clrDgField]="'createdAt'">Created Date</clr-dg-column>
     <clr-dg-column [clrDgField]="'createdAt'">Actions</clr-dg-column>
 
     <clr-dg-row *clrDgItems="let activity of activitys">
       <clr-dg-cell>{{ activity.student.FamilyName }} {{ activity.student.StudentName }}</clr-dg-cell>
+      <clr-dg-cell>{{ activity.student.StudyingSsc === 1 ? 'Yes' : 'No' }}</clr-dg-cell>
       <clr-dg-cell>{{ activity.EducationPassed }}</clr-dg-cell>
       <clr-dg-cell>{{ activity.BoardType }}</clr-dg-cell>
       <clr-dg-cell>{{ activity.BoardStream }}</clr-dg-cell>
@@ -297,7 +307,7 @@
             <cds-icon shape="angle" direction="down"></cds-icon>
           </button>
           <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
-            <!-- <a (click)="editStudent(activity)" clrDropdownItem>Edit</a> -->
+            <a *ngIf="user && user.role.name === 'admin' " (click)="editStudent(activity)" clrDropdownItem>Edit</a>
             <a (click)="deleteModel(activity)" clrDropdownItem>Delete</a>
             <a (click)="createCertificateRecord(activity)"  clrDropdownItem>Issue Certificate</a>
           </clr-dropdown-menu>

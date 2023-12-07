@@ -57,11 +57,24 @@
             </clr-input-container>
           </div>
           <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
-            <clr-date-container>
-              <label>Admission Year</label>
-              <input type="date" autocomplete="off" formControlName="GraduationDate" clrDate name="demo"/>
-            </clr-date-container>
+            <clr-input-container>
+              <label>School Full Name</label>
+              <input clrInput type="text" formControlName="SchoolName" class="w-100"/>
+            </clr-input-container>
           </div>
+          <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
+            <clr-input-container>
+              <label>School Address</label>
+              <input clrInput type="text" formControlName="SchoolAddress" class="w-100"/>
+            </clr-input-container>
+          </div>
+
+<!--          <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">-->
+<!--            <clr-date-container>-->
+<!--              <label>Admission Year</label>-->
+<!--              <input type="date" autocomplete="off" formControlName="GraduationDate" clrDate name="demo"/>-->
+<!--            </clr-date-container>-->
+<!--          </div>-->
 
 
         </div>
@@ -74,16 +87,19 @@
               <label>Registration Type</label>
               <select class="w-100" clrSelect formControlName="ActivityType">
                 <option value="education">Education</option>
-                <option value="event">Event/Competition</option>
+                <option value="event">Sports/Competition</option>
+                <option value="ssc">SSC Model Paper</option>
               </select>
             </clr-select-container>
           </div>
-          <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
+          <div *ngIf="activityForm.controls['ActivityType'].value === 'event' || activityForm.controls['ActivityType'].value === 'education'" class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
             <clr-date-container>
-              <label> {{activityForm.controls['ActivityType'].value === 'education' ? 'Graduation Date' : 'Event Date' }} </label>
+              <label> {{activityForm.controls['ActivityType'].value === 'education' ? 'Passing Year' : 'Sports/Competition Year' }} </label>
               <input type="date" autocomplete="off" formControlName="EventDate" clrDate/>
             </clr-date-container>
           </div>
+
+
 
         </div>
       </form>
@@ -98,7 +114,7 @@
             </div>
             <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
               <clr-input-container>
-                <label>Board Type</label>
+                <label>Board/University</label>
                 <input clrInput type="text" placeholder="JNTUH, Osmania University, etc" formControlName="BoardType" class="w-100"/>
               </clr-input-container>
             </div>
@@ -116,8 +132,8 @@
             </div>
             <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
               <clr-input-container>
-                <label>Total Marks</label>
-                <input clrInput type="text" placeholder="ex: 976/1000" formControlName="TotalMarks" class="w-100"/>
+                <label>Total Marks(Including All Subjects)</label>
+                <input clrInput type="text" placeholder="ex: 976" formControlName="TotalMarks" class="w-100"/>
               </clr-input-container>
             </div>
             <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
@@ -134,28 +150,40 @@
           <div class="clr-row">
             <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
               <clr-input-container>
-                <label>Event Title</label>
+                <label>Sports/Competition Title</label>
                 <input clrInput type="text" placeholder="ex: Singing Competition 2022" formControlName="EventTitle" class="w-100"/>
               </clr-input-container>
             </div>
             <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
               <clr-input-container>
-                <label>Event Description</label>
+                <label>Participation Description</label>
                 <input clrInput type="text" placeholder="ex: National Level, District Wide" formControlName="EventDescription" class="w-100"/>
               </clr-input-container>
             </div>
             <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
               <clr-input-container>
-                <label>Event Reward</label>
+                <label>Award</label>
                 <input clrInput type="text" placeholder="ex: 1st Rank, Gold Medal, etc" formControlName="EventReward" class="w-100"/>
               </clr-input-container>
             </div>
-
-
-
           </div>
         </form>
       </div>
+
+        <form *ngIf="activityForm.controls['ActivityType'].value === 'ssc'" [formGroup]="studentForm">
+          <div >
+            <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
+              <clr-select-container class="w-100">
+                <label>Presently Studying SSC</label>
+                <select class="w-100" clrSelect formControlName="StudyingSsc">
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+                </select>
+              </clr-select-container>
+            </div>
+          </div>
+        </form>
+
 
 
       </div>

@@ -35,7 +35,6 @@ export class StudentsPageComponent {
       Address: new FormControl('', Validators.required),
       City: new FormControl('', Validators.required),
       State: new FormControl('', Validators.required),
-      GraduationDate: new FormControl('', Validators.required),
       SchoolId: new FormControl(''),
     })
     this.studentEditForm = new FormGroup({
@@ -46,7 +45,6 @@ export class StudentsPageComponent {
       Address: new FormControl('', Validators.required),
       City: new FormControl('', Validators.required),
       State: new FormControl('', Validators.required),
-      GraduationDate: new FormControl('', Validators.required),
       id: new FormControl('', Validators.required),
       isActive: new FormControl('', Validators.required),
       createdAt: new FormControl('', Validators.required),

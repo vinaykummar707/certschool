@@ -57,12 +57,7 @@
             <input clrInput type="text" formControlName="MobileNumber" name="example"/>
           </clr-input-container>
         </div>
-        <div class="clr-col-6">
-          <clr-date-container>
-            <label>Date Graduated</label>
-            <input type="date" autocomplete="off" formControlName="GraduationDate" clrDate name="demo"/>
-          </clr-date-container>
-        </div>
+
       </div>
     </form>
 
@@ -177,24 +172,24 @@
   <clr-datagrid>
     <clr-dg-column [clrDgField]="'FamilyName'">Family Name</clr-dg-column>
     <clr-dg-column [clrDgField]="'StudentName'">Student Name</clr-dg-column>
+    <clr-dg-column [clrDgField]="'StudentName'">Studying SSC</clr-dg-column>
     <clr-dg-column [clrDgField]="'FatherName'">Father Name</clr-dg-column>
     <clr-dg-column [clrDgField]="'Address'">Address</clr-dg-column>
     <clr-dg-column [clrDgField]="'City'">City</clr-dg-column>
     <clr-dg-column [clrDgField]="'State'">State</clr-dg-column>
     <clr-dg-column [clrDgField]="'MobileNumber'">Mobile Number</clr-dg-column>
-    <clr-dg-column [clrDgField]="'GraduationDate'">Graduated Date</clr-dg-column>
     <clr-dg-column [clrDgField]="'createdAt'">Date Created</clr-dg-column>
     <clr-dg-column [clrDgField]="'createdAt'">Actions</clr-dg-column>
 
     <clr-dg-row *clrDgItems="let student of students">
       <clr-dg-cell>{{ student.FamilyName }}</clr-dg-cell>
       <clr-dg-cell>{{ student.StudentName }}</clr-dg-cell>
+      <clr-dg-cell>{{ student.StudyingSsc === 1 ? 'Yes' : 'No' }}</clr-dg-cell>
       <clr-dg-cell>{{ student.FatherName }}</clr-dg-cell>
       <clr-dg-cell>{{ student.Address }}</clr-dg-cell>
       <clr-dg-cell>{{ student.City }}</clr-dg-cell>
       <clr-dg-cell>{{ student.State }}</clr-dg-cell>
       <clr-dg-cell>{{ student.MobileNumber }}</clr-dg-cell>
-      <clr-dg-cell>{{ getDate(student.GraduationDate)}}</clr-dg-cell>
       <clr-dg-cell>{{ getDate(student.createdAt)}}</clr-dg-cell>
       <clr-dg-cell>
         <button class="btn-primary btn btn-sm " (click)="editStudent(student)">Edit</button>

@@ -7,28 +7,28 @@
             src="https://images.pexels.com/photos/18103225/pexels-photo-18103225/free-photo-of-horses-in-prairie.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
             class="br-100 h2 w2 dib" alt="avatar">
         </div>
-        <span class="title b">Cert-School</span>
+        <span class="title b">Adarsh Forum</span>
       </a>
     </div>
 
     <div class="header-actions">
-      <a *ngIf="user && (user.role.name === 'admin' || user.role.name === 'user')" routerLink="/home/activities" [ngClass]="routerService.getCurrentRoute === 'activity' ? 'active' : ''"
-         class=" nav-link nav-icon-text" aria-current="page">
-        <cds-icon shape="announcement"></cds-icon>
-        <span class="nav-text">Activities</span>
-      </a>
-      <a routerLink="/home/students" [ngClass]="routerService.getCurrentRoute === 'students' ? 'active' : ''"
-         class="nav-link nav-icon-text">
-        <cds-icon shape="users"></cds-icon>
-        <span class="nav-text">Students</span></a>
-      <a *ngIf="user && (user.role.name === 'admin' || user.role.name === 'user')" routerLink="/home/certificates" [ngClass]="routerService.getCurrentRoute === 'certificates' ? 'active' : ''"
-         class="nav-link nav-icon-text">
-        <cds-icon shape="certificate"></cds-icon>
-        <span class="nav-text">Certificates</span></a>
-      <a *ngIf="user && user.role.name === 'admin' " routerLink="/home/users" [ngClass]="routerService.getCurrentRoute === 'users' ? 'active' : ''"
-         class="nav-link nav-icon-text">
-        <cds-icon shape="assign-user"></cds-icon>
-        <span class="nav-text">Users</span></a>
+<!--      <a *ngIf="user && (user.role.name === 'admin' || user.role.name === 'user')" routerLink="/home/activities" [ngClass]="routerService.getCurrentRoute === 'activity' ? 'active' : ''"-->
+<!--         class=" nav-link nav-icon-text" aria-current="page">-->
+<!--        <cds-icon shape="announcement"></cds-icon>-->
+<!--        <span class="nav-text">Activities</span>-->
+<!--      </a>-->
+<!--      <a routerLink="/home/students" [ngClass]="routerService.getCurrentRoute === 'students' ? 'active' : ''"-->
+<!--         class="nav-link nav-icon-text">-->
+<!--        <cds-icon shape="users"></cds-icon>-->
+<!--        <span class="nav-text">Students</span></a>-->
+<!--      <a *ngIf="user && (user.role.name === 'admin' || user.role.name === 'user')" routerLink="/home/certificates" [ngClass]="routerService.getCurrentRoute === 'certificates' ? 'active' : ''"-->
+<!--         class="nav-link nav-icon-text">-->
+<!--        <cds-icon shape="certificate"></cds-icon>-->
+<!--        <span class="nav-text">Certificates</span></a>-->
+<!--      <a *ngIf="user && user.role.name === 'admin' " routerLink="/home/users" [ngClass]="routerService.getCurrentRoute === 'users' ? 'active' : ''"-->
+<!--         class="nav-link nav-icon-text">-->
+<!--        <cds-icon shape="assign-user"></cds-icon>-->
+<!--        <span class="nav-text">Users</span></a>-->
       <!--        <a href="..." class="nav-link"><span class="nav-text">Settings</span></a>-->
 <!--      <a *ngIf="user" class="nav-link nav-icon-text">-->
 <!--        <cds-icon shape="user" solid="true"></cds-icon>-->
@@ -52,6 +52,30 @@
     <div class="content-area ">
       <router-outlet></router-outlet>
     </div>
+    <clr-vertical-nav >
+      <a *ngIf="user && (user.role.name === 'admin' || user.role.name === 'user')" clrVerticalNavLink routerLink="/home/activities" routerLinkActive="active">
+        <cds-icon clrVerticalNavIcon shape="announcement"></cds-icon>
+        Activities
+      </a>
+      <a clrVerticalNavLink routerLink="./students" routerLinkActive="active">
+        <cds-icon clrVerticalNavIcon shape="users"></cds-icon>
+        Students
+      </a>
+
+      <a *ngIf="user && (user.role.name === 'admin' || user.role.name === 'user')" clrVerticalNavLink routerLink="./certificates" routerLinkActive="active">
+        <cds-icon clrVerticalNavIcon shape="certificate"></cds-icon>
+        Certificates
+      </a>
+
+      <a *ngIf="user && user.role.name === 'admin' " clrVerticalNavLink routerLink="./users" routerLinkActive="active">
+        <cds-icon clrVerticalNavIcon shape="assign-user"></cds-icon>
+        Users
+      </a>
+<!--      <a (click)="logout()" clrVerticalNavLink>-->
+<!--        <cds-icon clrVerticalNavIcon shape="logout"></cds-icon>-->
+<!--        Logout-->
+<!--      </a>-->
+    </clr-vertical-nav>
   </div>
 </div>
 

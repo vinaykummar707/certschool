@@ -18,8 +18,10 @@ export class RecordsPageComponent {
     Address: new FormControl(''),
     City: new FormControl(''),
     State: new FormControl(''),
-    GraduationDate: new FormControl(''),
     SchoolId: new FormControl('skl1'),
+    SchoolName: new FormControl(''),
+    SchoolAddress: new FormControl(''),
+    StudyingSsc: new FormControl(''),
   })
 
   activityForm = new FormGroup({
@@ -61,6 +63,7 @@ export class RecordsPageComponent {
   addActivity(student: any) {
     if (this.activityForm.valid) {
       this.activityForm.controls['StudentId'].setValue(student.id);
+
       console.log(this.activityForm.value)
       this.atService.create(this.activityForm.value)
         .subscribe({
