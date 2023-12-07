@@ -1,7 +1,14 @@
 <div class="main-container">
+  <header class="header-3">
+    <div class="branding">
+      <a href="..." class="nav-link">
+      
+        <span class="title b">Student Registration</span>
+      </a>
+    </div>
+</header>
   <div class="content-container">
     <div *ngIf="!dataSubmitted && !showLoader" class="content-area" >
-      <h3 class="ma0 b  "  >Student Registration</h3>
 
       <div class="pa2 bg-white mt2">
 
@@ -155,7 +162,7 @@
 
 
 
-      <button (click)="addStudent()" class="btn btn-primary">Submit Details</button>
+      <button (click)="addStudent()" class="btn btn-primary btn-block">Submit Details</button>
 
 
     </div>
@@ -166,9 +173,9 @@
       </div>
 
     <div *ngIf="dataSubmitted && !showLoader" class="content-area" >
-      <div class="w-100 h-100 flex flex-column justify-center items-center">
-        <h3>Thanks for submitting Details</h3>
-        <p>You details are sent to the administration for any modifications please contact your administration</p>
+      <div class="w-100 h-100 flex flex-column justify-center text-center items-center">
+        <h3 class="text-center ma0 b">Thanks for submitting Details</h3>
+        <p class="text-center ma0">You details are sent to the administration for any modifications please contact your administration</p>
       </div>
     </div>
   </div>
