@@ -139,7 +139,8 @@ export class ActivitiesPageComponent {
 
     printdata.forEach((data: any) => this.setTextOnPdf(doc,data));
 
-    doc.save('test');
+    doc.autoPrint();
+    window.open(doc.output('bloburl'), '_blank');
   }
 
   setTextOnPdf(doc: any, obj: any) {
