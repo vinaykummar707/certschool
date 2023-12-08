@@ -192,8 +192,8 @@
       <clr-dg-cell>{{ student.MobileNumber }}</clr-dg-cell>
       <clr-dg-cell>{{ getDate(student.createdAt)}}</clr-dg-cell>
       <clr-dg-cell>
-        <button class="btn-primary btn btn-sm " (click)="editStudent(student)">Edit</button>
-        <button class="btn-danger btn btn-sm " (click)="deleteModel(student)">Delete</button>
+        <button  class="btn-primary btn btn-sm " (click)="editStudent(student)">Edit</button>
+        <button  *ngIf="user && user.role.name === 'admin'" class="btn-danger btn btn-sm " (click)="deleteModel(student)">Delete</button>
       </clr-dg-cell>
     </clr-dg-row>
     <clr-dg-footer>

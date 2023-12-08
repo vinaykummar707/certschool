@@ -1,5 +1,5 @@
 
-<clr-accordion *ngIf="config">
+<clr-accordion *ngIf="user && config && user.role.name === 'admin'">
   <clr-accordion-panel>
     <clr-accordion-title>Certificate Configuration</clr-accordion-title>
     <clr-accordion-content class="pa2" *clrIfExpanded>

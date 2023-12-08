@@ -93,19 +93,19 @@
             <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
               <clr-input-container>
                 <label>Education Passed</label>
-                <input clrInput type="text" placeholder="ex: Btech, Degree, Diploma" formControlName="EducationPassed" class="w-100"/>
+                <input clrInput type="text" placeholder="ex: SSC,Inter,Btech,Degree,Diploma" formControlName="EducationPassed" class="w-100"/>
               </clr-input-container>
             </div>
             <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
               <clr-input-container>
                 <label>Board/University</label>
-                <input clrInput type="text" placeholder="JNTUH, Osmania University, etc" formControlName="BoardType" class="w-100"/>
+                <input clrInput type="text" placeholder="Telangana Board,CBSE,JNTUH,Osmania University,etc" formControlName="BoardType" class="w-100"/>
               </clr-input-container>
             </div>
             <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
               <clr-input-container>
                 <label>Board Stream</label>
-                <input clrInput type="text" placeholder="CSE, BCOM, MSC etc" formControlName="BoardStream" class="w-100"/>
+                <input clrInput type="text" placeholder="CSE,BCOM,MSC etc" formControlName="BoardStream" class="w-100"/>
               </clr-input-container>
             </div>
             <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
@@ -156,19 +156,7 @@
 
         <form clrForm clrLayout="vertical" *ngIf="activityForm.controls['ActivityType'].value === 'ssc'" [formGroup]="activityForm">
           <div class="clr-row">
-            <div class="clr-col-3">
-              <clr-input-container>
-                <label>School Full Name</label>
-                <input clrInput type="text" formControlName="SchoolName" class="w-100"/>
-              </clr-input-container>
-            </div>
-            <div class="clr-col-3">
-              <clr-input-container>
-                <label>School Address</label>
-                <input clrInput type="text" formControlName="SchoolAddress" class="w-100"/>
-              </clr-input-container>
-            </div>
-            <div class="clr-col-3">
+            <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
               <clr-select-container class="w-100">
                 <label>Present Studying SSC ?</label>
                 <select class="w-100" clrSelect formControlName="StudyingSsc">
@@ -176,6 +164,18 @@
                   <option [ngValue]="0">No</option>
                 </select>
               </clr-select-container>
+            </div>
+            <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
+              <clr-input-container>
+                <label>School Full Name</label>
+                <input clrInput type="text" formControlName="SchoolName" class="w-100"/>
+              </clr-input-container>
+            </div>
+            <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
+              <clr-input-container>
+                <label>School Address</label>
+                <input clrInput type="text" formControlName="SchoolAddress" class="w-100"/>
+              </clr-input-container>
             </div>
           </div>
         </form>

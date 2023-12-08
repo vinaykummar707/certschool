@@ -15,24 +15,24 @@ export class HttpServerService {
   }
 
   get(url: string) {
-    return this.http.get(`https://adarsh-backend.azurewebsites.net${url}`, {headers: new HttpHeaders({
+    return this.http.get(`https://adarsh-cert-school-server.azurewebsites.net${url}`, {headers: new HttpHeaders({
         'Access-Control-Allow-Origin': '*'
       })} );
   }
 
   post(url: string, body:any): any {
-    return this.http.post(`https://adarsh-backend.azurewebsites.net${url}`,body, {headers: new HttpHeaders({
+    return this.http.post(`https://adarsh-cert-school-server.azurewebsites.net${url}`,body, {headers: new HttpHeaders({
         'Access-Control-Allow-Origin': '*'
       })}  );
   }
 
   delete(url: string): any {
-    return this.http.delete(`https://adarsh-backend.azurewebsites.net${url}`, {headers: new HttpHeaders({
+    return this.http.delete(`https://adarsh-cert-school-server.azurewebsites.net${url}`, {headers: new HttpHeaders({
         'Access-Control-Allow-Origin': '*'
       })}  );
   }
   put(url: string, body: any): any {
-    return this.http.put(`https://adarsh-backend.azurewebsites.net${url}`, body , {headers: new HttpHeaders({
+    return this.http.put(`https://adarsh-cert-school-server.azurewebsites.net${url}`, body , {headers: new HttpHeaders({
         'Access-Control-Allow-Origin': '*'
       })} );
   }
