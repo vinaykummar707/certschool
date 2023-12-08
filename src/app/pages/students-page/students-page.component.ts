@@ -74,7 +74,7 @@ export class StudentsPageComponent {
   }
 
   getAllStudents() {
-    this.dataLoaded = false;
+    // this.dataLoaded = false;
     this.stService.getAll(this.user.schoolId).subscribe({
       next: (value: any) => {
         this.students = value.results;

@@ -112,7 +112,7 @@ export class ActivitiesPageComponent {
                 //
                 keys.forEach((field: any) => {
                     if (field === "studentName") {
-                        this.config.printData[field]['text'] = activity.student.StudentName
+                        this.config.printData[field]['text'] = activity.student.FamilyName + " " +activity.student.StudentName
                     }
 
                     if (field === "fatherName") {

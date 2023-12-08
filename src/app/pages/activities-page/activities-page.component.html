@@ -458,7 +458,7 @@
   </div>
 
   <clr-datagrid  *ngIf="activitys.length > 0 ">
-    <clr-dg-column [clrDgField]="'student.StudentName'">Student Name</clr-dg-column>
+    <clr-dg-column [clrDgField]="'student.FamilyName' && 'student.StudentName'">Student Name</clr-dg-column>
     <clr-dg-column [clrDgField]="'student.StudyingSsc'">Studying SSC</clr-dg-column>
     <clr-dg-column [clrDgField]="'student.SchoolName'">SchoolName</clr-dg-column>
     <clr-dg-column [clrDgField]="'student.SchoolAddress'">School Address</clr-dg-column>
