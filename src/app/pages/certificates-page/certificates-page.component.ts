@@ -4,6 +4,7 @@ import {RouterService} from "../../services/router-service/router.service";
 import {LocalStorageService} from "../../services/localstorage-service/local-storage.service";
 import {StudentsService} from "../../services/students-service/students.service";
 import {CertificateService} from "../../services/certificate-service/certificate.service";
+import {UsersService} from "../../services/users-service/users.service";
 
 @Component({
   selector: 'app-certificates-page',
@@ -23,11 +24,12 @@ export class CertificatesPageComponent {
   dataLoaded: boolean = false;
   uploadType: string = 'create';
   certificateDeleteForm: FormGroup;
+  config: any;
 
 
   constructor(
     private routerService: RouterService,
-    private  ls: LocalStorageService, private ctService: CertificateService) {
+    private  ls: LocalStorageService, private ctService: CertificateService, private us: UsersService) {
     this.certificateForm = new FormGroup({
       StudentName: new FormControl('', Validators.required),
       FatherName: new FormControl('', Validators.required),
@@ -36,7 +38,6 @@ export class CertificatesPageComponent {
       Address: new FormControl('', Validators.required),
       City: new FormControl('', Validators.required),
       State: new FormControl('', Validators.required),
-      GraduationDate: new FormControl('', Validators.required),
       SchoolId: new FormControl('this.user.schoolId', Validators.required),
     })
     this.certificateEditForm = new FormGroup({
@@ -47,7 +48,6 @@ export class CertificatesPageComponent {
       Address: new FormControl('', Validators.required),
       City: new FormControl('', Validators.required),
       State: new FormControl('', Validators.required),
-      GraduationDate: new FormControl('', Validators.required),
       id: new FormControl('', Validators.required),
       isActive: new FormControl('', Validators.required),
       createdAt: new FormControl('', Validators.required),
@@ -66,6 +66,12 @@ export class CertificatesPageComponent {
    this.user = await this.ls.getUser();
     this.routerService.setCurrentRoute = 'certificates';
     this.getAllStudents();
+    this.us.getConfig().subscribe({
+        next: ((value) => {
+            this.config = value;
+            console.log(this.config)
+        })
+    })
   }
 
   editStudent(certificate: any) {
@@ -153,4 +159,13 @@ export class CertificatesPageComponent {
       }
     )
   }
+
+    updateConfig() {
+        console.log(this.config)
+        this.us.setConfig(this.config).subscribe({
+            next: () => {
+                console.log("submitted");
+            }
+        })
+    }
 }

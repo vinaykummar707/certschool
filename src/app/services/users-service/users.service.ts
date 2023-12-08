@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpServerService } from '../http-service/http-server.service';
+import {config} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,14 @@ export class UsersService {
 
   getAllUsers(schoolId:string) {
     return this.httpService.get(`/user/all/${schoolId}`);
+  }
+
+  getConfig() {
+    return this.httpService.get(`/config`);
+  }
+
+  setConfig(config: any) {
+    return this.httpService.post(`/config` , config);
   }
 
   addUser(data:any) {

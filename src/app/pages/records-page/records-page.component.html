@@ -56,25 +56,9 @@
               <input clrInput type="text" formControlName="MobileNumber" class="w-100"/>
             </clr-input-container>
           </div>
-          <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
-            <clr-input-container>
-              <label>School Full Name</label>
-              <input clrInput type="text" formControlName="SchoolName" class="w-100"/>
-            </clr-input-container>
-          </div>
-          <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
-            <clr-input-container>
-              <label>School Address</label>
-              <input clrInput type="text" formControlName="SchoolAddress" class="w-100"/>
-            </clr-input-container>
-          </div>
 
-<!--          <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">-->
-<!--            <clr-date-container>-->
-<!--              <label>Admission Year</label>-->
-<!--              <input type="date" autocomplete="off" formControlName="GraduationDate" clrDate name="demo"/>-->
-<!--            </clr-date-container>-->
-<!--          </div>-->
+
+
 
 
         </div>
@@ -170,14 +154,26 @@
         </form>
       </div>
 
-        <form *ngIf="activityForm.controls['ActivityType'].value === 'ssc'" [formGroup]="studentForm">
-          <div >
-            <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
+        <form clrForm clrLayout="vertical" *ngIf="activityForm.controls['ActivityType'].value === 'ssc'" [formGroup]="activityForm">
+          <div class="clr-row">
+            <div class="clr-col-3">
+              <clr-input-container>
+                <label>School Full Name</label>
+                <input clrInput type="text" formControlName="SchoolName" class="w-100"/>
+              </clr-input-container>
+            </div>
+            <div class="clr-col-3">
+              <clr-input-container>
+                <label>School Address</label>
+                <input clrInput type="text" formControlName="SchoolAddress" class="w-100"/>
+              </clr-input-container>
+            </div>
+            <div class="clr-col-3">
               <clr-select-container class="w-100">
-                <label>Presently Studying SSC</label>
+                <label>Present Studying SSC ?</label>
                 <select class="w-100" clrSelect formControlName="StudyingSsc">
-                  <option [ngValue]="true">Yes</option>
-                  <option [ngValue]="false">No</option>
+                  <option [ngValue]="1">Yes</option>
+                  <option [ngValue]="0">No</option>
                 </select>
               </clr-select-container>
             </div>

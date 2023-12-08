@@ -19,9 +19,6 @@ export class RecordsPageComponent {
     City: new FormControl(''),
     State: new FormControl(''),
     SchoolId: new FormControl('skl1'),
-    SchoolName: new FormControl(''),
-    SchoolAddress: new FormControl(''),
-    StudyingSsc: new FormControl(''),
   })
 
   activityForm = new FormGroup({
@@ -38,6 +35,9 @@ export class RecordsPageComponent {
     EventReward: new FormControl(),
     ActivityType: new FormControl('education'),
     schoolId: new FormControl('skl1'),
+    SchoolName: new FormControl(''),
+    SchoolAddress: new FormControl(''),
+    StudyingSsc: new FormControl(''),
   })
   dataSubmitted: boolean = false;
   showLoader: Boolean = false;

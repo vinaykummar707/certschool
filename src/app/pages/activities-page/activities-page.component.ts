@@ -6,6 +6,7 @@ import {StudentsService} from "../../services/students-service/students.service"
 import {RouterService} from "../../services/router-service/router.service";
 import {CertificateService} from "../../services/certificate-service/certificate.service";
 import {jsPDF, TextOptionsLight} from "jspdf";
+import {UsersService} from "../../services/users-service/users.service";
 
 @Component({
   selector: 'app-activities-page',
@@ -13,8 +14,6 @@ import {jsPDF, TextOptionsLight} from "jspdf";
   styleUrls: ['./activities-page.component.scss']
 })
 export class ActivitiesPageComponent {
-
-
   user: any;
   activityForm: FormGroup;
   activityEditForm: FormGroup;
@@ -28,46 +27,13 @@ export class ActivitiesPageComponent {
   activityDeleteForm: FormGroup;
   activityType: string = 'education';
   students: any[] = [];
-  pdfPrintForm: FormGroup = new FormGroup({
-    studentName: new FormGroup({
-      x: new FormControl(),
-      y: new FormControl(),
-      transform:new FormControl(),
-      color: new FormControl(),
-      text: new FormControl(),
-      fontSize: new FormControl(),
-    }),
-    fatherName: new FormGroup({
-      x: new FormControl(),
-      y: new FormControl(),
-      transform:new FormControl(),
-      color: new FormControl(),
-      text: new FormControl(),
-      fontSize: new FormControl(),
-    }),
-    event: new FormGroup({
-      x: new FormControl(),
-      y: new FormControl(),
-      transform:new FormControl(),
-      color: new FormControl(),
-      text: new FormControl(),
-      fontSize: new FormControl(),
-    }),
-    period: new FormGroup({
-      x: new FormControl(),
-      y: new FormControl(),
-      transform:new FormControl(),
-      color: new FormControl(),
-      text: new FormControl(),
-      fontSize: new FormControl(),
-    }),
-  });
+    config:any;
 
 
   constructor(
     private certService: CertificateService,
     private routerService: RouterService,
-    private ls: LocalStorageService, private atService: ActivityService, private stService: StudentsService) {
+    private ls: LocalStorageService, private atService: ActivityService, private stService: StudentsService, private us: UsersService) {
     this.activityForm = new FormGroup({
       StudentId: new FormControl(),
       EducationPassed: new FormControl(),
@@ -82,6 +48,9 @@ export class ActivitiesPageComponent {
       EventReward: new FormControl(),
       ActivityType: new FormControl(),
       schoolId: new FormControl(),
+      SchoolName: new FormControl(),
+      SchoolAddress: new FormControl(),
+        StudyingSsc: new FormControl(),
     })
     this.activityEditForm = new FormGroup({
       StudentId: new FormControl(),
@@ -102,14 +71,14 @@ export class ActivitiesPageComponent {
       createdAt: new FormControl(),
       updatedAt: new FormControl(),
       student: new FormControl(),
+        SchoolName: new FormControl(),
+        SchoolAddress: new FormControl(),
+        StudyingSsc: new FormControl(),
     })
 
     this.activityDeleteForm = new FormGroup({
       id: new FormControl()
     })
-
-    console.log(this.pdfPrintForm.value);
-
 
   }
 
@@ -118,29 +87,36 @@ export class ActivitiesPageComponent {
     this.routerService.setCurrentRoute = 'activity';
     this.getAllActivities('all');
     this.getAllStudents();
+     this.us.getConfig().subscribe({
+         next: ((value) => {
+             this.config = value;
+             console.log(this.config)
+         })
+     })
   }
 
-  createCertificate(data: any) {
-   const printdata = [
-     {
-       x: 1,
-       y: 1,
-       transform: 0,
-       color: '#d10c0c',
-       text: "student",
-       fontSize: 24
-     }
-   ];
+  createCertificate(activity: any) {
+      console.log(activity);
     const doc = new jsPDF({
-      orientation: "landscape",
-      unit: "in",
-      format: [10, 10]
+      orientation: this.config.orientation,
+      unit: this.config.unit,
+      format: [this.config.size.height, this.config.size.width]
     });
 
-    printdata.forEach((data: any) => this.setTextOnPdf(doc,data));
+    const keys = Object.keys(this.config.printData);
 
-    doc.autoPrint();
-    window.open(doc.output('bloburl'), '_blank');
+
+    //
+    // keys.forEach((field: any) => {
+    //     switch (field) {
+    //         case "studentName" : {
+    //             this.config.printDate[field]['text'] = data.
+    //         }
+    //     }
+    // });
+
+    // doc.autoPrint();
+    // window.open(doc.output('bloburl'), '_blank');
   }
 
   setTextOnPdf(doc: any, obj: any) {
