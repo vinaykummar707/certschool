@@ -1,5 +1,5 @@
 
-<clr-accordion *ngIf="user && config && user.role.name === 'admin'">
+<clr-accordion>
   <clr-accordion-panel>
     <clr-accordion-title>Certificate Configuration</clr-accordion-title>
     <clr-accordion-content class="pa2" *clrIfExpanded>
@@ -27,15 +27,15 @@
 
         <div class="clr-col-3">
           <clr-input-container>
-            <label>Paper Height</label>
-            <input clrInput type="number"  [(ngModel)]="config.size.height" name="example"/>
+            <label>Paper Width</label>
+            <input clrInput type="number"  [(ngModel)]="config.size.width" name="example"/>
           </clr-input-container>
         </div>
 
         <div class="clr-col-3">
           <clr-input-container>
-            <label>Paper Width</label>
-            <input clrInput type="number" [(ngModel)]="config.size.width" name="example"/>
+            <label>Paper height</label>
+            <input clrInput type="number" [(ngModel)]="config.size.height" name="example"/>
           </clr-input-container>
         </div>
       </div>
@@ -182,6 +182,17 @@
         </div>
       </div>
 
+      <div  *ngIf="showConfigSuccess" class="alert alert-success mt3" role="alert">
+        <div class="alert-items">
+          <div class="alert-item static">
+            <div class="alert-icon-wrapper">
+              <cds-icon class="alert-icon" shape="check-circle"></cds-icon>
+            </div>
+            <span class="alert-text"> Configuration updated successfully </span>
+          </div>
+        </div>
+      </div>
+
       <div class="clr-row mt4">
         <div class="clr-col-2">
           <button type="button" class="btn btn-primary" (click)="updateConfig()">Update Configuration</button>
@@ -225,10 +236,7 @@
       <clr-dg-cell *ngIf="certificate.activity.ActivityType === 'education' " >
         {{certificate.activity.EducationPassed}} /
         {{certificate.activity.BoardType}} /
-        {{certificate.activity.BoardStream}} /
-        {{certificate.activity.Grade}} /
-        {{certificate.activity.TotalMarks}} /
-        {{certificate.activity.Percentage}}
+        {{certificate.activity.BoardStream}}
       </clr-dg-cell>
       <clr-dg-cell>{{ getDate(certificate.createdAt) }}</clr-dg-cell>
       <clr-dg-cell>{{ certificate.user.username }}</clr-dg-cell>

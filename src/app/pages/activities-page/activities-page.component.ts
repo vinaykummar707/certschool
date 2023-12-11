@@ -103,7 +103,7 @@ export class ActivitiesPageComponent {
                 const doc = new jsPDF({
                     orientation: this.config.orientation,
                     unit: this.config.unit,
-                    format: [this.config.size.height, this.config.size.width]
+                    format: [this.config.size.width, this.config.size.height]
                 });
 
                 const keys = Object.keys(this.config.printData);
@@ -146,9 +146,9 @@ export class ActivitiesPageComponent {
     getDescription(activity: any) {
         switch (activity.ActivityType) {
             case 'event':
-                return `${activity.EventTitle} / ${activity.EventDescription} / ${activity.EventReward}`;
+                return `${activity.EventTitle == null ? '' : activity.EventTitle }  ${activity.EventDescription === null ? '' : '/ ' + activity.EventDescription }  ${activity.EventReward === null ? '' : '/ ' + activity.EventReward}`;
             case 'education':
-                return `${activity.EducationPassed} / ${activity.BoardType} / ${activity.BoardStream}`;
+                return `${activity.EducationPassed == null ? '' : activity.EducationPassed }${activity.BoardType === null ? '' : '/' + activity.BoardType }${activity.BoardStream === null ? '' : '/' + activity.BoardStream}`;
             default:
                 return "";
         }

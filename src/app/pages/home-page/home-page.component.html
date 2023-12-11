@@ -1,13 +1,13 @@
 <div class="main-container">
   <header class="header-3">
     <div class="branding">
-      <a href="..." class="nav-link">
+      <a href="/" class="nav-link">
         <div class="pr2 tc">
           <img
-            src="https://images.pexels.com/photos/18103225/pexels-photo-18103225/free-photo-of-horses-in-prairie.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
+            [src]="env.homePageIcon"
             class="br-100 h2 w2 dib" alt="avatar">
         </div>
-        <span class="title b">Adarsh Forum</span>
+        <span class="title b">{{env.homePageTitle}}</span>
       </a>
     </div>
 
@@ -70,6 +70,11 @@
       <a *ngIf="user && user.role.name === 'admin' " clrVerticalNavLink routerLink="./users" routerLinkActive="active">
         <cds-icon clrVerticalNavIcon shape="assign-user"></cds-icon>
         Users
+      </a>
+
+      <a *ngIf="user && (user.role.name === 'admin' || user.role.name === 'user')" clrVerticalNavLink routerLink="./top-students" routerLinkActive="active">
+        <cds-icon clrVerticalNavIcon shape="star"></cds-icon>
+        Top Students
       </a>
 <!--      <a (click)="logout()" clrVerticalNavLink>-->
 <!--        <cds-icon clrVerticalNavIcon shape="logout"></cds-icon>-->

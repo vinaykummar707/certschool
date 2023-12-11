@@ -1,13 +1,13 @@
 <div class="main-container">
     <header class="header-3">
         <div class="branding">
-            <a  class="nav-link">
+            <a href="/registration"  class="nav-link">
                 <div class="pr2 tc">
                     <img
-                            src="https://images.pexels.com/photos/18103225/pexels-photo-18103225/free-photo-of-horses-in-prairie.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
+                            [src]="environment.homePageIcon"
                             class="br-100 h2 w2 dib" alt="avatar">
                 </div>
-                <span class="title b">Adarsh Forum - Student Registration</span>
+                <span class="title b">{{environment.registerPageTitle}}</span>
             </a>
         </div>
     </header>
@@ -15,26 +15,41 @@
         <div *ngIf="!dataSubmitted && !showLoader" class="content-area">
 
             <div class="pa2 bg-white mt2">
-
+                <div class="alert alert-warning" role="alert">
+                    <div class="alert-items">
+                        <div class="alert-item static">
+                            <div class="alert-icon-wrapper">
+                                <cds-icon class="alert-icon" shape="exclamation-circle"></cds-icon>
+                            </div>
+                            <span class="alert-text">Fields with * symbol are mandatory</span>
+                        </div>
+                    </div>
+                </div>
                 <form [formGroup]="studentForm" clrForm clrLayout="vertical">
                     <div class="clr-row">
                         <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
                             <clr-input-container>
-                                <label>Family Name</label>
+                                <label>Khandan Name <span style="color: red">*</span></label>
                                 <input clrInput type="text" formControlName="FamilyName" class="w-100"/>
                             </clr-input-container>
+                            <clr-control-error style="color: red" *ngIf="studentForm.controls.FamilyName.invalid && studentForm.controls.FamilyName.touched " >This field is required</clr-control-error>
                         </div>
                         <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
                             <clr-input-container>
-                                <label>Full Name</label>
-                                <input clrInput type="text" formControlName="StudentName" class="w-100"/>
+                                <label>Student Name <span style="color: red">*</span></label>
+                                <input clrInput  type="text" formControlName="StudentName" class="w-100"/>
                             </clr-input-container>
+                            <clr-control-error style="color: red" *ngIf="studentForm.controls.StudentName.invalid && studentForm.controls.StudentName.touched " >This field is required</clr-control-error>
+
                         </div>
                         <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
                             <clr-input-container>
-                                <label>Father Name</label>
-                                <input clrInput type="text" formControlName="FatherName" class="w-100"/>
+                                <label>Father Name <span style="color: red">*</span></label>
+                                <input clrInput  type="text" formControlName="FatherName" class="w-100"/>
+
                             </clr-input-container>
+                            <clr-control-error style="color: red" *ngIf="studentForm.controls.FatherName.invalid && studentForm.controls.FatherName.touched " >This field is required</clr-control-error>
+
                         </div>
                         <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
                             <clr-input-container>
@@ -56,9 +71,11 @@
                         </div>
                         <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
                             <clr-input-container>
-                                <label>Mobile Number</label>
-                                <input clrInput type="text" formControlName="MobileNumber" class="w-100"/>
+                                <label>Mobile Number <span style="color: red">*</span></label>
+                                <input clrInput  type="text" formControlName="MobileNumber" class="w-100"/>
                             </clr-input-container>
+                            <clr-control-error style="color: red" *ngIf="studentForm.controls.MobileNumber.invalid && studentForm.controls.MobileNumber.touched " >This field is required</clr-control-error>
+
                         </div>
 
 
@@ -67,16 +84,21 @@
 
                 <form [formGroup]="activityForm" clrForm clrLayout="vertical">
                     <div class="clr-row">
+
                         <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
                             <clr-select-container class="w-100">
-                                <label>Registration Type</label>
+                                <label>Registration Type <span style="color: red">*</span></label>
                                 <select class="w-100" clrSelect formControlName="ActivityType">
                                     <option value="education">Education</option>
                                     <option value="event">Sports/Competition</option>
                                     <option value="ssc">SSC Model Paper</option>
                                 </select>
+                                <span style="color: red" *ngIf=" activityForm.controls.ActivityType.invalid && activityForm.controls.ActivityType.touched" >This field is required</span>
+
                             </clr-select-container>
+
                         </div>
+
                         <div *ngIf="activityForm.controls['ActivityType'].value === 'event' || activityForm.controls['ActivityType'].value === 'education'"
                              class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
                             <clr-date-container>
@@ -91,6 +113,15 @@
                 <div *ngIf="activityForm.controls['ActivityType'].value === 'education'">
                     <form [formGroup]="activityForm" clrForm clrLayout="vertical">
                         <div class="clr-row">
+                            <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
+                                <clr-select-container class="w-100">
+                                    <label>Defined Education Passed <span style="color: red">*</span></label>
+                                    <select class="w-100" clrSelect formControlName="EducationPassed">
+                                        <option *ngFor="let edu of eduPassed" [value]="edu.EduCode">{{edu.EducationPassed}}</option>
+                                    </select>
+                                </clr-select-container>
+
+                            </div>
                             <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
                                 <clr-input-container>
                                     <label>Education Passed</label>
@@ -114,6 +145,15 @@
                                 </clr-input-container>
                             </div>
                             <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
+                                <clr-select-container class="w-100">
+                                    <label>Defined Board Stream<span style="color: red">*</span></label>
+                                    <select class="w-100" clrSelect formControlName="BoardStream">
+                                        <option *ngFor="let edu of eduStreamFiltered" [value]="edu.Stream">{{edu.Stream}}</option>
+                                    </select>
+                                </clr-select-container>
+
+                            </div>
+                            <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
                                 <clr-input-container>
                                     <label>Grade</label>
                                     <input clrInput type="text" placeholder="ex: A,B,C" formControlName="Grade"
@@ -122,10 +162,13 @@
                             </div>
                             <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
                                 <clr-input-container>
-                                    <label>Total Marks(Including All Subjects)</label>
+                                    <label>Total Marks Obtained (Including All Subjects) <span style="color: red">*</span></label>
                                     <input clrInput type="text" placeholder="ex: 976" formControlName="TotalMarks"
                                            class="w-100"/>
+
                                 </clr-input-container>
+                                <clr-control-error style="color: red" *ngIf="activityForm.controls.TotalMarks.invalid && activityForm.controls.TotalMarks.touched " >This field is required</clr-control-error>
+
                             </div>
                             <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
                                 <clr-input-container>
@@ -142,24 +185,30 @@
                         <div class="clr-row">
                             <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
                                 <clr-input-container>
-                                    <label>Sports/Competition Title</label>
+                                    <label>Sports/Competition Title <span style="color: red">*</span></label>
                                     <input clrInput type="text" placeholder="ex: Singing Competition 2022"
                                            formControlName="EventTitle" class="w-100"/>
                                 </clr-input-container>
+                                <clr-control-error style="color: red" *ngIf="activityForm.controls.EventTitle.invalid && activityForm.controls.EventTitle.touched " >This field is required</clr-control-error>
+
                             </div>
                             <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
                                 <clr-input-container>
-                                    <label>Participation Description</label>
+                                    <label>Participation Description <span style="color: red">*</span></label>
                                     <input clrInput type="text" placeholder="ex: National Level, District Wide"
                                            formControlName="EventDescription" class="w-100"/>
                                 </clr-input-container>
+                                <clr-control-error style="color: red" *ngIf="activityForm.controls.EventDescription.invalid && activityForm.controls.EventDescription.touched " >This field is required</clr-control-error>
+
                             </div>
                             <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
                                 <clr-input-container>
-                                    <label>Award</label>
+                                    <label>Award <span style="color: red">*</span></label>
                                     <input clrInput type="text" placeholder="ex: 1st Rank, Gold Medal, etc"
                                            formControlName="EventReward" class="w-100"/>
                                 </clr-input-container>
+                                <clr-control-error style="color: red" *ngIf="activityForm.controls.EventReward.invalid && activityForm.controls.EventReward.touched " >This field is required</clr-control-error>
+
                             </div>
                         </div>
                     </form>
@@ -170,24 +219,30 @@
                     <div class="clr-row">
                         <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
                             <clr-select-container class="w-100">
-                                <label>Present Studying SSC ?</label>
+                                <label>Present Studying SSC ? <span style="color: red">*</span></label>
                                 <select class="w-100" clrSelect formControlName="StudyingSsc">
                                     <option [ngValue]="1">Yes</option>
                                     <option [ngValue]="0">No</option>
                                 </select>
                             </clr-select-container>
+                            <clr-control-error style="color: red" *ngIf="activityForm.controls.StudyingSsc.invalid && activityForm.controls.StudyingSsc.touched " >This field is required</clr-control-error>
+
                         </div>
                         <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
                             <clr-input-container>
-                                <label>School Full Name</label>
+                                <label>School Full Name <span style="color: red">*</span></label>
                                 <input clrInput type="text" formControlName="SchoolName" class="w-100"/>
                             </clr-input-container>
+                            <clr-control-error style="color: red" *ngIf="activityForm.controls.SchoolName.invalid && activityForm.controls.SchoolName.touched " >This field is required</clr-control-error>
+
                         </div>
                         <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
                             <clr-input-container>
-                                <label>School Address</label>
+                                <label>School Address <span style="color: red">*</span></label>
                                 <input clrInput type="text" formControlName="SchoolAddress" class="w-100"/>
                             </clr-input-container>
+                            <clr-control-error style="color: red" *ngIf="activityForm.controls.SchoolAddress.invalid && activityForm.controls.SchoolAddress.touched " >This field is required</clr-control-error>
+
                         </div>
                     </div>
                 </form>

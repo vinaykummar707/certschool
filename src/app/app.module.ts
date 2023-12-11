@@ -17,7 +17,7 @@ import {
   bundleIcon,
   certificateIcon,
   ClarityIcons, cogIcon,
-  folderOpenIcon, logoutIcon, pencilIcon, plusIcon, trashIcon,
+  folderOpenIcon, logoutIcon, pencilIcon, plusIcon, starIcon, trashIcon,
   userIcon,
   usersIcon
 } from '@cds/core/icon';
@@ -35,7 +35,7 @@ import {HttpServerService} from "./services/http-service/http-server.service";
 import { ClassesService } from './services/class-service/classes.service';
 
 ClarityIcons.addIcons(
-  pencilIcon, trashIcon,
+  pencilIcon, trashIcon,starIcon,
   plusIcon,userIcon, logoutIcon, cogIcon, usersIcon, buildingIcon, bundleIcon, certificateIcon, folderOpenIcon, announcementIcon, assignUserIcon)
 
 

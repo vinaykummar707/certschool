@@ -1,1 +1,121 @@
-<p>sections-page works!</p>
+
+<div class="clr-row">
+    <div class="clr-col-2">
+        <clr-input-container class="ma0">
+            <label>Enter Education Passed</label>
+            <input clrInput type="text" [(ngModel)]="educationPassed" name="example"/>
+        </clr-input-container>
+    </div>
+    <div class="clr-col-2">
+        <clr-input-container class="ma0">
+            <label>Enter Year</label>
+            <input clrInput type="text" [(ngModel)]="year" name="example"/>
+        </clr-input-container>
+    </div>
+    <div class="clr-col">
+        <button (click)="getAllStudents()" class="btn btn-primary clr-align-self-end">
+<!--            <cds-icon shape="plus" solid="true"></cds-icon>-->
+            Search
+        </button>
+    </div>
+</div>
+
+
+<div class="mt3" *ngIf="students.length > 0 && dataLoaded">
+    <div class="flex flex-row justify-between items-center">
+        <div>
+            <h3 class="b ma0">Top Students</h3>
+            <p class="b ma0">Showing all top {{students.length}} results</p>
+        </div>
+        <div>
+
+        </div>
+    </div>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th *ngFor="let header of headers">{{header}}</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let student of students">
+            <td *ngFor="let header of headers">{{student[header]}}</td>
+            <td>
+                <clr-dropdown>
+                    <button class="btn-icon btn btn-primary btn-sm" clrDropdownTrigger
+                            aria-label="toggle settings menu">
+                        <cds-icon shape="cog"></cds-icon>
+                        <cds-icon shape="angle" direction="down"></cds-icon>
+                    </button>
+                    <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
+                        <a (click)="genCertificate(student)" clrDropdownItem>Issue Certificate</a>
+
+                    </clr-dropdown-menu>
+                </clr-dropdown>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!--    <clr-datagrid>-->
+    <!--        <clr-dg-column [clrDgField]="'FamilyName'">Family Name</clr-dg-column>-->
+    <!--        <clr-dg-column [clrDgField]="'StudentName'">Student Name</clr-dg-column>-->
+    <!--        &lt;!&ndash;    <clr-dg-column [clrDgField]="'StudentName'">Studying SSC</clr-dg-column>&ndash;&gt;-->
+    <!--        <clr-dg-column [clrDgField]="'FatherName'">Father Name</clr-dg-column>-->
+    <!--        <clr-dg-column [clrDgField]="'Address'">Address</clr-dg-column>-->
+    <!--        <clr-dg-column [clrDgField]="'City'">City</clr-dg-column>-->
+    <!--        <clr-dg-column [clrDgField]="'State'">State</clr-dg-column>-->
+    <!--        <clr-dg-column [clrDgField]="'MobileNumber'">Mobile Number</clr-dg-column>-->
+    <!--        <clr-dg-column [clrDgField]="'createdAt'">Date Created</clr-dg-column>-->
+    <!--        <clr-dg-column [clrDgField]="'createdAt'">Actions</clr-dg-column>-->
+
+    <!--        <clr-dg-row *clrDgItems="let student of students">-->
+    <!--            <clr-dg-cell>{{ student.FamilyName }}</clr-dg-cell>-->
+    <!--            <clr-dg-cell>{{ student.StudentName }}</clr-dg-cell>-->
+    <!--            &lt;!&ndash;      <clr-dg-cell>{{ student.StudyingSsc === 1 ? 'Yes' : 'No' }}</clr-dg-cell>&ndash;&gt;-->
+    <!--            <clr-dg-cell>{{ student.FatherName }}</clr-dg-cell>-->
+    <!--            <clr-dg-cell>{{ student.Address }}</clr-dg-cell>-->
+    <!--            <clr-dg-cell>{{ student.City }}</clr-dg-cell>-->
+    <!--            <clr-dg-cell>{{ student.State }}</clr-dg-cell>-->
+    <!--            <clr-dg-cell>{{ student.MobileNumber }}</clr-dg-cell>-->
+    <!--            <clr-dg-cell>{{ getDate(student.createdAt)}}</clr-dg-cell>-->
+    <!--            <clr-dg-cell>-->
+    <!--                <clr-dropdown>-->
+    <!--                    <button class="btn-icon btn btn-primary btn-sm" clrDropdownTrigger aria-label="toggle settings menu">-->
+    <!--                        <cds-icon shape="cog"></cds-icon>-->
+    <!--                        <cds-icon shape="angle" direction="down"></cds-icon>-->
+    <!--                    </button>-->
+    <!--                    <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">-->
+    <!--                        <a  (click)="editStudent(student)" clrDropdownItem>Edit</a>-->
+    <!--                        <a *ngIf="user && user.role.name === 'admin' " (click)="deleteModel(student)" clrDropdownItem>Delete</a>-->
+    <!--                    </clr-dropdown-menu>-->
+    <!--                </clr-dropdown>-->
+
+    <!--            </clr-dg-cell>-->
+
+    <!--        </clr-dg-row>-->
+    <!--        <clr-dg-footer>-->
+    <!--            <clr-dg-pagination #pagination [clrDgPageSize]="10">-->
+    <!--                <clr-dg-page-size [clrPageSizeOptions]="[10, 20, 50, 100]">Users per page</clr-dg-page-size>-->
+    <!--                {{ pagination.firstItem + 1 }} - {{ pagination.lastItem + 1 }} of {{ pagination.totalItems }} students-->
+    <!--            </clr-dg-pagination>-->
+    <!--        </clr-dg-footer>-->
+    <!--    </clr-datagrid>-->
+</div>
+
+
+<div *ngIf="students.length <= 0 && dataLoaded" class="h-100 w-100 flex flex-column justify-center items-center">
+    <h3 class="ma0 b">No Students Found</h3>
+    <p class="ma0 text-center mb2">Please add atleast one student to view the recods here</p>
+    <button (click)="openModal()" class="btn btn-primary btn-icon">
+        <cds-icon shape="plus" solid="true"></cds-icon>
+        Add Student
+    </button>
+</div>
+
+<div *ngIf="students.length <= 0 && !dataLoaded" class="h-100 w-100 flex flex-column justify-center items-center">
+    <span class="spinner spinner-sm">Loading...</span>
+    <span>Loading...</span>
+</div>

@@ -27,7 +27,7 @@
       <div class="clr-row">
         <div class="clr-col-4">
           <clr-select-container>
-            <label>Activity Type</label>
+            <label>Activity Type <span style="color: red">*</span> </label>
             <select clrSelect formControlName="ActivityType">
               <option value="education">Education</option>
               <option value="event">Sports/Competition</option>
@@ -37,7 +37,7 @@
         </div>
         <div class="clr-col-4">
           <clr-select-container>
-            <label>Select Student</label>
+            <label>Select Student <span style="color: red">*</span></label>
             <select clrSelect formControlName="StudentId">
               <option *ngFor="let student of students"
                       [value]="student.id">{{student.FamilyName}} {{student.StudentName}}</option>
@@ -459,9 +459,6 @@
 
   <clr-datagrid  *ngIf="activitys.length > 0 ">
     <clr-dg-column [clrDgField]="'student.FamilyName' && 'student.StudentName'">Student Name</clr-dg-column>
-    <clr-dg-column [clrDgField]="'student.StudyingSsc'">Studying SSC</clr-dg-column>
-    <clr-dg-column [clrDgField]="'student.SchoolName'">SchoolName</clr-dg-column>
-    <clr-dg-column [clrDgField]="'student.SchoolAddress'">School Address</clr-dg-column>
     <clr-dg-column [clrDgField]="'EducationPassed'">Education Passed</clr-dg-column>
     <clr-dg-column [clrDgField]="'BoardType'">Board/University</clr-dg-column>
     <clr-dg-column [clrDgField]="'BoardStream'">Board Stream</clr-dg-column>
@@ -472,15 +469,15 @@
     <clr-dg-column [clrDgField]="'EventTitle'">Sports/Competition Title</clr-dg-column>
     <clr-dg-column [clrDgField]="'EventDescription'">Participation Description</clr-dg-column>
     <clr-dg-column [clrDgField]="'EventReward'">Award</clr-dg-column>
+    <clr-dg-column [clrDgField]="'student.StudyingSsc'">Studying SSC</clr-dg-column>
+    <clr-dg-column [clrDgField]="'student.SchoolName'">SchoolName</clr-dg-column>
+    <clr-dg-column [clrDgField]="'student.SchoolAddress'">School Address</clr-dg-column>
     <clr-dg-column [clrDgField]="'ActivityType'">Activity Type</clr-dg-column>
     <clr-dg-column [clrDgField]="'createdAt'">Created Date</clr-dg-column>
     <clr-dg-column [clrDgField]="'createdAt'">Actions</clr-dg-column>
 
     <clr-dg-row *clrDgItems="let activity of activitys">
       <clr-dg-cell>{{ activity.student.FamilyName }} {{ activity.student.StudentName }}</clr-dg-cell>
-      <clr-dg-cell>{{ activity.StudyingSsc === 1 ? 'Yes' : 'No' }}</clr-dg-cell>
-      <clr-dg-cell>{{ activity.SchoolName }}</clr-dg-cell>
-      <clr-dg-cell>{{ activity.SchoolAddress }}</clr-dg-cell>
       <clr-dg-cell>{{ activity.EducationPassed }}</clr-dg-cell>
       <clr-dg-cell>{{ activity.BoardType }}</clr-dg-cell>
       <clr-dg-cell>{{ activity.BoardStream }}</clr-dg-cell>
@@ -491,6 +488,9 @@
       <clr-dg-cell>{{ activity.EventTitle }}</clr-dg-cell>
       <clr-dg-cell>{{ activity.EventDescription }}</clr-dg-cell>
       <clr-dg-cell>{{ activity.EventReward }}</clr-dg-cell>
+      <clr-dg-cell>{{ activity.StudyingSsc === 1 ? 'Yes' : 'No' }}</clr-dg-cell>
+      <clr-dg-cell>{{ activity.SchoolName }}</clr-dg-cell>
+      <clr-dg-cell>{{ activity.SchoolAddress }}</clr-dg-cell>
       <clr-dg-cell>{{ activity.ActivityType }}</clr-dg-cell>
       <clr-dg-cell>{{ getDate(activity.createdAt)}}</clr-dg-cell>
       <clr-dg-cell>

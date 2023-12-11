@@ -25,6 +25,8 @@ export class CertificatesPageComponent {
   uploadType: string = 'create';
   certificateDeleteForm: FormGroup;
   config: any;
+  showConfigSuccess: boolean = false;
+
 
 
   constructor(
@@ -161,9 +163,11 @@ export class CertificatesPageComponent {
   }
 
     updateConfig() {
+        this.showConfigSuccess = false;
         console.log(this.config)
         this.us.setConfig(this.config).subscribe({
             next: () => {
+                this.showConfigSuccess = true;
                 console.log("submitted");
             }
         })
