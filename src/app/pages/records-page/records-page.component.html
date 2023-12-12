@@ -53,6 +53,14 @@
                         </div>
                         <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
                             <clr-input-container>
+                                <label>Mobile Number <span style="color: red">*</span></label>
+                                <input clrInput  type="text" formControlName="MobileNumber" class="w-100"/>
+                            </clr-input-container>
+                            <clr-control-error style="color: red" *ngIf="studentForm.controls.MobileNumber.invalid && studentForm.controls.MobileNumber.touched " >This field is required</clr-control-error>
+
+                        </div>
+                        <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
+                            <clr-input-container>
                                 <label>Address</label>
                                 <input clrInput type="text" formControlName="Address" class="w-100"/>
                             </clr-input-container>
@@ -69,14 +77,7 @@
                                 <input clrInput type="text" formControlName="State" class="w-100"/>
                             </clr-input-container>
                         </div>
-                        <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
-                            <clr-input-container>
-                                <label>Mobile Number <span style="color: red">*</span></label>
-                                <input clrInput  type="text" formControlName="MobileNumber" class="w-100"/>
-                            </clr-input-container>
-                            <clr-control-error style="color: red" *ngIf="studentForm.controls.MobileNumber.invalid && studentForm.controls.MobileNumber.touched " >This field is required</clr-control-error>
 
-                        </div>
 
 
                     </div>
@@ -113,22 +114,30 @@
                 <div *ngIf="activityForm.controls['ActivityType'].value === 'education'">
                     <form [formGroup]="activityForm" clrForm clrLayout="vertical">
                         <div class="clr-row">
-                            <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
-                                <clr-select-container class="w-100">
-                                    <label>Defined Education Passed <span style="color: red">*</span></label>
-                                    <select class="w-100" clrSelect formControlName="EducationPassed">
-                                        <option *ngFor="let edu of eduPassed" [value]="edu.EduCode">{{edu.EducationPassed}}</option>
-                                    </select>
-                                </clr-select-container>
+                            <form class="clr-col-6" [formGroup]="selectForm" clrForm clrLayout="vertical">
+                                <div class="clr-row">
 
-                            </div>
-                            <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
-                                <clr-input-container>
-                                    <label>Education Passed</label>
-                                    <input clrInput type="text" placeholder="ex: SSC,Inter,Btech,Degree,Diploma"
-                                           formControlName="EducationPassed" class="w-100"/>
-                                </clr-input-container>
-                            </div>
+
+                                <div class="clr-col-sm-12 clr-col-lg-6 clr-col-md-6">
+                                    <clr-select-container class="w-100">
+                                        <label>Education Passed <span style="color: red">*</span></label>
+                                        <select class="w-100" clrSelect formControlName="EducationPassed">
+                                            <option *ngFor="let edu of eduPassed" [value]="edu.EducationPassed">{{edu.EducationPassed}}</option>
+                                        </select>
+                                    </clr-select-container>
+
+                                </div>
+                                <div class="clr-col-sm-12 clr-col-lg-6 clr-col-md-6">
+                                    <clr-select-container class="w-100">
+                                        <label>Board Stream<span style="color: red">*</span></label>
+                                        <select class="w-100" clrSelect formControlName="BoardStream">
+                                            <option *ngFor="let edu of eduStreamFiltered" [value]="edu.Stream">{{edu.Stream}}</option>
+                                        </select>
+                                    </clr-select-container>
+
+                                </div>
+                                </div>
+                            </form>
                             <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
                                 <clr-input-container>
                                     <label>Board/University</label>
@@ -137,22 +146,21 @@
                                            formControlName="BoardType" class="w-100"/>
                                 </clr-input-container>
                             </div>
-                            <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
+                            <div *ngIf="selectForm.controls.EducationPassed.value === 'Other' " class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
                                 <clr-input-container>
-                                    <label>Board Stream</label>
-                                    <input clrInput type="text" placeholder="CSE,BCOM,MSC etc"
-                                           formControlName="BoardStream" class="w-100"/>
+                                    <label>Other Education Passed</label>
+                                    <input clrInput type="text" formControlName="EducationPassed" placeholder="ex: SSC,Inter,Btech,Degree,Diploma"
+                                            class="w-100"/>
                                 </clr-input-container>
                             </div>
-                            <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
-                                <clr-select-container class="w-100">
-                                    <label>Defined Board Stream<span style="color: red">*</span></label>
-                                    <select class="w-100" clrSelect formControlName="BoardStream">
-                                        <option *ngFor="let edu of eduStreamFiltered" [value]="edu.Stream">{{edu.Stream}}</option>
-                                    </select>
-                                </clr-select-container>
-
+                            <div *ngIf="selectForm.controls.EducationPassed.value === 'Other' " class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
+                                <clr-input-container>
+                                    <label>Other Board Stream</label>
+                                    <input clrInput type="text" formControlName="BoardStream" placeholder="CSE,BCOM,MSC etc"
+                                            class="w-100"/>
+                                </clr-input-container>
                             </div>
+
                             <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
                                 <clr-input-container>
                                     <label>Grade</label>
@@ -194,11 +202,10 @@
                             </div>
                             <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
                                 <clr-input-container>
-                                    <label>Participation Description <span style="color: red">*</span></label>
+                                    <label>Participation Description </label>
                                     <input clrInput type="text" placeholder="ex: National Level, District Wide"
                                            formControlName="EventDescription" class="w-100"/>
                                 </clr-input-container>
-                                <clr-control-error style="color: red" *ngIf="activityForm.controls.EventDescription.invalid && activityForm.controls.EventDescription.touched " >This field is required</clr-control-error>
 
                             </div>
                             <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
@@ -238,11 +245,9 @@
                         </div>
                         <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
                             <clr-input-container>
-                                <label>School Address <span style="color: red">*</span></label>
+                                <label>School Address </label>
                                 <input clrInput type="text" formControlName="SchoolAddress" class="w-100"/>
                             </clr-input-container>
-                            <clr-control-error style="color: red" *ngIf="activityForm.controls.SchoolAddress.invalid && activityForm.controls.SchoolAddress.touched " >This field is required</clr-control-error>
-
                         </div>
                     </div>
                 </form>
@@ -264,9 +269,8 @@
 
         <div *ngIf="dataSubmitted && !showLoader" class="content-area">
             <div class="w-100 h-100 flex flex-column justify-center text-center items-center">
-                <h3 class="text-center ma0 b">Thanks for submitting Details</h3>
-                <p class="text-center ma0">You details are sent to the administration for any modifications please
-                    contact your administration</p>
+                <h3 class="text-center ma0 b"> {{environment.regSuccessTitle}} </h3>
+                <h6 class="text-center ma0">{{environment.regSuccessDesc}}</h6>
             </div>
         </div>
     </div>

@@ -14,6 +14,8 @@ export class RecordsPageComponent {
     eduPassed: any[] = [];
     eduStream: any[] = [];
     eduStreamFiltered: any[] = [];
+    opEduPassed: string = '';
+    opEduStream: string = '';
 
     studentForm = new FormGroup({
         StudentName: new FormControl('', Validators.required),
@@ -24,6 +26,11 @@ export class RecordsPageComponent {
         City: new FormControl(''),
         State: new FormControl(''),
         SchoolId: new FormControl('skl1'),
+    })
+
+    selectForm = new FormGroup({
+        EducationPassed: new FormControl(),
+        BoardStream: new FormControl(),
     })
 
     activityForm = new FormGroup({
@@ -73,7 +80,6 @@ export class RecordsPageComponent {
                 this.resetEducation();
                 this.resetSsc()
                 this.activityForm.controls.EventTitle.addValidators([Validators.required]);
-                this.activityForm.controls.EventDescription.addValidators([Validators.required]);
                 this.activityForm.controls.EventReward.addValidators([Validators.required]);
                 this.activityForm.updateValueAndValidity();
             }
@@ -82,15 +88,26 @@ export class RecordsPageComponent {
                 this.resetEvent();
                 this.activityForm.controls.StudyingSsc.addValidators([Validators.required]);
                 this.activityForm.controls.SchoolName.addValidators([Validators.required]);
-                this.activityForm.controls.SchoolAddress.addValidators([Validators.required]);
                 this.activityForm.updateValueAndValidity();
             }
             console.log(this.activityForm);
         })
 
-        this.activityForm.controls.EducationPassed.valueChanges.subscribe((value) => {
+        this.selectForm.controls.EducationPassed.valueChanges.subscribe((value) => {
             console.log(value);
+            if (value !== 'Other') {
+                this.activityForm.controls.EducationPassed.setValue(value);
+            } else {
+                this.activityForm.controls.EducationPassed.reset();
+                this.activityForm.controls.BoardStream.reset();
+            }
             this.onEduPassedSelected(value);
+        });
+        this.selectForm.controls.BoardStream.valueChanges.subscribe((value) => {
+            console.log(value);
+            if (value !== 'Other') {
+                this.activityForm.controls.BoardStream.setValue(value);
+            }
         })
     }
 
@@ -129,16 +146,17 @@ export class RecordsPageComponent {
     }
 
 
-    onEduPassedSelected(code:string) {
-        this.eduStreamFiltered = this.eduStream.filter((st:any) => (st.EduCode === code && st.Stream.length > 0));
+    onEduPassedSelected(code:any) {
+        this.eduStreamFiltered = this.eduStream.filter((st:any) => (st.EducationPassed === code && st.Stream.length > 0));
     }
 
     addStudent() {
         console.log(this.studentForm);
         console.log(this.activityForm);
-        this.showLoader = true;
 
         if (this.studentForm.valid && this.activityForm.valid) {
+            this.showLoader = true;
+
             this.stService.create(this.studentForm.value)
               .subscribe({
                 next: (value: any) => {

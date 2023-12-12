@@ -5,12 +5,6 @@ export  const environment = {
     serverUrl: "https://adarsh-forum-node-js-app.azurewebsites.net/",
     // serverUrl: "http://localhost:8080",
     registerPageTitle:"Adarsh Forum - Student Registration",
-    educationTypes:{
-        Inter:{
-            types: ["MPc","Bpc"]
-        },
-        BTECH :{
-            types: ["CSE"]
-        }
-    }
+    regSuccessTitle: "Thanks For Submitting Details",
+    regSuccessDesc:"Your details have been submitted. For any help please contact Mr. Ashok at 9949992898"
 }
