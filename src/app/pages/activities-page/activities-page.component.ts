@@ -16,8 +16,6 @@ import {UsersService} from "../../services/users-service/users.service";
 })
 export class ActivitiesPageComponent {
     user: any;
-    activityForm: FormGroup;
-    activityEditForm: FormGroup;
     activitys: any[] = [];
     showModal: boolean = false;
     showEditModal: boolean = false;
@@ -25,69 +23,210 @@ export class ActivitiesPageComponent {
     showError: any;
     dataLoaded: boolean = false;
     uploadType: string = 'create';
-    activityDeleteForm: FormGroup;
     activityType: string = 'education';
     students: any[] = [];
     config: any;
+    eduPassed: any[] = [];
+    eduStream: any[] = [];
+    eduStreamFiltered: any[] = [];
+    activityForm = new FormGroup({
+        StudentId: new FormControl(),
+        EducationPassed: new FormControl(),
+        BoardType: new FormControl(),
+        BoardStream: new FormControl(),
+        Grade: new FormControl(),
+        TotalMarks: new FormControl(),
+        Percentage: new FormControl(),
+        EventDate: new FormControl(),
+        EventTitle: new FormControl(),
+        EventDescription: new FormControl(),
+        EventReward: new FormControl(),
+        ActivityType: new FormControl(),
+        schoolId: new FormControl(),
+        SchoolName: new FormControl(),
+        SchoolAddress: new FormControl(),
+        StudyingSsc: new FormControl(),
+    })
+    activityEditForm = new FormGroup({
+        StudentId: new FormControl(),
+        EducationPassed: new FormControl(),
+        BoardType: new FormControl(),
+        BoardStream: new FormControl(),
+        Grade: new FormControl(),
+        TotalMarks: new FormControl(),
+        Percentage: new FormControl(),
+        EventDate: new FormControl(),
+        EventTitle: new FormControl(),
+        EventDescription: new FormControl(),
+        EventReward: new FormControl(),
+        ActivityType: new FormControl(),
+        schoolId: new FormControl(),
+        id: new FormControl(),
+        isActive: new FormControl(),
+        createdAt: new FormControl(),
+        updatedAt: new FormControl(),
+        student: new FormControl(),
+        SchoolName: new FormControl(),
+        SchoolAddress: new FormControl(),
+        StudyingSsc: new FormControl(),
+    })
+    activityDeleteForm = new FormGroup({
+        id: new FormControl()
+    })
+
+    selectForm = new FormGroup({
+        EducationPassed: new FormControl(),
+        BoardStream: new FormControl(),
+    })
+
+    selectEditForm = new FormGroup({
+        EducationPassed: new FormControl(),
+        BoardStream: new FormControl(),
+    })
 
 
     constructor(
         private certService: CertificateService,
         private routerService: RouterService,
         private ls: LocalStorageService, private atService: ActivityService, private stService: StudentsService, private us: UsersService) {
-        this.activityForm = new FormGroup({
-            StudentId: new FormControl(),
-            EducationPassed: new FormControl(),
-            BoardType: new FormControl(),
-            BoardStream: new FormControl(),
-            Grade: new FormControl(),
-            TotalMarks: new FormControl(),
-            Percentage: new FormControl(),
-            EventDate: new FormControl(),
-            EventTitle: new FormControl(),
-            EventDescription: new FormControl(),
-            EventReward: new FormControl(),
-            ActivityType: new FormControl(),
-            schoolId: new FormControl(),
-            SchoolName: new FormControl(),
-            SchoolAddress: new FormControl(),
-            StudyingSsc: new FormControl(),
-        })
-        this.activityEditForm = new FormGroup({
-            StudentId: new FormControl(),
-            EducationPassed: new FormControl(),
-            BoardType: new FormControl(),
-            BoardStream: new FormControl(),
-            Grade: new FormControl(),
-            TotalMarks: new FormControl(),
-            Percentage: new FormControl(),
-            EventDate: new FormControl(),
-            EventTitle: new FormControl(),
-            EventDescription: new FormControl(),
-            EventReward: new FormControl(),
-            ActivityType: new FormControl(),
-            schoolId: new FormControl(),
-            id: new FormControl(),
-            isActive: new FormControl(),
-            createdAt: new FormControl(),
-            updatedAt: new FormControl(),
-            student: new FormControl(),
-            SchoolName: new FormControl(),
-            SchoolAddress: new FormControl(),
-            StudyingSsc: new FormControl(),
-        })
-
-        this.activityDeleteForm = new FormGroup({
-            id: new FormControl()
-        })
-
     }
 
     async ngOnInit() {
+        this.stService.getEduPassed('','').subscribe({
+            next: ((value:any) => {
+                this.eduPassed = value[0];
+                this.stService.getEduStream('', '').subscribe({
+                    next: ((stream:any) => {
+                        this.eduStream =stream[0];
+                    })
+                })
+            })
+        })
         this.user = await this.ls.getUser();
         this.routerService.setCurrentRoute = 'activity';
         this.getAllActivities('all');
         this.getAllStudents();
+        this.activityForm.controls.ActivityType.valueChanges.subscribe((value) => {
+            if (this.activityForm.controls.ActivityType.value === 'education') {
+                this.resetEvent();
+                this.resetSsc();
+                this.activityForm.controls.TotalMarks.addValidators([Validators.required]);
+                this.activityForm.updateValueAndValidity();
+            }
+            if (this.activityForm.controls.ActivityType.value === 'event') {
+                this.resetEducation();
+                this.resetSsc()
+                this.activityForm.controls.EventTitle.addValidators([Validators.required]);
+                this.activityForm.controls.EventReward.addValidators([Validators.required]);
+                this.activityForm.updateValueAndValidity();
+            }
+            if (this.activityForm.controls.ActivityType.value === 'ssc') {
+                this.resetEducation();
+                this.resetEvent();
+                this.activityForm.controls.StudyingSsc.addValidators([Validators.required]);
+                this.activityForm.controls.SchoolName.addValidators([Validators.required]);
+                this.activityForm.updateValueAndValidity();
+            }
+            console.log(this.activityForm);
+        })
+
+        this.selectForm.controls.EducationPassed.valueChanges.subscribe((value) => {
+            console.log(value);
+            if (value !== 'Other') {
+                this.activityForm.controls.EducationPassed.setValue(value);
+            } else {
+                this.activityForm.controls.EducationPassed.reset();
+                this.activityForm.controls.BoardStream.reset();
+            }
+            this.onEduPassedSelected(value);
+        });
+        this.selectForm.controls.BoardStream.valueChanges.subscribe((value) => {
+            console.log(value);
+            if (value !== 'Other') {
+                this.activityForm.controls.BoardStream.setValue(value);
+            }
+        })
+
+
+        //edit form
+
+        this.activityEditForm.controls.ActivityType.valueChanges.subscribe((value) => {
+            if (this.activityEditForm.controls.ActivityType.value === 'education') {
+                this.resetEvent();
+                this.resetSsc();
+                this.activityEditForm.controls.TotalMarks.addValidators([Validators.required]);
+                this.activityEditForm.updateValueAndValidity();
+            }
+            if (this.activityEditForm.controls.ActivityType.value === 'event') {
+                this.resetEducation();
+                this.resetSsc()
+                this.activityEditForm.controls.EventTitle.addValidators([Validators.required]);
+                this.activityEditForm.controls.EventReward.addValidators([Validators.required]);
+                this.activityEditForm.updateValueAndValidity();
+            }
+            if (this.activityEditForm.controls.ActivityType.value === 'ssc') {
+                this.resetEducation();
+                this.resetEvent();
+                this.activityEditForm.controls.StudyingSsc.addValidators([Validators.required]);
+                this.activityEditForm.controls.SchoolName.addValidators([Validators.required]);
+                this.activityEditForm.updateValueAndValidity();
+            }
+            console.log(this.activityEditForm);
+        })
+
+        this.selectEditForm.controls.EducationPassed.valueChanges.subscribe((value) => {
+            console.log(value);
+            if (value !== 'Other') {
+                this.activityEditForm.controls.EducationPassed.setValue(value);
+            } else {
+                this.activityEditForm.controls.EducationPassed.reset();
+                this.activityEditForm.controls.BoardStream.reset();
+            }
+            this.onEduPassedSelected(value);
+        });
+        this.selectEditForm.controls.BoardStream.valueChanges.subscribe((value) => {
+            console.log(value);
+            if (value !== 'Other') {
+                this.activityEditForm.controls.BoardStream.setValue(value);
+            }
+        })
+    }
+
+    resetEvent() {
+        this.activityForm.controls.EventTitle.reset();
+        this.activityForm.controls.EventDescription.reset();
+        this.activityForm.controls.EventReward.reset();
+        this.activityForm.controls.EventTitle.removeValidators([Validators.required]);
+        this.activityForm.controls.EventDescription.removeValidators([Validators.required]);
+        this.activityForm.controls.EventReward.removeValidators([Validators.required]);
+    }
+
+    resetEducation() {
+        this.activityForm.controls.EducationPassed.reset();
+        this.activityForm.controls.BoardType.reset();
+        this.activityForm.controls.BoardStream.reset();
+        this.activityForm.controls.Grade.reset();
+        this.activityForm.controls.TotalMarks.reset();
+        this.activityForm.controls.Percentage.reset();
+        this.activityForm.controls.EducationPassed.removeValidators([Validators.required]);
+        this.activityForm.controls.BoardType.removeValidators([Validators.required]);
+        this.activityForm.controls.BoardStream.removeValidators([Validators.required]);
+        this.activityForm.controls.Grade.removeValidators([Validators.required]);
+        this.activityForm.controls.TotalMarks.removeValidators([Validators.required]);
+        this.activityForm.controls.Percentage.removeValidators([Validators.required]);
+    }
+
+    resetSsc() {
+        this.activityForm.controls.StudyingSsc.reset();
+        this.activityForm.controls.SchoolName.reset();
+        this.activityForm.controls.SchoolAddress.reset();
+        this.activityForm.controls.StudyingSsc.removeValidators([Validators.required]);
+        this.activityForm.controls.SchoolName.removeValidators([Validators.required]);
+        this.activityForm.controls.SchoolAddress.removeValidators([Validators.required]);
+    }
+
+    onEduPassedSelected(code:any) {
+        this.eduStreamFiltered = this.eduStream.filter((st:any) => (st.EducationPassed === code && st.Stream.length > 0));
     }
 
     getConfig() {
@@ -98,23 +237,17 @@ export class ActivitiesPageComponent {
         console.log(activity);
         this.us.getConfig().subscribe({
             next: ((value) => {
-                console.log(this.config);
                 this.config = value;
                 const doc = new jsPDF({
                     orientation: this.config.orientation,
                     unit: this.config.unit,
                     format: [this.config.size.width, this.config.size.height]
                 });
-
                 const keys = Object.keys(this.config.printData);
-
-
-                //
                 keys.forEach((field: any) => {
                     if (field === "studentName") {
                         this.config.printData[field]['text'] = activity.student.FamilyName + " " +activity.student.StudentName
                     }
-
                     if (field === "fatherName") {
                         this.config.printData[field]['text'] = activity.student.FatherName
                     }
@@ -122,20 +255,20 @@ export class ActivitiesPageComponent {
                         this.config.printData[field]['text'] = this.getDescription(activity);
                     }
                     if (field === "date") {
-                        this.config.printData[field]['text'] = activity.EventDate;
+                        if(activity.EventDate === undefined || activity.EventDate === null) {
+                            this.config.printData[field]['text'] = '';
+                        } else {
+                            this.config.printData[field]['text'] = activity.EventDate;
+                        }
                     }
-
                 });
-
+                console.log(this.config);
                 keys.forEach((field: any) => {
                     doc.setTextColor(this.config.printData[field].color);
                     doc.setFontSize(this.config.printData[field].fontSize);
                     doc.text(this.config.printData[field].text, this.config.printData[field].x, this.config.printData[field].y, this.config.printData[field].transform);
                 })
-
-
                 console.log(this.config);
-
                 doc.autoPrint();
                 window.open(doc.output('bloburl'), '_blank');
             })
@@ -171,6 +304,8 @@ export class ActivitiesPageComponent {
     editStudent(activity: any) {
         console.log(activity);
         this.activityEditForm.setValue(activity);
+        this.selectEditForm.controls.BoardStream.setValue(activity.BoardStream);
+        this.selectEditForm.controls.EducationPassed.setValue(activity.EducationPassed);
         console.log(this.activityEditForm);
         this.openEditModal();
     }
@@ -240,6 +375,7 @@ export class ActivitiesPageComponent {
         } else {
             this.showError = true;
             console.log(this.activityForm);
+            this.activityForm.markAllAsTouched();
         }
     }
 
@@ -280,4 +416,12 @@ export class ActivitiesPageComponent {
         console.log(event.target.value);
         this.getAllActivities(event.target.value);
     }
+
+    cancel() {
+        this.showModal = false;
+        this.activityForm.reset();
+    }
 }
+
+
+

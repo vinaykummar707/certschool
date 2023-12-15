@@ -14,7 +14,7 @@ export class UsersService {
   }
 
   getConfig() {
-    return this.httpService.get(`/config`);
+    return this.httpService.get(`config`);
   }
 
   setConfig(config: any) {

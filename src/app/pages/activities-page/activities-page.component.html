@@ -23,78 +23,116 @@
         </div>
       </div>
     </div>
+
     <form [formGroup]="activityForm" clrForm clrLayout="vertical">
       <div class="clr-row">
-        <div class="clr-col-4">
-          <clr-select-container>
-            <label>Activity Type <span style="color: red">*</span> </label>
-            <select clrSelect formControlName="ActivityType">
+
+        <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
+          <clr-select-container class="w-100">
+            <label>Registration Type <span style="color: red">*</span></label>
+            <select class="w-100" clrSelect formControlName="ActivityType">
               <option value="education">Education</option>
               <option value="event">Sports/Competition</option>
               <option value="ssc">SSC Model Paper</option>
             </select>
+            <span style="color: red" *ngIf=" activityForm.controls.ActivityType.invalid && activityForm.controls.ActivityType.touched" >This field is required</span>
+
           </clr-select-container>
+
         </div>
-        <div class="clr-col-4">
-          <clr-select-container>
-            <label>Select Student <span style="color: red">*</span></label>
-            <select clrSelect formControlName="StudentId">
-              <option *ngFor="let student of students"
-                      [value]="student.id">{{student.FamilyName}} {{student.StudentName}}</option>
-            </select>
-          </clr-select-container>
-        </div>
-<!--        <div *ngIf="activityForm.controls['ActivityType'].value === 'event' || activityForm.controls['ActivityType'].value === 'education'" class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">-->
-<!--          <clr-date-container>-->
-<!--            <label> {{activityForm.controls['ActivityType'].value === 'education' ? 'Passing Year' : 'Sports/Competition Year' }} </label>-->
-<!--            <input type="date" autocomplete="off" formControlName="EventDate" clrDate/>-->
-<!--          </clr-date-container>-->
-<!--        </div>-->
-        <div *ngIf="activityForm.controls['ActivityType'].value === 'event' || activityForm.controls['ActivityType'].value === 'education'"  class="clr-col-4">
+        <div  class="clr-col-sm-12 clr-col-lg clr-col-md-4">
+                    <clr-select-container>-->
+                      <label>Select Student <span style="color: red">*</span></label>
+                      <select clrSelect formControlName="StudentId">
+                        <option *ngFor="let student of students"
+                                [value]="student.id">{{student.FamilyName}} {{student.StudentName}}</option>
+                      </select>
+                    </clr-select-container>
+           </div>
+
+        <div *ngIf="activityForm.controls['ActivityType'].value === 'event' || activityForm.controls['ActivityType'].value === 'education'"
+             class="clr-col-sm-12 clr-col-lg-4 clr-col-md-4">
           <clr-date-container>
-            <label>{{activityForm.controls['ActivityType'].value === 'education' ? 'Passing Year' : 'Sports/Competition Year' }}</label>
+            <label> {{activityForm.controls['ActivityType'].value === 'education' ? 'Passing Year' : 'Sports/Competition Year' }} </label>
             <input type="date" autocomplete="off" formControlName="EventDate" clrDate/>
           </clr-date-container>
         </div>
+
+
       </div>
     </form>
     <div *ngIf="activityForm.controls['ActivityType'].value === 'education'">
       <form [formGroup]="activityForm" clrForm clrLayout="vertical">
         <div class="clr-row">
-          <div class="clr-col-4">
-            <clr-input-container>
-              <label>Education Passed</label>
-              <input clrInput type="text" formControlName="EducationPassed" name="example"/>
-            </clr-input-container>
-          </div>
-          <div class="clr-col-4">
+          <form class="clr-col-6" [formGroup]="selectForm" clrForm clrLayout="vertical">
+            <div class="clr-row">
+
+
+              <div class="clr-col-sm-12 clr-col-lg-6 clr-col-md-6">
+                <clr-select-container class="w-100">
+                  <label>Education Passed <span style="color: red">*</span></label>
+                  <select class="w-100" clrSelect formControlName="EducationPassed">
+                    <option *ngFor="let edu of eduPassed" [value]="edu.EducationPassed">{{edu.EducationPassed}}</option>
+                  </select>
+                </clr-select-container>
+
+              </div>
+              <div class="clr-col-sm-12 clr-col-lg-6 clr-col-md-6">
+                <clr-select-container class="w-100">
+                  <label>Board Stream<span style="color: red">*</span></label>
+                  <select class="w-100" clrSelect formControlName="BoardStream">
+                    <option *ngFor="let edu of eduStreamFiltered" [value]="edu.Stream">{{edu.Stream}}</option>
+                  </select>
+                </clr-select-container>
+
+              </div>
+            </div>
+          </form>
+          <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
             <clr-input-container>
               <label>Board/University</label>
-              <input clrInput type="text" formControlName="BoardType" name="example"/>
+              <input clrInput type="text"
+                     placeholder="Telangana Board,CBSE,JNTUH,Osmania University,etc"
+                     formControlName="BoardType" class="w-100"/>
             </clr-input-container>
           </div>
-          <div class="clr-col-4">
+          <div *ngIf="selectForm.controls.EducationPassed.value === 'Other' " class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
             <clr-input-container>
-              <label>Board Stream</label>
-              <input clrInput type="text" formControlName="BoardStream" name="example"/>
+              <label>Other Education Passed</label>
+              <input clrInput type="text" formControlName="EducationPassed" placeholder="ex: SSC,Inter,Btech,Degree,Diploma"
+                     class="w-100"/>
             </clr-input-container>
           </div>
-          <div class="clr-col-4">
+          <div *ngIf="selectForm.controls.EducationPassed.value === 'Other' " class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
+            <clr-input-container>
+              <label>Other Board Stream</label>
+              <input clrInput type="text" formControlName="BoardStream" placeholder="CSE,BCOM,MSC etc"
+                     class="w-100"/>
+            </clr-input-container>
+          </div>
+
+          <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
             <clr-input-container>
               <label>Grade</label>
-              <input clrInput type="text" formControlName="Grade" name="example"/>
+              <input clrInput type="text" placeholder="ex: A,B,C" formControlName="Grade"
+                     class="w-100"/>
             </clr-input-container>
           </div>
-          <div class="clr-col-4">
+          <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
             <clr-input-container>
-              <label>Total Marks</label>
-              <input clrInput type="text" formControlName="TotalMarks" name="example"/>
+              <label>Total Marks Obtained (Including All Subjects) <span style="color: red">*</span></label>
+              <input clrInput type="text" placeholder="ex: 976" formControlName="TotalMarks"
+                     class="w-100"/>
+
             </clr-input-container>
+            <clr-control-error style="color: red" *ngIf="activityForm.controls.TotalMarks.invalid && activityForm.controls.TotalMarks.touched " >This field is required</clr-control-error>
+
           </div>
-          <div class="clr-col-4">
+          <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
             <clr-input-container>
               <label>Percentage</label>
-              <input clrInput type="text" formControlName="Percentage" name="example"/>
+              <input clrInput type="text" placeholder="ex: 97%" formControlName="Percentage"
+                     class="w-100"/>
             </clr-input-container>
           </div>
         </div>
@@ -103,58 +141,237 @@
     <div *ngIf="activityForm.controls['ActivityType'].value === 'event'">
       <form [formGroup]="activityForm" clrForm clrLayout="vertical">
         <div class="clr-row">
-          <div class="clr-col-4">
+          <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
             <clr-input-container>
-              <label>Sports/Competition Title</label>
-              <input clrInput type="text" formControlName="EventTitle" name="example"/>
+              <label>Sports/Competition Title <span style="color: red">*</span></label>
+              <input clrInput type="text" placeholder="ex: Singing Competition 2022"
+                     formControlName="EventTitle" class="w-100"/>
             </clr-input-container>
+            <clr-control-error style="color: red" *ngIf="activityForm.controls.EventTitle.invalid && activityForm.controls.EventTitle.touched " >This field is required</clr-control-error>
+
           </div>
-          <div class="clr-col-4">
+          <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
             <clr-input-container>
-              <label>Participation Description</label>
-              <input clrInput type="text" formControlName="EventDescription" name="example"/>
+              <label>Participation Description </label>
+              <input clrInput type="text" placeholder="ex: National Level, District Wide"
+                     formControlName="EventDescription" class="w-100"/>
             </clr-input-container>
+
           </div>
-          <div class="clr-col-4">
+          <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
             <clr-input-container>
-              <label>Award</label>
-              <input clrInput type="text" formControlName="EventReward" name="example"/>
+              <label>Award <span style="color: red">*</span></label>
+              <input clrInput type="text" placeholder="ex: 1st Rank, Gold Medal, etc"
+                     formControlName="EventReward" class="w-100"/>
             </clr-input-container>
+            <clr-control-error style="color: red" *ngIf="activityForm.controls.EventReward.invalid && activityForm.controls.EventReward.touched " >This field is required</clr-control-error>
+
           </div>
         </div>
       </form>
     </div>
 
-
-    <form *ngIf="activityForm.controls['ActivityType'].value === 'ssc'" [formGroup]="activityForm">
+    <form clrForm clrLayout="vertical" *ngIf="activityForm.controls['ActivityType'].value === 'ssc'"
+          [formGroup]="activityForm">
       <div class="clr-row">
-      <div class="clr-col-3">
-        <clr-input-container>
-          <label>School Full Name</label>
-          <input clrInput type="text" formControlName="SchoolName" class="w-100"/>
-        </clr-input-container>
-      </div>
-      <div class="clr-col-3">
-        <clr-input-container>
-          <label>School Address</label>
-          <input clrInput type="text" formControlName="SchoolAddress" class="w-100"/>
-        </clr-input-container>
-      </div>
-        <div class="clr-col-3">
+        <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
           <clr-select-container class="w-100">
-            <label>Present Studying SSC ?</label>
+            <label>Present Studying SSC ? <span style="color: red">*</span></label>
             <select class="w-100" clrSelect formControlName="StudyingSsc">
               <option [ngValue]="1">Yes</option>
               <option [ngValue]="0">No</option>
             </select>
           </clr-select-container>
+          <clr-control-error style="color: red" *ngIf="activityForm.controls.StudyingSsc.invalid && activityForm.controls.StudyingSsc.touched " >This field is required</clr-control-error>
+
+        </div>
+        <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
+          <clr-input-container>
+            <label>School Full Name <span style="color: red">*</span></label>
+            <input clrInput type="text" formControlName="SchoolName" class="w-100"/>
+          </clr-input-container>
+          <clr-control-error style="color: red" *ngIf="activityForm.controls.SchoolName.invalid && activityForm.controls.SchoolName.touched " >This field is required</clr-control-error>
+
+        </div>
+        <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
+          <clr-input-container>
+            <label>School Address </label>
+            <input clrInput type="text" formControlName="SchoolAddress" class="w-100"/>
+          </clr-input-container>
         </div>
       </div>
     </form>
+<!--    <form [formGroup]="activityForm" clrForm clrLayout="vertical">-->
+<!--      <div class="clr-row">-->
+<!--        <div class="clr-col-4">-->
+<!--          <clr-select-container>-->
+<!--            <label>Activity Type <span style="color: red">*</span> </label>-->
+<!--            <select clrSelect formControlName="ActivityType">-->
+<!--              <option value="education">Education</option>-->
+<!--              <option value="event">Sports/Competition</option>-->
+<!--              <option value="ssc">SSC Model Paper</option>-->
+<!--            </select>-->
+<!--          </clr-select-container>-->
+<!--        </div>-->
+<!--        <div class="clr-col">-->
+<!--          <clr-select-container>-->
+<!--            <label>Select Student <span style="color: red">*</span></label>-->
+<!--            <select clrSelect formControlName="StudentId">-->
+<!--              <option *ngFor="let student of students"-->
+<!--                      [value]="student.id">{{student.FamilyName}} {{student.StudentName}}</option>-->
+<!--            </select>-->
+<!--          </clr-select-container>-->
+<!--        </div>-->
+<!--&lt;!&ndash;        <div *ngIf="activityForm.controls['ActivityType'].value === 'event' || activityForm.controls['ActivityType'].value === 'education'" class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">&ndash;&gt;-->
+<!--&lt;!&ndash;          <clr-date-container>&ndash;&gt;-->
+<!--&lt;!&ndash;            <label> {{activityForm.controls['ActivityType'].value === 'education' ? 'Passing Year' : 'Sports/Competition Year' }} </label>&ndash;&gt;-->
+<!--&lt;!&ndash;            <input type="date" autocomplete="off" formControlName="EventDate" clrDate/>&ndash;&gt;-->
+<!--&lt;!&ndash;          </clr-date-container>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--        <div *ngIf="activityForm.controls['ActivityType'].value === 'event' || activityForm.controls['ActivityType'].value === 'education'"  class="clr-col-4">-->
+<!--          <clr-date-container>-->
+<!--            <label>{{activityForm.controls['ActivityType'].value === 'education' ? 'Passing Year' : 'Sports/Competition Year' }}</label>-->
+<!--            <input type="date" autocomplete="off" formControlName="EventDate" clrDate/>-->
+<!--          </clr-date-container>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </form>-->
+<!--    <div *ngIf="activityForm.controls['ActivityType'].value === 'education'">-->
+<!--      <form [formGroup]="selectForm" clrForm clrLayout="vertical">-->
+<!--        <div class="clr-row">-->
+<!--          <div class="clr-col-4">-->
+<!--            <clr-select-container class="w-100">-->
+<!--              <label>Education Passed <span style="color: red">*</span></label>-->
+<!--              <select class="w-100" clrSelect formControlName="EducationPassed">-->
+<!--                <option *ngFor="let edu of eduPassed" [value]="edu.EducationPassed">{{edu.EducationPassed}}</option>-->
+<!--              </select>-->
+<!--            </clr-select-container>-->
+<!--          </div>-->
+<!--          <div class="clr-col-4">-->
+<!--            <clr-select-container class="w-100">-->
+<!--              <label>Board Stream<span style="color: red">*</span></label>-->
+<!--              <select class="w-100" clrSelect formControlName="BoardStream">-->
+<!--                <option *ngFor="let edu of eduStreamFiltered" [value]="edu.Stream">{{edu.Stream}}</option>-->
+<!--              </select>-->
+<!--            </clr-select-container>-->
+<!--          </div>-->
+<!--          <div *ngIf="selectForm.controls.EducationPassed.value === 'Other' " class="clr-col-4">-->
+<!--            <clr-input-container>-->
+<!--              <label>Other Education Passed</label>-->
+<!--              <input clrInput type="text" formControlName="EducationPassed" placeholder="ex: SSC,Inter,Btech,Degree,Diploma"-->
+<!--                     class="w-100"/>-->
+<!--            </clr-input-container>-->
+<!--          </div>-->
+<!--          <div *ngIf="selectForm.controls.EducationPassed.value === 'Other' " class="clr-col-4">-->
+<!--            <clr-input-container>-->
+<!--              <label>Other Board Stream</label>-->
+<!--              <input clrInput type="text" formControlName="BoardStream" placeholder="CSE,BCOM,MSC etc"-->
+<!--                     class="w-100"/>-->
+<!--            </clr-input-container>-->
+<!--          </div>-->
+<!--          <div class="clr-col-4">-->
+<!--            <clr-input-container>-->
+<!--              <label>Board/University</label>-->
+<!--              <input clrInput type="text" formControlName="BoardType" name="example"/>-->
+<!--            </clr-input-container>-->
+<!--          </div>-->
+
+<!--          <div class="clr-col-4">-->
+<!--            <clr-input-container>-->
+<!--              <label>Grade</label>-->
+<!--              <input clrInput type="text" formControlName="Grade" name="example"/>-->
+<!--            </clr-input-container>-->
+<!--          </div>-->
+<!--          <div class="clr-col-4">-->
+<!--            <clr-input-container>-->
+<!--              <label>Total Marks Obtained (Including All Subjects) <span style="color: red">*</span></label>-->
+<!--              <input clrInput type="text" placeholder="ex: 976" formControlName="TotalMarks"-->
+<!--                     class="w-100"/>-->
+
+<!--            </clr-input-container>-->
+<!--            <clr-control-error style="color: red" *ngIf="activityForm.controls.TotalMarks.invalid && activityForm.controls.TotalMarks.touched " >This field is required</clr-control-error>-->
+
+<!--          </div>-->
+<!--          <div class="clr-col-4">-->
+<!--            <clr-input-container>-->
+<!--              <label>Percentage</label>-->
+<!--              <input clrInput type="text" formControlName="Percentage" name="example"/>-->
+<!--            </clr-input-container>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </form>-->
+<!--    </div>-->
+<!--    <div *ngIf="activityForm.controls['ActivityType'].value === 'event'">-->
+<!--      <form [formGroup]="activityForm" clrForm clrLayout="vertical">-->
+<!--        <div class="clr-row">-->
+<!--          <div class="clr-col-4">-->
+<!--            <clr-input-container>-->
+<!--              <label>Sports/Competition Title <span style="color: red">*</span></label>-->
+<!--              <input clrInput type="text" placeholder="ex: Singing Competition 2022"-->
+<!--                     formControlName="EventTitle" class="w-100"/>-->
+<!--            </clr-input-container>-->
+<!--            <clr-control-error style="color: red" *ngIf="activityForm.controls.EventTitle.invalid && activityForm.controls.EventTitle.touched " >This field is required</clr-control-error>-->
+
+
+<!--          </div>-->
+<!--          <div class="clr-col-4">-->
+<!--            <clr-input-container>-->
+<!--              <label>Participation Description </label>-->
+<!--              <input clrInput type="text" placeholder="ex: National Level, District Wide"-->
+<!--                     formControlName="EventDescription" class="w-100"/>-->
+<!--            </clr-input-container>-->
+
+<!--          </div>-->
+<!--          <div class="clr-col-4">-->
+<!--            <clr-input-container>-->
+<!--              <label>Award <span style="color: red">*</span></label>-->
+<!--              <input clrInput type="text" placeholder="ex: 1st Rank, Gold Medal, etc"-->
+<!--                     formControlName="EventReward" class="w-100"/>-->
+<!--            </clr-input-container>-->
+<!--            <clr-control-error style="color: red" *ngIf="activityForm.controls.EventReward.invalid && activityForm.controls.EventReward.touched " >This field is required</clr-control-error>-->
+
+<!--          </div>-->
+<!--        </div>-->
+<!--      </form>-->
+<!--    </div>-->
+
+
+<!--    <form *ngIf="activityForm.controls['ActivityType'].value === 'ssc'" [formGroup]="activityForm">-->
+<!--      <div class="clr-row">-->
+<!--        <div class="clr-col-3">-->
+<!--          <clr-select-container class="w-100">-->
+<!--            <label>Present Studying SSC ? <span style="color: red">*</span></label>-->
+<!--            <select class="w-100" clrSelect formControlName="StudyingSsc">-->
+<!--              <option [ngValue]="1">Yes</option>-->
+<!--              <option [ngValue]="0">No</option>-->
+<!--            </select>-->
+<!--          </clr-select-container>-->
+<!--          <clr-control-error style="color: red" *ngIf="activityForm.controls.StudyingSsc.invalid && activityForm.controls.StudyingSsc.touched " >This field is required</clr-control-error>-->
+
+
+<!--        </div>-->
+<!--      <div class="clr-col-3">-->
+<!--        <clr-input-container>-->
+<!--          <label>School Full Name <span style="color: red">*</span></label>-->
+<!--          <input clrInput type="text" formControlName="SchoolName" class="w-100"/>-->
+<!--        </clr-input-container>-->
+<!--        <clr-control-error style="color: red" *ngIf="activityForm.controls.SchoolName.invalid && activityForm.controls.SchoolName.touched " >This field is required</clr-control-error>-->
+
+
+<!--      </div>-->
+<!--      <div class="clr-col-3">-->
+<!--        <clr-input-container>-->
+<!--          <label>School Address</label>-->
+<!--          <input clrInput type="text" formControlName="SchoolAddress" class="w-100"/>-->
+<!--        </clr-input-container>-->
+<!--      </div>-->
+
+<!--      </div>-->
+<!--    </form>-->
 
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline" (click)="showModal = false">Cancel</button>
+    <button type="button" class="btn btn-outline" (click)="cancel()">Cancel</button>
     <button  type="button" class="btn btn-primary" (click)="addUser()">Submit</button>
 <!--    <button *ngIf="uploadType === 'edit'" type="button" class="btn btn-primary" (click)="editUser()">Update</button>-->
   </div>
@@ -172,78 +389,116 @@
         </div>
       </div>
     </div>
+
     <form [formGroup]="activityEditForm" clrForm clrLayout="vertical">
       <div class="clr-row">
-        <div class="clr-col-4">
-          <clr-select-container>
-            <label>Activity Type</label>
-            <select clrSelect formControlName="ActivityType">
+
+        <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
+          <clr-select-container class="w-100">
+            <label>Registration Type <span style="color: red">*</span></label>
+            <select class="w-100" clrSelect formControlName="ActivityType">
               <option value="education">Education</option>
               <option value="event">Sports/Competition</option>
               <option value="ssc">SSC Model Paper</option>
             </select>
+            <span style="color: red" *ngIf=" activityEditForm.controls.ActivityType.invalid && activityEditForm.controls.ActivityType.touched" >This field is required</span>
+
           </clr-select-container>
+
         </div>
-        <div class="clr-col-4">
-          <clr-select-container>
-            <label>Select Student</label>
+        <div  class="clr-col-sm-12 clr-col-lg clr-col-md-4">
+          <clr-select-container>-->
+            <label>Select Student <span style="color: red">*</span></label>
             <select clrSelect formControlName="StudentId">
               <option *ngFor="let student of students"
                       [value]="student.id">{{student.FamilyName}} {{student.StudentName}}</option>
             </select>
           </clr-select-container>
         </div>
-        <!--        <div *ngIf="activityForm.controls['ActivityType'].value === 'event' || activityForm.controls['ActivityType'].value === 'education'" class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">-->
-        <!--          <clr-date-container>-->
-        <!--            <label> {{activityForm.controls['ActivityType'].value === 'education' ? 'Passing Year' : 'Sports/Competition Year' }} </label>-->
-        <!--            <input type="date" autocomplete="off" formControlName="EventDate" clrDate/>-->
-        <!--          </clr-date-container>-->
-        <!--        </div>-->
-        <div *ngIf="activityEditForm.controls['ActivityType'].value === 'event' || activityEditForm.controls['ActivityType'].value === 'education'"  class="clr-col-4">
+
+        <div *ngIf="activityEditForm.controls['ActivityType'].value === 'event' || activityEditForm.controls['ActivityType'].value === 'education'"
+             class="clr-col-sm-12 clr-col-lg-4 clr-col-md-4">
           <clr-date-container>
-            <label>{{activityEditForm.controls['ActivityType'].value === 'education' ? 'Passing Year' : 'Sports/Competition Year' }}</label>
+            <label> {{activityEditForm.controls['ActivityType'].value === 'education' ? 'Passing Year' : 'Sports/Competition Year' }} </label>
             <input type="date" autocomplete="off" formControlName="EventDate" clrDate/>
           </clr-date-container>
         </div>
+
+
       </div>
     </form>
     <div *ngIf="activityEditForm.controls['ActivityType'].value === 'education'">
       <form [formGroup]="activityEditForm" clrForm clrLayout="vertical">
         <div class="clr-row">
-          <div class="clr-col-4">
-            <clr-input-container>
-              <label>Education Passed</label>
-              <input clrInput type="text" formControlName="EducationPassed" name="example"/>
-            </clr-input-container>
-          </div>
-          <div class="clr-col-4">
+          <form class="clr-col-6" [formGroup]="selectEditForm" clrForm clrLayout="vertical">
+            <div class="clr-row">
+
+
+              <div class="clr-col-sm-12 clr-col-lg-6 clr-col-md-6">
+                <clr-select-container class="w-100">
+                  <label>Education Passed <span style="color: red">*</span></label>
+                  <select class="w-100" clrSelect formControlName="EducationPassed">
+                    <option *ngFor="let edu of eduPassed" [value]="edu.EducationPassed">{{edu.EducationPassed}}</option>
+                  </select>
+                </clr-select-container>
+
+              </div>
+              <div class="clr-col-sm-12 clr-col-lg-6 clr-col-md-6">
+                <clr-select-container class="w-100">
+                  <label>Board Stream<span style="color: red">*</span></label>
+                  <select class="w-100" clrSelect formControlName="BoardStream">
+                    <option *ngFor="let edu of eduStreamFiltered" [value]="edu.Stream">{{edu.Stream}}</option>
+                  </select>
+                </clr-select-container>
+
+              </div>
+            </div>
+          </form>
+          <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
             <clr-input-container>
               <label>Board/University</label>
-              <input clrInput type="text" formControlName="BoardType" name="example"/>
+              <input clrInput type="text"
+                     placeholder="Telangana Board,CBSE,JNTUH,Osmania University,etc"
+                     formControlName="BoardType" class="w-100"/>
             </clr-input-container>
           </div>
-          <div class="clr-col-4">
+          <div *ngIf="selectForm.controls.EducationPassed.value === 'Other' " class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
             <clr-input-container>
-              <label>Board Stream</label>
-              <input clrInput type="text" formControlName="BoardStream" name="example"/>
+              <label>Other Education Passed</label>
+              <input clrInput type="text" formControlName="EducationPassed" placeholder="ex: SSC,Inter,Btech,Degree,Diploma"
+                     class="w-100"/>
             </clr-input-container>
           </div>
-          <div class="clr-col-4">
+          <div *ngIf="selectForm.controls.EducationPassed.value === 'Other' " class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
+            <clr-input-container>
+              <label>Other Board Stream</label>
+              <input clrInput type="text" formControlName="BoardStream" placeholder="CSE,BCOM,MSC etc"
+                     class="w-100"/>
+            </clr-input-container>
+          </div>
+
+          <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
             <clr-input-container>
               <label>Grade</label>
-              <input clrInput type="text" formControlName="Grade" name="example"/>
+              <input clrInput type="text" placeholder="ex: A,B,C" formControlName="Grade"
+                     class="w-100"/>
             </clr-input-container>
           </div>
-          <div class="clr-col-4">
+          <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
             <clr-input-container>
-              <label>Total Marks</label>
-              <input clrInput type="text" formControlName="TotalMarks" name="example"/>
+              <label>Total Marks Obtained (Including All Subjects) <span style="color: red">*</span></label>
+              <input clrInput type="text" placeholder="ex: 976" formControlName="TotalMarks"
+                     class="w-100"/>
+
             </clr-input-container>
+            <clr-control-error style="color: red" *ngIf="activityEditForm.controls.TotalMarks.invalid && activityEditForm.controls.TotalMarks.touched " >This field is required</clr-control-error>
+
           </div>
-          <div class="clr-col-4">
+          <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
             <clr-input-container>
               <label>Percentage</label>
-              <input clrInput type="text" formControlName="Percentage" name="example"/>
+              <input clrInput type="text" placeholder="ex: 97%" formControlName="Percentage"
+                     class="w-100"/>
             </clr-input-container>
           </div>
         </div>
@@ -252,167 +507,72 @@
     <div *ngIf="activityEditForm.controls['ActivityType'].value === 'event'">
       <form [formGroup]="activityEditForm" clrForm clrLayout="vertical">
         <div class="clr-row">
-          <div class="clr-col-4">
+          <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
             <clr-input-container>
-              <label>Sports/Competition Title</label>
-              <input clrInput type="text" formControlName="EventTitle" name="example"/>
+              <label>Sports/Competition Title <span style="color: red">*</span></label>
+              <input clrInput type="text" placeholder="ex: Singing Competition 2022"
+                     formControlName="EventTitle" class="w-100"/>
             </clr-input-container>
+            <clr-control-error style="color: red" *ngIf="activityEditForm.controls.EventTitle.invalid && activityEditForm.controls.EventTitle.touched " >This field is required</clr-control-error>
+
           </div>
-          <div class="clr-col-4">
+          <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
             <clr-input-container>
-              <label>Participation Description</label>
-              <input clrInput type="text" formControlName="EventDescription" name="example"/>
+              <label>Participation Description </label>
+              <input clrInput type="text" placeholder="ex: National Level, District Wide"
+                     formControlName="EventDescription" class="w-100"/>
             </clr-input-container>
+
           </div>
-          <div class="clr-col-4">
+          <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
             <clr-input-container>
-              <label>Award</label>
-              <input clrInput type="text" formControlName="EventReward" name="example"/>
+              <label>Award <span style="color: red">*</span></label>
+              <input clrInput type="text" placeholder="ex: 1st Rank, Gold Medal, etc"
+                     formControlName="EventReward" class="w-100"/>
             </clr-input-container>
+            <clr-control-error style="color: red" *ngIf="activityEditForm.controls.EventReward.invalid && activityEditForm.controls.EventReward.touched " >This field is required</clr-control-error>
+
           </div>
         </div>
       </form>
     </div>
 
-
-    <form clrForm clrLayout="vertical" *ngIf="activityEditForm.controls['ActivityType'].value === 'ssc'" [formGroup]="activityEditForm">
+    <form clrForm clrLayout="vertical" *ngIf="activityEditForm.controls['ActivityType'].value === 'ssc'"
+          [formGroup]="activityEditForm">
       <div class="clr-row">
-        <div class="clr-col-3">
-          <clr-input-container>
-            <label>School Full Name</label>
-            <input clrInput type="text" formControlName="SchoolName" class="w-100"/>
-          </clr-input-container>
-        </div>
-        <div class="clr-col-3">
-          <clr-input-container>
-            <label>School Address</label>
-            <input clrInput type="text" formControlName="SchoolAddress" class="w-100"/>
-          </clr-input-container>
-        </div>
-        <div class="clr-col-3">
+        <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
           <clr-select-container class="w-100">
-            <label>Present Studying SSC ?</label>
+            <label>Present Studying SSC ? <span style="color: red">*</span></label>
             <select class="w-100" clrSelect formControlName="StudyingSsc">
               <option [ngValue]="1">Yes</option>
               <option [ngValue]="0">No</option>
             </select>
           </clr-select-container>
+          <clr-control-error style="color: red" *ngIf="activityEditForm.controls.StudyingSsc.invalid && activityEditForm.controls.StudyingSsc.touched " >This field is required</clr-control-error>
+
+        </div>
+        <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
+          <clr-input-container>
+            <label>School Full Name <span style="color: red">*</span></label>
+            <input clrInput type="text" formControlName="SchoolName" class="w-100"/>
+          </clr-input-container>
+          <clr-control-error style="color: red" *ngIf="activityEditForm.controls.SchoolName.invalid && activityEditForm.controls.SchoolName.touched " >This field is required</clr-control-error>
+
+        </div>
+        <div class="clr-col-sm-12 clr-col-lg-3 clr-col-md-4">
+          <clr-input-container>
+            <label>School Address </label>
+            <input clrInput type="text" formControlName="SchoolAddress" class="w-100"/>
+          </clr-input-container>
         </div>
       </div>
     </form>
 
-  </div>
-<!--  <div class="modal-body">-->
-<!--    <div *ngIf="showError" class="alert alert-danger" role="alert">-->
-<!--      <div class="alert-items">-->
-<!--        <div class="alert-item static">-->
-<!--          <div class="alert-icon-wrapper">-->
-<!--            <cds-icon class="alert-icon" shape="exclamation-circle"></cds-icon>-->
-<!--          </div>-->
-<!--          <span class="alert-text">Registration error,Please fill all fields to submit the form</span>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    <form [formGroup]="activityEditForm" clrForm clrLayout="vertical">-->
-<!--      <div class="clr-row">-->
-<!--        <div class="clr-col-4">-->
-<!--          <clr-select-container>-->
-<!--            <label>Activity Type</label>-->
-<!--            <select clrSelect formControlName="ActivityType">-->
-<!--              <option value="education">Education</option>-->
-<!--              <option value="event">Sports/Competition</option>-->
-<!--              <option value="ssc">SSC Model Paper</option>-->
-<!--            </select>-->
-<!--          </clr-select-container>-->
-<!--        </div>-->
-<!--        <div class="clr-col-4">-->
-<!--          <clr-select-container>-->
-<!--            <label>Select Student</label>-->
-<!--            <select clrSelect formControlName="StudentId">-->
-<!--              <option *ngFor="let student of students"-->
-<!--                      [value]="student.id">{{student.FamilyName}} {{student.StudentName}}</option>-->
-<!--            </select>-->
-<!--          </clr-select-container>-->
-<!--        </div>-->
-<!--        <div *ngIf="activityForm.controls['ActivityType'].value === 'event' || activityForm.controls['ActivityType'].value === 'education'"  class="clr-col-4">-->
-<!--          <clr-date-container>-->
-<!--            <label>{{activityForm.controls['ActivityType'].value === 'education' ? 'Passing Year' : 'Sports/Competition Year' }}</label>-->
-<!--            <input type="date" autocomplete="off" formControlName="EventDate" clrDate/>-->
-<!--          </clr-date-container>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </form>-->
-<!--    <div *ngIf="activityEditForm.controls['ActivityType'].value === 'education'">-->
-<!--      <form [formGroup]="activityEditForm" clrForm clrLayout="vertical">-->
-<!--        <div class="clr-row">-->
-<!--          <div class="clr-col-4">-->
-<!--            <clr-input-container>-->
-<!--              <label>Education Passed</label>-->
-<!--              <input clrInput type="text" formControlName="EducationPassed" name="example"/>-->
-<!--            </clr-input-container>-->
-<!--          </div>-->
-<!--          <div class="clr-col-4">-->
-<!--            <clr-input-container>-->
-<!--              <label>Board/University</label>-->
-<!--              <input clrInput type="text" formControlName="BoardType" name="example"/>-->
-<!--            </clr-input-container>-->
-<!--          </div>-->
-<!--          <div class="clr-col-4">-->
-<!--            <clr-input-container>-->
-<!--              <label>Board Stream</label>-->
-<!--              <input clrInput type="text" formControlName="BoardStream" name="example"/>-->
-<!--            </clr-input-container>-->
-<!--          </div>-->
-<!--          <div class="clr-col-4">-->
-<!--            <clr-input-container>-->
-<!--              <label>Grade</label>-->
-<!--              <input clrInput type="text" formControlName="Grade" name="example"/>-->
-<!--            </clr-input-container>-->
-<!--          </div>-->
-<!--          <div class="clr-col-4">-->
-<!--            <clr-input-container>-->
-<!--              <label>Total Marks</label>-->
-<!--              <input clrInput type="text" formControlName="TotalMarks" name="example"/>-->
-<!--            </clr-input-container>-->
-<!--          </div>-->
-<!--          <div class="clr-col-4">-->
-<!--            <clr-input-container>-->
-<!--              <label>Percentage</label>-->
-<!--              <input clrInput type="text" formControlName="Percentage" name="example"/>-->
-<!--            </clr-input-container>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </form>-->
-<!--    </div>-->
-<!--    <div *ngIf="activityEditForm.controls['ActivityType'].value === 'event'">-->
-<!--      <form [formGroup]="activityEditForm" clrForm clrLayout="vertical">-->
-<!--        <div class="clr-row">-->
-<!--          <div class="clr-col-4">-->
-<!--            <clr-input-container>-->
-<!--              <label>Sports/Competition Title</label>-->
-<!--              <input clrInput type="text" formControlName="EventTitle" name="example"/>-->
-<!--            </clr-input-container>-->
-<!--          </div>-->
-<!--          <div class="clr-col-4">-->
-<!--            <clr-input-container>-->
-<!--              <label>Participation Description</label>-->
-<!--              <input clrInput type="text" formControlName="EventDescription" name="example"/>-->
-<!--            </clr-input-container>-->
-<!--          </div>-->
-<!--          <div class="clr-col-4">-->
-<!--            <clr-input-container>-->
-<!--              <label>Award</label>-->
-<!--              <input clrInput type="text" formControlName="EventReward" name="example"/>-->
-<!--            </clr-input-container>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </form>-->
-<!--    </div>-->
-<!--  </div>-->
   <div class="modal-footer">
     <button type="button" class="btn btn-outline" (click)="showEditModal = false">Cancel</button>
 <!--    <button *ngIf="uploadType === 'create'" type="button" class="btn btn-primary" (click)="addUser()">Submit</button>-->
     <button type="button" class="btn btn-primary" (click)="editUser()">Update</button>
+  </div>
   </div>
 </clr-modal>
 
@@ -445,15 +605,6 @@
       </button>
 
 
-<!--      <clr-select-container>-->
-<!--        <label>Filter Type</label>-->
-<!--        <select clrSelect [(ngModel)]="activityType" (change)="onActivityTypeChange($event)">-->
-<!--          <option value="all">All</option>-->
-<!--          <option value="education">Education</option>-->
-<!--          <option value="event">Sports/Competition</option>-->
-<!--        </select>-->
-<!--      </clr-select-container>-->
-<!--    </div>-->
 
   </div>
 
@@ -502,7 +653,7 @@
           <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
             <a  (click)="editStudent(activity)" clrDropdownItem>Edit</a>
             <a *ngIf="user && user.role.name === 'admin' " (click)="deleteModel(activity)" clrDropdownItem>Delete</a>
-            <a (click)="createCertificateRecord(activity)"  clrDropdownItem>Issue Certificate</a>
+            <a *ngIf="activity.ActivityType !== 'ssc' " (click)="createCertificateRecord(activity)"  clrDropdownItem>Issue Certificate</a>
           </clr-dropdown-menu>
         </clr-dropdown>
       </clr-dg-cell>

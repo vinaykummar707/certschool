@@ -17,21 +17,35 @@
       <div class="clr-row">
         <div class="clr-col-6">
           <clr-input-container>
-            <label>Family Name</label>
+            <label>Khandan Name <span style="color: red">*</span></label>
             <input clrInput type="text" formControlName="FamilyName" name="example"/>
           </clr-input-container>
+          <clr-control-error style="color: red" *ngIf="studentForm.controls.FamilyName.invalid && studentForm.controls.FamilyName.touched " >This field is required</clr-control-error>
+
         </div>
         <div class="clr-col-6">
           <clr-input-container>
-            <label>First Name</label>
+            <label>Student Name <span style="color: red">*</span></label>
             <input clrInput type="text" formControlName="StudentName" name="example"/>
           </clr-input-container>
+          <clr-control-error style="color: red" *ngIf="studentForm.controls.StudentName.invalid && studentForm.controls.StudentName.touched " >This field is required</clr-control-error>
+
         </div>
         <div class="clr-col-6">
           <clr-input-container>
-            <label>Father Name</label>
+            <label>Father Name <span style="color: red">*</span></label>
             <input clrInput type="text" formControlName="FatherName" name="example"/>
           </clr-input-container>
+          <clr-control-error style="color: red" *ngIf="studentForm.controls.FatherName.invalid && studentForm.controls.FatherName.touched " >This field is required</clr-control-error>
+
+        </div>
+        <div class="clr-col-6">
+          <clr-input-container>
+            <label>Mobile Number <span style="color: red">*</span></label>
+            <input clrInput type="text" formControlName="MobileNumber" name="example"/>
+          </clr-input-container>
+          <clr-control-error style="color: red" *ngIf="studentForm.controls.MobileNumber.invalid && studentForm.controls.MobileNumber.touched " >This field is required</clr-control-error>
+
         </div>
         <div class="clr-col-6">
           <clr-input-container>
@@ -51,12 +65,7 @@
             <input clrInput type="text" formControlName="State" name="example"/>
           </clr-input-container>
         </div>
-        <div class="clr-col-6">
-          <clr-input-container>
-            <label>Mobile Number</label>
-            <input clrInput type="text" formControlName="MobileNumber" name="example"/>
-          </clr-input-container>
-        </div>
+
 
       </div>
     </form>
@@ -83,60 +92,62 @@
         </div>
       </div>
     </div>
-    <div class="clr-row">
-      <div class="clr-col-6">
-        <form [formGroup]="studentEditForm" clrForm clrLayout="vertical">
+    <form [formGroup]="studentEditForm" clrForm clrLayout="vertical">
+      <div class="clr-row">
+        <div class="clr-col-6">
           <clr-input-container>
-            <label>Family Name</label>
+            <label>Khandan Name <span style="color: red">*</span></label>
             <input clrInput type="text" formControlName="FamilyName" name="example"/>
           </clr-input-container>
+          <clr-control-error style="color: red" *ngIf="studentForm.controls.FamilyName.invalid && studentForm.controls.FamilyName.touched " >This field is required</clr-control-error>
+
+        </div>
+        <div class="clr-col-6">
+          <clr-input-container>
+            <label>Student Name <span style="color: red">*</span></label>
+            <input clrInput type="text" formControlName="StudentName" name="example"/>
+          </clr-input-container>
+          <clr-control-error style="color: red" *ngIf="studentForm.controls.StudentName.invalid && studentForm.controls.StudentName.touched " >This field is required</clr-control-error>
+
+        </div>
+        <div class="clr-col-6">
+          <clr-input-container>
+            <label>Father Name <span style="color: red">*</span></label>
+            <input clrInput type="text" formControlName="FatherName" name="example"/>
+          </clr-input-container>
+          <clr-control-error style="color: red" *ngIf="studentForm.controls.FatherName.invalid && studentForm.controls.FatherName.touched " >This field is required</clr-control-error>
+
+        </div>
+        <div class="clr-col-6">
+          <clr-input-container>
+            <label>Mobile Number <span style="color: red">*</span></label>
+            <input clrInput type="text" formControlName="MobileNumber" name="example"/>
+          </clr-input-container>
+          <clr-control-error style="color: red" *ngIf="studentForm.controls.MobileNumber.invalid && studentForm.controls.MobileNumber.touched " >This field is required</clr-control-error>
+
+        </div>
+        <div class="clr-col-6">
           <clr-input-container>
             <label>Address</label>
             <input clrInput type="text" formControlName="Address" name="example"/>
           </clr-input-container>
-
-        </form>
-      </div>
-      <div class="clr-col-6">
-        <form [formGroup]="studentEditForm" clrForm clrLayout="vertical">
-          <clr-input-container>
-            <label>First Name</label>
-            <input clrInput type="text" formControlName="StudentName" name="example"/>
-          </clr-input-container>
-
+        </div>
+        <div class="clr-col-6">
           <clr-input-container>
             <label>City</label>
             <input clrInput type="text" formControlName="City" name="example"/>
           </clr-input-container>
-        </form>
-      </div>
-      <div class="clr-col-6">
-        <form [formGroup]="studentEditForm">
-          <clr-input-container>
-            <label>Father Name</label>
-            <input clrInput type="text" formControlName="FatherName" name="example"/>
-          </clr-input-container>
-
+        </div>
+        <div class="clr-col-6">
           <clr-input-container>
             <label>State</label>
             <input clrInput type="text" formControlName="State" name="example"/>
           </clr-input-container>
-        </form>
-      </div>
-      <div class="clr-col-6">
-        <form [formGroup]="studentEditForm" clrForm clrLayout="vertical">
-          <clr-input-container>
-            <label>Mobile Number</label>
-            <input clrInput type="text" formControlName="MobileNumber" name="example"/>
-          </clr-input-container>
+        </div>
 
-          <clr-date-container>
-            <label>Date Graduated</label>
-            <input type="date" autocomplete="off"  clrDate name="demo"/>
-          </clr-date-container>
-        </form>
+
       </div>
-    </div>
+    </form>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline" (click)="showEditModal = false">Cancel</button>

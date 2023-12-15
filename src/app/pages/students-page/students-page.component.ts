@@ -12,8 +12,6 @@ import {RouterService} from "../../services/router-service/router.service";
 export class StudentsPageComponent {
 
   user: any;
-  studentForm: FormGroup;
-  studentEditForm: FormGroup;
   students: any[] = [];
   showModal: boolean = false;
   showEditModal: boolean = false;
@@ -21,40 +19,40 @@ export class StudentsPageComponent {
   showError: any;
   dataLoaded: boolean = false;
   uploadType: string = 'create';
-  studentDeleteForm: FormGroup;
+  studentForm = new FormGroup({
+    StudentName: new FormControl('', Validators.required),
+    FatherName: new FormControl('', Validators.required),
+    FamilyName: new FormControl('', Validators.required),
+    MobileNumber: new FormControl('', Validators.required),
+    Address: new FormControl(''),
+    City: new FormControl(''),
+    State: new FormControl(''),
+    SchoolId: new FormControl(''),
+  })
+  studentEditForm = new FormGroup({
+    StudentName: new FormControl('', Validators.required),
+    FatherName: new FormControl('', Validators.required),
+    FamilyName: new FormControl('', Validators.required),
+    MobileNumber: new FormControl('', Validators.required),
+    Address: new FormControl(''),
+    City: new FormControl(''),
+    State: new FormControl(''),
+    id: new FormControl('', Validators.required),
+    isActive: new FormControl('', Validators.required),
+    createdAt: new FormControl('', Validators.required),
+    updatedAt: new FormControl('', Validators.required),
+    SchoolId: new FormControl('', Validators.required),
+  })
+
+  studentDeleteForm = new FormGroup({
+    id: new FormControl()
+  })
 
 
   constructor(
     private routerService: RouterService,
     private  ls: LocalStorageService, private stService: StudentsService) {
-    this.studentForm = new FormGroup({
-      StudentName: new FormControl('', Validators.required),
-      FatherName: new FormControl('', Validators.required),
-      FamilyName: new FormControl('', Validators.required),
-      MobileNumber: new FormControl('', Validators.required),
-      Address: new FormControl('', Validators.required),
-      City: new FormControl('', Validators.required),
-      State: new FormControl('', Validators.required),
-      SchoolId: new FormControl(''),
-    })
-    this.studentEditForm = new FormGroup({
-      StudentName: new FormControl('', Validators.required),
-      FatherName: new FormControl('', Validators.required),
-      FamilyName: new FormControl('', Validators.required),
-      MobileNumber: new FormControl('', Validators.required),
-      Address: new FormControl('', Validators.required),
-      City: new FormControl('', Validators.required),
-      State: new FormControl('', Validators.required),
-      id: new FormControl('', Validators.required),
-      isActive: new FormControl('', Validators.required),
-      createdAt: new FormControl('', Validators.required),
-      updatedAt: new FormControl('', Validators.required),
-      SchoolId: new FormControl('', Validators.required),
-    })
 
-    this.studentDeleteForm = new FormGroup({
-      id: new FormControl()
-    })
 
 
   }
@@ -116,6 +114,7 @@ export class StudentsPageComponent {
     } else {
       this.showError = true;
       console.log(this.studentForm);
+      this.studentForm.markAllAsTouched();
     }
   }
 
