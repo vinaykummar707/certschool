@@ -279,9 +279,11 @@ export class ActivitiesPageComponent {
     getDescription(activity: any) {
         switch (activity.ActivityType) {
             case 'event':
-                return `${activity.EventTitle == null ? '' : activity.EventTitle }  ${activity.EventDescription === null ? '' : '/ ' + activity.EventDescription }  ${activity.EventReward === null ? '' : '/ ' + activity.EventReward}`;
+                return `${activity.EventTitle == null ? '' : activity.EventTitle }`;
+                // return `${activity.EventTitle == null ? '' : activity.EventTitle }  ${activity.EventDescription === null ? '' : '/ ' + activity.EventDescription }  ${activity.EventReward === null ? '' : '/ ' + activity.EventReward}`;
             case 'education':
-                return `${activity.EducationPassed == null ? '' : activity.EducationPassed }${activity.BoardType === null ? '' : '/' + activity.BoardType }${activity.BoardStream === null ? '' : '/' + activity.BoardStream}`;
+                // return `${activity.EducationPassed == null ? '' : activity.EducationPassed }${activity.BoardType === null ? '' : '/' + activity.BoardType }${activity.BoardStream === null ? '' : '/' + activity.BoardStream}`;
+                return `${activity.EducationPassed == null ? '' : activity.EducationPassed }`;
             default:
                 return "";
         }

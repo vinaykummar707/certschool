@@ -78,7 +78,7 @@ export class CertificateService implements calls{
   }
 
   getDescription(activity: any) {
-    return `${activity.EducationPassed == null ? '' : activity.EducationPassed }${activity.BoardType === null ? '' : '/' + activity.BoardType }${activity.BoardStream === null ? '' : '/' + activity.BoardStream}`;
+    return `${activity.EducationPassed == null ? '' : activity.EducationPassed }`;
 
   }
 }
