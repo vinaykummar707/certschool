@@ -4,7 +4,7 @@
     <clr-accordion-title>Certificate Configuration</clr-accordion-title>
     <clr-accordion-content class="pa2" *clrIfExpanded>
 
-      <div class="clr-row">
+      <div class="clr-row mb2">
         <div class="clr-col-2">
           <clr-select-container>
             <label>Stop Registration Page</label>
@@ -15,10 +15,10 @@
           </clr-select-container>
         </div>
         <div class="clr-col-10">
-          <clr-input-container>
-            <label>Registration Disable Message</label>
-            <input clrInput type="text"  [(ngModel)]="config.regPageStopMsg" name="example"/>
-          </clr-input-container>
+          <clr-textarea-container style="height: 200px;width: 300px;" >
+            <label>Disabled Registration Message</label>
+            <textarea style="height: 200px;width: 300px;"  clrTextarea type="text"  [(ngModel)]="config.regPageStopMsg"  name="description" required></textarea>
+          </clr-textarea-container>
         </div>
       </div>
 

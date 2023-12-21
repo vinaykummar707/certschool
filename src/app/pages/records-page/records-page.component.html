@@ -274,10 +274,10 @@
             </div>
         </div>
     </div>
-    <div *ngIf="config && config.showRegPage === 'yes' "class="content-container">
+    <div *ngIf="config && config.showRegPage === 'yes' "class="content-container justify-center">
 
-        <div class="w-100 h-100 flex flex-column justify-center text-center items-center">
-            <h6 class="text-center ma0">{{config.regPageStopMsg}}</h6>
+        <div style="white-space: pre-wrap" class="w-80 h-100 flex flex-column justify-center text-center items-center">
+            {{config.regPageStopMsg}}
         </div>
 
         </div>
