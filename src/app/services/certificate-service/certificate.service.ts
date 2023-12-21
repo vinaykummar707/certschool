@@ -28,7 +28,7 @@ export class CertificateService implements calls{
     return this.httpService.get(`/certificate/all/${schoolId}`);
   }
 
-  createCertificate(activity: any) {
+  createCertificate(activity: any,type: string) {
     console.log(activity);
     this.us.getConfig().subscribe({
       next: ((value) => {
@@ -40,45 +40,57 @@ export class CertificateService implements calls{
           format: [this.config.size.width, this.config.size.height]
         });
 
-        const keys = Object.keys(this.config.printData);
+        doc.addFont(`./assets/fonts/EBGaramond-VariableFont_wght.ttf`,"EB_Garamond","normal");
+        doc.addFont(`./assets/fonts/LibreBaskerville-Regular.ttf`,"Libre_Baskerville","normal");
+        doc.addFont(`./assets/fonts/LibreCaslonText-Regular.ttf`,"Libre_Caslon_Text","normal");
+        doc.addFont(`./assets/fonts/NunitoSans-VariableFont_YTLC,opsz,wdth,wght.ttf`,"Nunito_Sans","normal");
+        doc.addFont(`./assets/fonts/OpenSans-VariableFont_wdth,wght.ttf`,"Open_Sans","normal");
 
-
-        //
-        keys.forEach((field: any) => {
-          if (field === "studentName") {
-            this.config.printData[field]['text'] = activity.FamilyName + " " +activity.StudentName
-          }
-
-          if (field === "fatherName") {
-            this.config.printData[field]['text'] = activity.FatherName
-          }
-          if (field === "description") {
-            this.config.printData[field]['text'] = this.getDescription(activity);
-          }
-          if (field === "date") {
-            this.config.printData[field]['text'] = activity.PassedDate;
-          }
-
-        });
-
-        keys.forEach((field: any) => {
-          doc.setTextColor(this.config.printData[field].color);
-          doc.setFontSize(this.config.printData[field].fontSize);
-          doc.text(this.config.printData[field].text, this.config.printData[field].x, this.config.printData[field].y, this.config.printData[field].transform);
+        this.us.getCertDetails(activity.studentId).subscribe({
+          next: ((res:any) => {
+            const details = res[0][0];
+            const keys = Object.keys(details);
+            keys.forEach((field: any) => {
+              if (field === "StudentName") {
+                this.config.printData[field]['text'] = details[field];
+              }
+              if (field === "FatherName") {
+                this.config.printData[field]['text'] = details[field];
+              }
+              if (field === "Class_Event") {
+                this.config.printData[field]['text'] = details[field];
+              }
+              if (field === "PassYear") {
+                this.config.printData[field]['text'] = details[field];
+              }
+            });
+            keys.forEach((field: any) => {
+              doc.setFont(this.config.font);
+              doc.setTextColor(this.config.printData[field].color);
+              doc.setFontSize(this.config.printData[field].fontSize);
+              doc.text(this.config.printData[field].text, this.config.printData[field].x, this.config.printData[field].y, this.config.printData[field].transform);
+            })
+            console.log(this.config);
+            doc.autoPrint();
+            window.open(doc.output('bloburl'), '_blank');
+          })
         })
-
-
-        console.log(this.config);
-
-        doc.autoPrint();
-        window.open(doc.output('bloburl'), '_blank');
-      })
+      }),error: ((err:any) => {
+        console.log(err)})
     })
 
   }
 
-  getDescription(activity: any) {
-    return `${activity.EducationPassed == null ? '' : activity.EducationPassed }`;
-
+  getDescription(activity: any,type: string) {
+    switch (type) {
+      case 'event':
+        return `${activity.EventTitle == null ? '' : activity.EventTitle }`;
+        // return `${activity.EventTitle == null ? '' : activity.EventTitle }  ${activity.EventDescription === null ? '' : '/ ' + activity.EventDescription }  ${activity.EventReward === null ? '' : '/ ' + activity.EventReward}`;
+      case 'education':
+        // return `${activity.EducationPassed == null ? '' : activity.EducationPassed }${activity.BoardType === null ? '' : '/' + activity.BoardType }${activity.BoardStream === null ? '' : '/' + activity.BoardStream}`;
+        return `${activity.EducationPassed == null ? '' : activity.EducationPassed }`;
+      default:
+        return "";
+    }
   }
 }

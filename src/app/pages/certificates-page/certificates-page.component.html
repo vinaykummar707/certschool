@@ -7,6 +7,24 @@
       <div class="clr-row">
         <div class="clr-col-2">
           <clr-select-container>
+            <label>Stop Registration Page</label>
+            <select [(ngModel)]="config.showRegPage" clrSelect  >
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+          </clr-select-container>
+        </div>
+        <div class="clr-col-10">
+          <clr-input-container>
+            <label>Registration Disable Message</label>
+            <input clrInput type="text"  [(ngModel)]="config.regPageStopMsg" name="example"/>
+          </clr-input-container>
+        </div>
+      </div>
+
+      <div class="clr-row">
+        <div class="clr-col-2">
+          <clr-select-container>
             <label>Select Orientation</label>
             <select [(ngModel)]="config.orientation" clrSelect  >
               <option *ngFor="let orient of config.orientationTypes"
@@ -21,6 +39,16 @@
             <select [(ngModel)]="config.unit" clrSelect  >
               <option *ngFor="let unit of config.unitTypes"
                       [value]="unit">{{unit}}</option>
+            </select>
+          </clr-select-container>
+        </div>
+
+        <div class="clr-col-2">
+          <clr-select-container>
+            <label>Select Font</label>
+            <select [(ngModel)]="config.font" clrSelect  >
+              <option *ngFor="let font of config.fontTypes"
+                      [value]="font">{{font}}</option>
             </select>
           </clr-select-container>
         </div>
@@ -45,32 +73,32 @@
         <div class="clr-col-2">
           <clr-input-container>
             <label>X-Position</label>
-            <input clrInput type="number" [(ngModel)]="config.printData.studentName.x" name="example"/>
+            <input clrInput type="number" [(ngModel)]="config.printData.StudentName.x" name="example"/>
           </clr-input-container>
         </div>
         <div class="clr-col-2">
           <clr-input-container>
             <label>Y-Position</label>
-            <input clrInput type="number" [(ngModel)]="config.printData.studentName.y" name="example"/>
+            <input clrInput type="number" [(ngModel)]="config.printData.StudentName.y" name="example"/>
           </clr-input-container>
         </div>
         <div class="clr-col-2">
           <clr-input-container>
             <label>Angle</label>
-            <input clrInput type="number" [(ngModel)]="config.printData.studentName.transform" name="example"/>
+            <input clrInput type="number" [(ngModel)]="config.printData.StudentName.transform" name="example"/>
           </clr-input-container>
         </div>
         <div class="clr-col-2">
           <clr-input-container>
             <label>color</label>
-            <input clrInput type="text" [(ngModel)]="config.printData.studentName.color" name="example"/>
+            <input clrInput type="text" [(ngModel)]="config.printData.StudentName.color" name="example"/>
           </clr-input-container>
         </div>
 
         <div class="clr-col-2">
           <clr-input-container>
             <label>Font-Size</label>
-            <input clrInput type="number" [(ngModel)]="config.printData.studentName.fontSize" name="example"/>
+            <input clrInput type="number" [(ngModel)]="config.printData.StudentName.fontSize" name="example"/>
           </clr-input-container>
         </div>
       </div>
@@ -81,32 +109,32 @@
         <div class="clr-col-2">
           <clr-input-container>
             <label>X-Position</label>
-            <input clrInput type="number" [(ngModel)]="config.printData.fatherName.x" name="example"/>
+            <input clrInput type="number" [(ngModel)]="config.printData.FatherName.x" name="example"/>
           </clr-input-container>
         </div>
         <div class="clr-col-2">
           <clr-input-container>
             <label>Y-Position</label>
-            <input clrInput type="number" [(ngModel)]="config.printData.fatherName.y" name="example"/>
+            <input clrInput type="number" [(ngModel)]="config.printData.FatherName.y" name="example"/>
           </clr-input-container>
         </div>
         <div class="clr-col-2">
           <clr-input-container>
             <label>Angle</label>
-            <input clrInput type="number" [(ngModel)]="config.printData.fatherName.transform" name="example"/>
+            <input clrInput type="number" [(ngModel)]="config.printData.FatherName.transform" name="example"/>
           </clr-input-container>
         </div>
         <div class="clr-col-2">
           <clr-input-container>
             <label>color</label>
-            <input clrInput type="text" [(ngModel)]="config.printData.fatherName.color" name="example"/>
+            <input clrInput type="text" [(ngModel)]="config.printData.FatherName.color" name="example"/>
           </clr-input-container>
         </div>
 
         <div class="clr-col-2">
           <clr-input-container>
             <label>Font-Size</label>
-            <input clrInput type="number" [(ngModel)]="config.printData.fatherName.fontSize" name="example"/>
+            <input clrInput type="number" [(ngModel)]="config.printData.FatherName.fontSize" name="example"/>
           </clr-input-container>
         </div>
       </div>
@@ -116,32 +144,32 @@
         <div class="clr-col-2">
           <clr-input-container>
             <label>X-Position</label>
-            <input clrInput type="number" [(ngModel)]="config.printData.description.x" name="example"/>
+            <input clrInput type="number" [(ngModel)]="config.printData.Class_Event.x" name="example"/>
           </clr-input-container>
         </div>
         <div class="clr-col-2">
           <clr-input-container>
             <label>Y-Position</label>
-            <input clrInput type="number" [(ngModel)]="config.printData.description.y" name="example"/>
+            <input clrInput type="number" [(ngModel)]="config.printData.Class_Event.y" name="example"/>
           </clr-input-container>
         </div>
         <div class="clr-col-2">
           <clr-input-container>
             <label>Angle</label>
-            <input clrInput type="number" [(ngModel)]="config.printData.description.transform" name="example"/>
+            <input clrInput type="number" [(ngModel)]="config.printData.Class_Event.transform" name="example"/>
           </clr-input-container>
         </div>
         <div class="clr-col-2">
           <clr-input-container>
             <label>color</label>
-            <input clrInput type="text" [(ngModel)]="config.printData.description.color" name="example"/>
+            <input clrInput type="text" [(ngModel)]="config.printData.Class_Event.color" name="example"/>
           </clr-input-container>
         </div>
 
         <div class="clr-col-2">
           <clr-input-container>
             <label>Font-Size</label>
-            <input clrInput type="number" [(ngModel)]="config.printData.description.fontSize" name="example"/>
+            <input clrInput type="number" [(ngModel)]="config.printData.Class_Event.fontSize" name="example"/>
           </clr-input-container>
         </div>
       </div>
@@ -152,32 +180,32 @@
         <div class="clr-col-2">
           <clr-input-container>
             <label>X-Position</label>
-            <input clrInput type="number" [(ngModel)]="config.printData.date.x" name="example"/>
+            <input clrInput type="number" [(ngModel)]="config.printData.PassYear.x" name="example"/>
           </clr-input-container>
         </div>
         <div class="clr-col-2">
           <clr-input-container>
             <label>Y-Position</label>
-            <input clrInput type="number" [(ngModel)]="config.printData.date.y" name="example"/>
+            <input clrInput type="number" [(ngModel)]="config.printData.PassYear.y" name="example"/>
           </clr-input-container>
         </div>
         <div class="clr-col-2">
           <clr-input-container>
             <label>Angle</label>
-            <input clrInput type="number" [(ngModel)]="config.printData.date.transform" name="example"/>
+            <input clrInput type="number" [(ngModel)]="config.printData.PassYear.transform" name="example"/>
           </clr-input-container>
         </div>
         <div class="clr-col-2">
           <clr-input-container>
             <label>color</label>
-            <input clrInput type="text" [(ngModel)]="config.printData.date.color" name="example"/>
+            <input clrInput type="text" [(ngModel)]="config.printData.PassYear.color" name="example"/>
           </clr-input-container>
         </div>
 
         <div class="clr-col-2">
           <clr-input-container>
             <label>Font-Size</label>
-            <input clrInput type="number" [(ngModel)]="config.printData.date.fontSize" name="example"/>
+            <input clrInput type="number" [(ngModel)]="config.printData.PassYear.fontSize" name="example"/>
           </clr-input-container>
         </div>
       </div>

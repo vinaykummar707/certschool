@@ -14,7 +14,7 @@ export class UsersService {
   }
 
   getConfig() {
-    return this.httpService.get(`config`);
+    return this.httpService.get(`/config`);
   }
 
   setConfig(config: any) {
@@ -31,5 +31,9 @@ export class UsersService {
 
   loginUser(data: any) {
     return this.httpService.post(`/user/login`, data);
+  }
+
+  getCertDetails(id: string) {
+    return this.httpService.get(`/cert-details/${id}`);
   }
 }

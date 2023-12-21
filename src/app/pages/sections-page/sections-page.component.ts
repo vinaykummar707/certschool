@@ -18,12 +18,21 @@ export class SectionsPageComponent {
   showEditModal: boolean = false;
   showDeleteModal: boolean = false;
   showError: any;
-  dataLoaded: boolean = false;
+  dataLoaded: boolean = true;
   uploadType: string = 'create';
   headers: string[]= [];
+  eduPassed: any[] = [];
+  eduStream: any[] = [];
+  eduStreamFiltered: any[] = [];
+
 
   educationPassed: any = 'SSC';
   year: any = '2022';
+  selectForm = new FormGroup({
+    EducationPassed: new FormControl(),
+    BoardStream: new FormControl(),
+    year: new FormControl(),
+  })
 
 
   constructor(
@@ -34,14 +43,34 @@ export class SectionsPageComponent {
   async ngOnInit() {
     this.user =await this.ls.getUser();
     this.routerService.setCurrentRoute = 'students';
-    this.getAllStudents();
+    // this.getAllStudents();
+    this.stService.getEduPassed('','').subscribe({
+      next: ((value:any) => {
+        this.eduPassed = value[0];
+        this.stService.getEduStream('', '').subscribe({
+          next: ((stream:any) => {
+            this.eduStream =stream[0];
+          })
+        })
+      })
+    })
+    this.selectForm.controls.EducationPassed.valueChanges.subscribe((value) => {
+      console.log(value);
+      this.onEduPassedSelected(value);
+    });
+  }
+
+  onEduPassedSelected(code:any) {
+    this.eduStreamFiltered = this.eduStream.filter((st:any) => (st.EducationPassed === code && st.Stream.length > 0));
   }
 
 
 
   getAllStudents() {
-    // this.dataLoaded = false;
-    this.stService.getTopStudents(this.educationPassed, this.year).subscribe({
+    this.students = [];
+    this.dataLoaded = false;
+    console.log(this.selectForm)
+    this.stService.getTopStudents(this.selectForm.value).subscribe({
       next: (value: any) => {
         this.students = value[0];
         console.log(this.students[0]);
@@ -65,7 +94,7 @@ export class SectionsPageComponent {
   }
 
   genCertificate(activity: any) {
-    this.certService.createCertificate(activity);
+    this.certService.createCertificate(activity, 'education');
   }
 
 

@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivityService} from "../../services/activity-service/activity.service";
 import {StudentsService} from "../../services/students-service/students.service";
 import {environment} from "../../../environment";
+import {UsersService} from "../../services/users-service/users.service";
 
 @Component({
     selector: 'app-records-page',
@@ -16,6 +17,7 @@ export class RecordsPageComponent {
     eduStreamFiltered: any[] = [];
     opEduPassed: string = '';
     opEduStream: string = '';
+    config:any;
 
     studentForm = new FormGroup({
         StudentName: new FormControl('', Validators.required),
@@ -54,11 +56,17 @@ export class RecordsPageComponent {
     dataSubmitted: boolean = false;
     showLoader: Boolean = false;
 
-    constructor(private atService: ActivityService, private stService: StudentsService) {
+    constructor(private atService: ActivityService, private stService: StudentsService, private us:UsersService) {
 
     }
 
     ngOnInit() {
+        this.us.getConfig().subscribe({
+            next: ((value) => {
+                this.config = value;
+                console.log(this.config)
+            })
+        })
         this.stService.getEduPassed('','').subscribe({
             next: ((value:any) => {
                 this.eduPassed = value[0];

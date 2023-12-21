@@ -1,0 +1,78 @@
+
+<div class="clr-row">
+
+    <div class="clr-col-2">
+        <clr-input-container class="ma0">
+            <label>Enter Sports Event</label>
+            <input clrInput type="text" [(ngModel)]="sports" name="example"/>
+        </clr-input-container>
+    </div>
+    <div class="clr-col-2">
+        <clr-input-container class="ma0">
+            <label>Enter Year</label>
+            <input clrInput type="text" [(ngModel)]="year" name="example"/>
+        </clr-input-container>
+    </div>
+    <div class="clr-col">
+        <button (click)="getAllStudents()" class="btn btn-primary clr-align-self-end">
+            <!--            <cds-icon shape="plus" solid="true"></cds-icon>-->
+            Search
+        </button>
+    </div>
+</div>
+
+
+<div class="mt3" *ngIf="students.length > 0 && dataLoaded">
+    <div class="flex flex-row justify-between items-center">
+        <div>
+            <h3 class="b ma0">Top Students</h3>
+            <p class="b ma0">Showing all top {{students.length}} results</p>
+        </div>
+        <div>
+
+        </div>
+    </div>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <ng-container *ngFor="let header of headers">
+                <th *ngIf="header !== 'studentId'" >{{header}}</th>
+            </ng-container>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let student of students">
+            <ng-container *ngFor="let header of headers">
+                <td *ngIf="header !== 'studentId'">{{student[header]}}</td>
+            </ng-container>
+            <td>
+                <clr-dropdown>
+                    <button class="btn-icon btn btn-primary btn-sm" clrDropdownTrigger
+                            aria-label="toggle settings menu">
+                        <cds-icon shape="cog"></cds-icon>
+                        <cds-icon shape="angle" direction="down"></cds-icon>
+                    </button>
+                    <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
+                        <a (click)="genCertificate(student)" clrDropdownItem>Issue Certificate</a>
+
+                    </clr-dropdown-menu>
+                </clr-dropdown>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+
+<div *ngIf="students.length <= 0 && dataLoaded" class="h-100 w-100 flex flex-column justify-center items-center">
+    <h3 class="ma0 b">No Students Found</h3>
+    <p class="ma0 text-center mb2">Please add atleast one student to view the recods here</p>
+</div>
+
+<div *ngIf="students.length <= 0 && !dataLoaded" class="h-100 w-100 flex flex-column justify-center items-center">
+    <span class="spinner spinner-sm">Loading...</span>
+    <span>Loading...</span>
+</div>

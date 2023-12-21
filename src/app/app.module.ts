@@ -33,6 +33,8 @@ import {ProfilePageComponent} from './pages/profile-page/profile-page.component'
 import {HttpClientModule} from "@angular/common/http";
 import {HttpServerService} from "./services/http-service/http-server.service";
 import { ClassesService } from './services/class-service/classes.service';
+import { TopSportsComponent } from './pages/top-sports/top-sports.component';
+import { SscModelStudentsComponent } from './pages/ssc-model-students/ssc-model-students.component';
 
 ClarityIcons.addIcons(
   pencilIcon, trashIcon,starIcon,
@@ -54,6 +56,8 @@ ClarityIcons.addIcons(
     RecordsPageComponent,
     UsersPageComponent,
     ProfilePageComponent,
+    TopSportsComponent,
+    SscModelStudentsComponent,
   ],
   imports: [
     BrowserModule,

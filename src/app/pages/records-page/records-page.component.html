@@ -11,7 +11,7 @@
             </a>
         </div>
     </header>
-    <div class="content-container">
+    <div *ngIf="config && config.showRegPage === 'no' " class="content-container">
         <div *ngIf="!dataSubmitted && !showLoader" class="content-area">
 
             <div class="pa2 bg-white mt2">
@@ -274,7 +274,28 @@
             </div>
         </div>
     </div>
-</div>
+    <div *ngIf="config && config.showRegPage === 'yes' "class="content-container">
+
+        <div class="w-100 h-100 flex flex-column justify-center text-center items-center">
+            <h6 class="text-center ma0">{{config.regPageStopMsg}}</h6>
+        </div>
+
+        </div>
+
+        <div *ngIf="!dataSubmitted && showLoader"
+             class="h-100 w-100 flex flex-column justify-center items-center content-area">
+            <span class="spinner spinner-sm"></span>
+            <span>Uploading Details</span>
+        </div>
+
+        <div *ngIf="dataSubmitted && !showLoader" class="content-area">
+            <div class="w-100 h-100 flex flex-column justify-center text-center items-center">
+                <h3 class="text-center ma0 b"> {{environment.regSuccessTitle}} </h3>
+                <h6 class="text-center ma0">{{environment.regSuccessDesc}}</h6>
+            </div>
+        </div>
+    </div>
+
 
 
 

@@ -11,6 +11,8 @@ import {StudentsPageComponent} from "./pages/students-page/students-page.compone
 import {CertificatesPageComponent} from "./pages/certificates-page/certificates-page.component";
 import {RecordsPageComponent} from "./pages/records-page/records-page.component";
 import {SectionsPageComponent} from "./pages/sections-page/sections-page.component";
+import {TopSportsComponent} from "./pages/top-sports/top-sports.component";
+import {SscModelStudentsComponent} from "./pages/ssc-model-students/ssc-model-students.component";
 
 const routes: Routes = [
 
@@ -62,6 +64,14 @@ const routes: Routes = [
       {
         path: 'top-students',
         component: SectionsPageComponent
+      },
+      {
+        path: 'top-sports',
+        component: TopSportsComponent
+      }, {
+
+        path: 'top-ssc',
+        component: SscModelStudentsComponent
       },
     ]
   },

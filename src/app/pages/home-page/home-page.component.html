@@ -76,6 +76,14 @@
         <cds-icon clrVerticalNavIcon shape="star"></cds-icon>
         Top Students
       </a>
+      <a *ngIf="user && (user.role.name === 'admin' || user.role.name === 'user')" clrVerticalNavLink routerLink="./top-sports" routerLinkActive="active">
+        <cds-icon clrVerticalNavIcon shape="star"></cds-icon>
+        Sports Students
+      </a>
+      <a *ngIf="user && (user.role.name === 'admin' || user.role.name === 'user')" clrVerticalNavLink routerLink="./top-ssc" routerLinkActive="active">
+        <cds-icon clrVerticalNavIcon shape="star"></cds-icon>
+        SSC Model Paper
+      </a>
 <!--      <a (click)="logout()" clrVerticalNavLink>-->
 <!--        <cds-icon clrVerticalNavIcon shape="logout"></cds-icon>-->
 <!--        Logout-->

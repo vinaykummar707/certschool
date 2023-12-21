@@ -243,34 +243,41 @@ export class ActivitiesPageComponent {
                     unit: this.config.unit,
                     format: [this.config.size.width, this.config.size.height]
                 });
-                const keys = Object.keys(this.config.printData);
-                keys.forEach((field: any) => {
-                    if (field === "studentName") {
-                        this.config.printData[field]['text'] = activity.student.FamilyName + " " +activity.student.StudentName
-                    }
-                    if (field === "fatherName") {
-                        this.config.printData[field]['text'] = activity.student.FatherName
-                    }
-                    if (field === "description") {
-                        this.config.printData[field]['text'] = this.getDescription(activity);
-                    }
-                    if (field === "date") {
-                        if(activity.EventDate === undefined || activity.EventDate === null) {
-                            this.config.printData[field]['text'] = '';
-                        } else {
-                            this.config.printData[field]['text'] = activity.EventDate;
-                        }
-                    }
-                });
-                console.log(this.config);
-                keys.forEach((field: any) => {
-                    doc.setTextColor(this.config.printData[field].color);
-                    doc.setFontSize(this.config.printData[field].fontSize);
-                    doc.text(this.config.printData[field].text, this.config.printData[field].x, this.config.printData[field].y, this.config.printData[field].transform);
+                doc.addFont(`./assets/fonts/EBGaramond-VariableFont_wght.ttf`,"EB_Garamond","normal");
+                doc.addFont(`./assets/fonts/LibreBaskerville-Regular.ttf`,"Libre_Baskerville","normal");
+                doc.addFont(`./assets/fonts/LibreCaslonText-Regular.ttf`,"Libre_Caslon_Text","normal");
+                doc.addFont(`./assets/fonts/NunitoSans-VariableFont_YTLC,opsz,wdth,wght.ttf`,"Nunito_Sans","normal");
+                doc.addFont(`./assets/fonts/OpenSans-VariableFont_wdth,wght.ttf`,"Open_Sans","normal");
+                this.us.getCertDetails(activity.student.id).subscribe({
+                    next: ((res:any) => {
+                        const details = res[0][0];
+                        const keys = Object.keys(details);
+                        keys.forEach((field: any) => {
+                            if (field === "StudentName") {
+                                this.config.printData[field]['text'] = details[field];
+                            }
+                            if (field === "FatherName") {
+                                this.config.printData[field]['text'] = details[field];
+                            }
+                            if (field === "Class_Event") {
+                                this.config.printData[field]['text'] = details[field];
+                            }
+                            if (field === "PassYear") {
+                                this.config.printData[field]['text'] = details[field];
+                            }
+                        });
+                        keys.forEach((field: any) => {
+                            doc.setFont(this.config.font);
+                            doc.setTextColor(this.config.printData[field].color);
+                            doc.setFontSize(this.config.printData[field].fontSize);
+                            doc.text(this.config.printData[field].text, this.config.printData[field].x, this.config.printData[field].y, this.config.printData[field].transform);
+                        })
+                        console.log(this.config);
+                        doc.autoPrint();
+                        window.open(doc.output('bloburl'), '_blank');
+                    })
                 })
-                console.log(this.config);
-                doc.autoPrint();
-                window.open(doc.output('bloburl'), '_blank');
+
             })
         })
 

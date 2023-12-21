@@ -26,8 +26,15 @@ export class StudentsService implements calls {
   getAll(schoolId:string) {
     return this.httpService.get(`/student/all/${schoolId}`);
   }
-  getTopStudents(edu: string,year: string) {
-    return this.httpService.get(`/top-students/${edu}/${year}`);
+  getTopStudents(value:any) {
+    return this.httpService.post(`/top-students`, value);
+  }
+
+  getTopSports(sports: string,year: string) {
+    return this.httpService.get(`/top-sports/${sports}/${year}`);
+  }
+  getTopSsc(year: string) {
+    return this.httpService.get(`/top-ssc/${year}`);
   }
   getEduPassed(edu: string,year: string) {
     return this.httpService.get(`/eduPassed`);

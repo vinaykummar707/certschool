@@ -78,7 +78,7 @@ export class UsersPageComponent {
   }
 
   deleteUser(user: any) {
-    this.userService.deleteUser(user._id).subscribe({
+    this.userService.deleteUser(user.id).subscribe({
       next: (value: any) => {
         this.getAllUsers();
       },
