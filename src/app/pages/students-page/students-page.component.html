@@ -1,242 +1,428 @@
 <clr-modal [clrModalOpen]="showModal">
-  <h3 class="modal-title">Student Registration Form</h3>
-  <div class="modal-body">
-    <div *ngIf="showError" class="alert alert-danger" role="alert">
-      <div class="alert-items">
-        <div class="alert-item static">
-          <div class="alert-icon-wrapper">
-            <cds-icon class="alert-icon" shape="exclamation-circle"></cds-icon>
-          </div>
-          <span class="alert-text">Registration error,Please fill all fields to submit the form</span>
-        </div>
-      </div>
-    </div>
+	<h3 class="modal-title">Student Registration Form</h3>
+	<div class="modal-body">
+		<div *ngIf="showError" class="alert alert-danger" role="alert">
+			<div class="alert-items">
+				<div class="alert-item static">
+					<div class="alert-icon-wrapper">
+						<cds-icon class="alert-icon" shape="exclamation-circle"></cds-icon>
+					</div>
+					<span class="alert-text"
+						>Registration error,Please fill all fields to submit the form</span
+					>
+				</div>
+			</div>
+		</div>
 
-
-    <form [formGroup]="studentForm" clrForm clrLayout="vertical">
-      <div class="clr-row">
+		<form [formGroup]="studentForm" clrForm clrLayout="vertical">
+			<div class="clr-row">
+				<div class="clr-col-6">
+					<clr-input-container>
+						<label>Khandan Name <span style="color: red">*</span></label>
+						<input
+							clrInput
+							type="text"
+							formControlName="FamilyName"
+							name="example"
+						/>
+					</clr-input-container>
+					<clr-control-error
+						style="color: red"
+						*ngIf="
+							studentForm.controls.FamilyName.invalid &&
+							studentForm.controls.FamilyName.touched
+						"
+						>This field is required</clr-control-error
+					>
+				</div>
+				<div class="clr-col-6">
+					<clr-input-container>
+						<label>Student Name <span style="color: red">*</span></label>
+						<input
+							clrInput
+							type="text"
+							formControlName="StudentName"
+							name="example"
+						/>
+					</clr-input-container>
+					<clr-control-error
+						style="color: red"
+						*ngIf="
+							studentForm.controls.StudentName.invalid &&
+							studentForm.controls.StudentName.touched
+						"
+						>This field is required</clr-control-error
+					>
+				</div>
+				<div class="clr-col-6">
+					<clr-input-container>
+						<label>Father Name <span style="color: red">*</span></label>
+						<input
+							clrInput
+							type="text"
+							formControlName="FatherName"
+							name="example"
+						/>
+					</clr-input-container>
+					<clr-control-error
+						style="color: red"
+						*ngIf="
+							studentForm.controls.FatherName.invalid &&
+							studentForm.controls.FatherName.touched
+						"
+						>This field is required</clr-control-error
+					>
+				</div>
+				<div class="clr-col-6">
+					<clr-input-container>
+						<label>Mobile Number <span style="color: red">*</span></label>
+						<input
+							clrInput
+							type="text"
+							formControlName="MobileNumber"
+							name="example"
+						/>
+					</clr-input-container>
+					<clr-control-error
+						style="color: red"
+						*ngIf="
+							studentForm.controls.MobileNumber.invalid &&
+							studentForm.controls.MobileNumber.touched
+						"
+						>This field is required</clr-control-error
+					>
+				</div>
+				<div class="clr-col-6">
+					<clr-input-container>
+						<label>Address</label>
+						<input
+							clrInput
+							type="text"
+							formControlName="Address"
+							name="example"
+						/>
+					</clr-input-container>
+				</div>
+				<div class="clr-col-6">
+					<clr-input-container>
+						<label>City</label>
+						<input clrInput type="text" formControlName="City" name="example" />
+					</clr-input-container>
+				</div>
+				<div class="clr-col-6">
+					<clr-input-container>
+						<label>State</label>
+						<input
+							clrInput
+							type="text"
+							formControlName="State"
+							name="example"
+						/>
+					</clr-input-container>
+				</div>
         <div class="clr-col-6">
-          <clr-input-container>
-            <label>Khandan Name <span style="color: red">*</span></label>
-            <input clrInput type="text" formControlName="FamilyName" name="example"/>
-          </clr-input-container>
-          <clr-control-error style="color: red" *ngIf="studentForm.controls.FamilyName.invalid && studentForm.controls.FamilyName.touched " >This field is required</clr-control-error>
-
-        </div>
-        <div class="clr-col-6">
-          <clr-input-container>
-            <label>Student Name <span style="color: red">*</span></label>
-            <input clrInput type="text" formControlName="StudentName" name="example"/>
-          </clr-input-container>
-          <clr-control-error style="color: red" *ngIf="studentForm.controls.StudentName.invalid && studentForm.controls.StudentName.touched " >This field is required</clr-control-error>
-
-        </div>
-        <div class="clr-col-6">
-          <clr-input-container>
-            <label>Father Name <span style="color: red">*</span></label>
-            <input clrInput type="text" formControlName="FatherName" name="example"/>
-          </clr-input-container>
-          <clr-control-error style="color: red" *ngIf="studentForm.controls.FatherName.invalid && studentForm.controls.FatherName.touched " >This field is required</clr-control-error>
-
-        </div>
-        <div class="clr-col-6">
-          <clr-input-container>
-            <label>Mobile Number <span style="color: red">*</span></label>
-            <input clrInput type="text" formControlName="MobileNumber" name="example"/>
-          </clr-input-container>
-          <clr-control-error style="color: red" *ngIf="studentForm.controls.MobileNumber.invalid && studentForm.controls.MobileNumber.touched " >This field is required</clr-control-error>
-
-        </div>
-        <div class="clr-col-6">
-          <clr-input-container>
-            <label>Address</label>
-            <input clrInput type="text" formControlName="Address" name="example"/>
-          </clr-input-container>
-        </div>
-        <div class="clr-col-6">
-          <clr-input-container>
-            <label>City</label>
-            <input clrInput type="text" formControlName="City" name="example"/>
-          </clr-input-container>
-        </div>
-        <div class="clr-col-6">
-          <clr-input-container>
-            <label>State</label>
-            <input clrInput type="text" formControlName="State" name="example"/>
-          </clr-input-container>
-        </div>
-
-
-      </div>
-    </form>
-
-
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline" (click)="showModal = false">Cancel</button>
-    <button *ngIf="uploadType === 'create'" type="button" class="btn btn-primary" (click)="addUser()">Submit</button>
-    <!--    <button *ngIf="uploadType === 'edit'" type="button" class="btn btn-primary" (click)="editUser()">Update</button>-->
-  </div>
+					<clr-checkbox-container>
+						<!-- The container is required in this story so that the disabled state works correctly. -->
+						<clr-checkbox-wrapper>
+							<input
+								formControlName="verified"
+								type="checkbox"
+								clrCheckbox
+							/>
+							<label>Verified</label>
+						</clr-checkbox-wrapper>
+					</clr-checkbox-container>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-outline" (click)="showModal = false">
+			Cancel
+		</button>
+		<button
+			*ngIf="uploadType === 'create'"
+			type="button"
+			class="btn btn-primary"
+			(click)="addUser()"
+		>
+			Submit
+		</button>
+		<!--    <button *ngIf="uploadType === 'edit'" type="button" class="btn btn-primary" (click)="editUser()">Update</button>-->
+	</div>
 </clr-modal>
 
 <clr-modal [clrModalOpen]="showEditModal">
-  <h3 class="modal-title">Student Edit Form</h3>
-  <div class="modal-body">
-    <div *ngIf="showError" class="alert alert-danger" role="alert">
-      <div class="alert-items">
-        <div class="alert-item static">
-          <div class="alert-icon-wrapper">
-            <cds-icon class="alert-icon" shape="exclamation-circle"></cds-icon>
-          </div>
-          <span class="alert-text">Registration error,Please fill all fields to submit the form</span>
-        </div>
-      </div>
-    </div>
-    <form [formGroup]="studentEditForm" clrForm clrLayout="vertical">
-      <div class="clr-row">
-        <div class="clr-col-6">
-          <clr-input-container>
-            <label>Khandan Name <span style="color: red">*</span></label>
-            <input clrInput type="text" formControlName="FamilyName" name="example"/>
-          </clr-input-container>
-          <clr-control-error style="color: red" *ngIf="studentForm.controls.FamilyName.invalid && studentForm.controls.FamilyName.touched " >This field is required</clr-control-error>
-
-        </div>
-        <div class="clr-col-6">
-          <clr-input-container>
-            <label>Student Name <span style="color: red">*</span></label>
-            <input clrInput type="text" formControlName="StudentName" name="example"/>
-          </clr-input-container>
-          <clr-control-error style="color: red" *ngIf="studentForm.controls.StudentName.invalid && studentForm.controls.StudentName.touched " >This field is required</clr-control-error>
-
-        </div>
-        <div class="clr-col-6">
-          <clr-input-container>
-            <label>Father Name <span style="color: red">*</span></label>
-            <input clrInput type="text" formControlName="FatherName" name="example"/>
-          </clr-input-container>
-          <clr-control-error style="color: red" *ngIf="studentForm.controls.FatherName.invalid && studentForm.controls.FatherName.touched " >This field is required</clr-control-error>
-
-        </div>
-        <div class="clr-col-6">
-          <clr-input-container>
-            <label>Mobile Number <span style="color: red">*</span></label>
-            <input clrInput type="text" formControlName="MobileNumber" name="example"/>
-          </clr-input-container>
-          <clr-control-error style="color: red" *ngIf="studentForm.controls.MobileNumber.invalid && studentForm.controls.MobileNumber.touched " >This field is required</clr-control-error>
-
-        </div>
-        <div class="clr-col-6">
-          <clr-input-container>
-            <label>Address</label>
-            <input clrInput type="text" formControlName="Address" name="example"/>
-          </clr-input-container>
-        </div>
-        <div class="clr-col-6">
-          <clr-input-container>
-            <label>City</label>
-            <input clrInput type="text" formControlName="City" name="example"/>
-          </clr-input-container>
-        </div>
-        <div class="clr-col-6">
-          <clr-input-container>
-            <label>State</label>
-            <input clrInput type="text" formControlName="State" name="example"/>
-          </clr-input-container>
-        </div>
-
-
-      </div>
-    </form>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline" (click)="showEditModal = false">Cancel</button>
-    <!-- <button *ngIf="uploadType === 'create'" type="button" class="btn btn-primary" (click)="addUser()">Submit</button> -->
-    <button type="button" class="btn btn-primary" (click)="editUser()">Update</button>
-  </div>
+	<h3 class="modal-title">Student Edit Form</h3>
+	<div class="modal-body">
+		<div *ngIf="showError" class="alert alert-danger" role="alert">
+			<div class="alert-items">
+				<div class="alert-item static">
+					<div class="alert-icon-wrapper">
+						<cds-icon class="alert-icon" shape="exclamation-circle"></cds-icon>
+					</div>
+					<span class="alert-text"
+						>Registration error,Please fill all fields to submit the form</span
+					>
+				</div>
+			</div>
+		</div>
+		<form [formGroup]="studentEditForm" clrForm clrLayout="vertical">
+			<div class="clr-row">
+				<div class="clr-col-6">
+					<clr-input-container>
+						<label>Khandan Name <span style="color: red">*</span></label>
+						<input
+							clrInput
+							type="text"
+							formControlName="FamilyName"
+							name="example"
+						/>
+					</clr-input-container>
+					<clr-control-error
+						style="color: red"
+						*ngIf="
+							studentForm.controls.FamilyName.invalid &&
+							studentForm.controls.FamilyName.touched
+						"
+						>This field is required</clr-control-error
+					>
+				</div>
+				<div class="clr-col-6">
+					<clr-input-container>
+						<label>Student Name <span style="color: red">*</span></label>
+						<input
+							clrInput
+							type="text"
+							formControlName="StudentName"
+							name="example"
+						/>
+					</clr-input-container>
+					<clr-control-error
+						style="color: red"
+						*ngIf="
+							studentForm.controls.StudentName.invalid &&
+							studentForm.controls.StudentName.touched
+						"
+						>This field is required</clr-control-error
+					>
+				</div>
+				<div class="clr-col-6">
+					<clr-input-container>
+						<label>Father Name <span style="color: red">*</span></label>
+						<input
+							clrInput
+							type="text"
+							formControlName="FatherName"
+							name="example"
+						/>
+					</clr-input-container>
+					<clr-control-error
+						style="color: red"
+						*ngIf="
+							studentForm.controls.FatherName.invalid &&
+							studentForm.controls.FatherName.touched
+						"
+						>This field is required</clr-control-error
+					>
+				</div>
+				<div class="clr-col-6">
+					<clr-input-container>
+						<label>Mobile Number <span style="color: red">*</span></label>
+						<input
+							clrInput
+							type="text"
+							formControlName="MobileNumber"
+							name="example"
+						/>
+					</clr-input-container>
+					<clr-control-error
+						style="color: red"
+						*ngIf="
+							studentForm.controls.MobileNumber.invalid &&
+							studentForm.controls.MobileNumber.touched
+						"
+						>This field is required</clr-control-error
+					>
+				</div>
+				<div class="clr-col-6">
+					<clr-input-container>
+						<label>Address</label>
+						<input
+							clrInput
+							type="text"
+							formControlName="Address"
+							name="example"
+						/>
+					</clr-input-container>
+				</div>
+				<div class="clr-col-6">
+					<clr-input-container>
+						<label>City</label>
+						<input clrInput type="text" formControlName="City" name="example" />
+					</clr-input-container>
+				</div>
+				<div class="clr-col-6">
+					<clr-input-container>
+						<label>State</label>
+						<input
+							clrInput
+							type="text"
+							formControlName="State"
+							name="example"
+						/>
+					</clr-input-container>
+				</div>
+				<div class="clr-col-6">
+					<clr-checkbox-container>
+						<!-- The container is required in this story so that the disabled state works correctly. -->
+						<clr-checkbox-wrapper>
+							<input
+								formControlName="verified"
+								type="checkbox"
+								clrCheckbox
+							/>
+							<label>Verified</label>
+						</clr-checkbox-wrapper>
+					</clr-checkbox-container>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button
+			type="button"
+			class="btn btn-outline"
+			(click)="showEditModal = false"
+		>
+			Cancel
+		</button>
+		<!-- <button *ngIf="uploadType === 'create'" type="button" class="btn btn-primary" (click)="addUser()">Submit</button> -->
+		<button type="button" class="btn btn-primary" (click)="editUser()">
+			Update
+		</button>
+	</div>
 </clr-modal>
 
-
 <clr-modal [clrModalOpen]="showDeleteModal">
-  <h3 class="modal-title">Are you sure to delete ?</h3>
+	<h3 class="modal-title">Are you sure to delete ?</h3>
 
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline" (click)="showDeleteModal = false">Cancel</button>
-    <button type="button" class="btn btn-danger" (click)="deleteUser()">Delete</button>
-  </div>
+	<div class="modal-footer">
+		<button
+			type="button"
+			class="btn btn-outline"
+			(click)="showDeleteModal = false"
+		>
+			Cancel
+		</button>
+		<button type="button" class="btn btn-danger" (click)="deleteUser()">
+			Delete
+		</button>
+	</div>
 </clr-modal>
 
 <div *ngIf="students.length > 0 && dataLoaded">
-  <div class="flex flex-row justify-between items-center">
-    <div>
-      <h3 class="b ma0">Students</h3>
-      <p class="b ma0">Showing all {{students.length}} results</p>
-    </div>
-    <div>
-      <button (click)="openModal()" class="btn btn-primary btn-icon clr-align-self-end">
-        <cds-icon shape="plus" solid="true"></cds-icon>
-        Add Student
-      </button>
-    </div>
-  </div>
+	<div class="flex flex-row justify-between items-center">
+		<div>
+			<h3 class="b ma0">Students</h3>
+			<p class="b ma0">Showing all {{ students.length }} results</p>
+		</div>
+		<div>
+			<button
+				(click)="openModal()"
+				class="btn btn-primary btn-icon clr-align-self-end"
+			>
+				<cds-icon shape="plus" solid="true"></cds-icon>
+				Add Student
+			</button>
+		</div>
+	</div>
 
-  <clr-datagrid>
-    <clr-dg-column [clrDgField]="'FamilyName'">Family Name</clr-dg-column>
-    <clr-dg-column [clrDgField]="'StudentName'">Student Name</clr-dg-column>
-<!--    <clr-dg-column [clrDgField]="'StudentName'">Studying SSC</clr-dg-column>-->
-    <clr-dg-column [clrDgField]="'FatherName'">Father Name</clr-dg-column>
-    <clr-dg-column [clrDgField]="'Address'">Address</clr-dg-column>
-    <clr-dg-column [clrDgField]="'City'">City</clr-dg-column>
-    <clr-dg-column [clrDgField]="'State'">State</clr-dg-column>
-    <clr-dg-column [clrDgField]="'MobileNumber'">Mobile Number</clr-dg-column>
-    <clr-dg-column [clrDgField]="'createdAt'">Date Created</clr-dg-column>
-    <clr-dg-column [clrDgField]="'createdAt'">Actions</clr-dg-column>
+	<clr-datagrid>
+		<clr-dg-column [clrDgField]="'FamilyName'">Family Name</clr-dg-column>
+		<clr-dg-column [clrDgField]="'StudentName'">Student Name</clr-dg-column>
+		<!--    <clr-dg-column [clrDgField]="'StudentName'">Studying SSC</clr-dg-column>-->
+		<clr-dg-column [clrDgField]="'FatherName'">Father Name</clr-dg-column>
+		<clr-dg-column [clrDgField]="'Address'">Address</clr-dg-column>
+		<clr-dg-column [clrDgField]="'City'">City</clr-dg-column>
+		<clr-dg-column [clrDgField]="'State'">State</clr-dg-column>
+		<clr-dg-column [clrDgField]="'MobileNumber'">Mobile Number</clr-dg-column>
+		<clr-dg-column [clrDgField]="'MobileNumber'">Verified</clr-dg-column>
+		<clr-dg-column [clrDgField]="'createdAt'">Date Created</clr-dg-column>
+		<clr-dg-column [clrDgField]="'createdAt'">Actions</clr-dg-column>
 
-    <clr-dg-row *clrDgItems="let student of students">
-      <clr-dg-cell>{{ student.FamilyName }}</clr-dg-cell>
-      <clr-dg-cell>{{ student.StudentName }}</clr-dg-cell>
-<!--      <clr-dg-cell>{{ student.StudyingSsc === 1 ? 'Yes' : 'No' }}</clr-dg-cell>-->
-      <clr-dg-cell>{{ student.FatherName }}</clr-dg-cell>
-      <clr-dg-cell>{{ student.Address }}</clr-dg-cell>
-      <clr-dg-cell>{{ student.City }}</clr-dg-cell>
-      <clr-dg-cell>{{ student.State }}</clr-dg-cell>
-      <clr-dg-cell>{{ student.MobileNumber }}</clr-dg-cell>
-      <clr-dg-cell>{{ getDate(student.createdAt)}}</clr-dg-cell>
-      <clr-dg-cell>
-      <clr-dropdown>
-          <button class="btn-icon btn btn-primary btn-sm" clrDropdownTrigger aria-label="toggle settings menu">
-            <cds-icon shape="cog"></cds-icon>
-            <cds-icon shape="angle" direction="down"></cds-icon>
-          </button>
-          <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
-            <a  (click)="editStudent(student)" clrDropdownItem>Edit</a>
-            <a *ngIf="user && user.role.name === 'admin' " (click)="deleteModel(student)" clrDropdownItem>Delete</a>
-          </clr-dropdown-menu>
-        </clr-dropdown>
-
-      </clr-dg-cell>
-
-    </clr-dg-row>
-    <clr-dg-footer>
-      <clr-dg-pagination #pagination [clrDgPageSize]="10">
-        <clr-dg-page-size [clrPageSizeOptions]="[10, 20, 50, 100]">Users per page</clr-dg-page-size>
-        {{ pagination.firstItem + 1 }} - {{ pagination.lastItem + 1 }} of {{ pagination.totalItems }} students
-      </clr-dg-pagination>
-    </clr-dg-footer>
-  </clr-datagrid>
+		<clr-dg-row *clrDgItems="let student of students">
+			<clr-dg-cell>{{ student.FamilyName }}</clr-dg-cell>
+			<clr-dg-cell>{{ student.StudentName }}</clr-dg-cell>
+			<!--      <clr-dg-cell>{{ student.StudyingSsc === 1 ? 'Yes' : 'No' }}</clr-dg-cell>-->
+			<clr-dg-cell>{{ student.FatherName }}</clr-dg-cell>
+			<clr-dg-cell>{{ student.Address }}</clr-dg-cell>
+			<clr-dg-cell>{{ student.City }}</clr-dg-cell>
+			<clr-dg-cell>{{ student.State }}</clr-dg-cell>
+			<clr-dg-cell>{{ student.MobileNumber }}</clr-dg-cell>
+			<clr-dg-cell>
+				<clr-checkbox-wrapper>
+					<input
+						type="checkbox"
+						clrCheckbox
+						[ngModel]="student.verified"
+						[disabled]="true"
+					/>
+				</clr-checkbox-wrapper>
+			</clr-dg-cell>
+			<clr-dg-cell>{{ getDate(student.createdAt) }}</clr-dg-cell>
+			<clr-dg-cell>
+				<clr-dropdown>
+					<button
+						class="btn-icon btn btn-primary btn-sm"
+						clrDropdownTrigger
+						aria-label="toggle settings menu"
+					>
+						<cds-icon shape="cog"></cds-icon>
+						<cds-icon shape="angle" direction="down"></cds-icon>
+					</button>
+					<clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
+						<a (click)="editStudent(student)" clrDropdownItem>Edit</a>
+						<a
+							*ngIf="user && user.role.name === 'admin'"
+							(click)="deleteModel(student)"
+							clrDropdownItem
+							>Delete</a
+						>
+					</clr-dropdown-menu>
+				</clr-dropdown>
+			</clr-dg-cell>
+		</clr-dg-row>
+		<clr-dg-footer>
+			<clr-dg-pagination #pagination [clrDgPageSize]="10">
+				<clr-dg-page-size [clrPageSizeOptions]="[10, 20, 50, 100]"
+					>Users per page</clr-dg-page-size
+				>
+				{{ pagination.firstItem + 1 }} - {{ pagination.lastItem + 1 }} of
+				{{ pagination.totalItems }} students
+			</clr-dg-pagination>
+		</clr-dg-footer>
+	</clr-datagrid>
 </div>
 
-
-<div *ngIf="students.length <= 0 && dataLoaded" class="h-100 w-100 flex flex-column justify-center items-center">
-  <h3 class="ma0 b">No Students Found</h3>
-  <p class="ma0 text-center mb2">Please add atleast one student to view the recods here</p>
-  <button (click)="openModal()" class="btn btn-primary btn-icon">
-    <cds-icon shape="plus" solid="true"></cds-icon>
-    Add Student
-  </button>
+<div
+	*ngIf="students.length <= 0 && dataLoaded"
+	class="h-100 w-100 flex flex-column justify-center items-center"
+>
+	<h3 class="ma0 b">No Students Found</h3>
+	<p class="ma0 text-center mb2">
+		Please add atleast one student to view the recods here
+	</p>
+	<button (click)="openModal()" class="btn btn-primary btn-icon">
+		<cds-icon shape="plus" solid="true"></cds-icon>
+		Add Student
+	</button>
 </div>
 
-<div *ngIf="students.length <= 0 && !dataLoaded" class="h-100 w-100 flex flex-column justify-center items-center">
-  <span class="spinner spinner-sm">Loading...</span>
-  <span>Loading...</span>
+<div
+	*ngIf="students.length <= 0 && !dataLoaded"
+	class="h-100 w-100 flex flex-column justify-center items-center"
+>
+	<span class="spinner spinner-sm">Loading...</span>
+	<span>Loading...</span>
 </div>
