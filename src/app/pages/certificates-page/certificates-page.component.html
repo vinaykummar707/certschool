@@ -1,301 +1,446 @@
-
 <clr-accordion>
-  <clr-accordion-panel>
-    <clr-accordion-title>Certificate Configuration</clr-accordion-title>
-    <clr-accordion-content class="pa2" *clrIfExpanded>
+	<clr-accordion-panel>
+		<clr-accordion-title>Certificate Configuration</clr-accordion-title>
+		<clr-accordion-content class="pa2" *clrIfExpanded>
+			<div class="clr-row mb2">
+				<div class="clr-col-2">
+					<clr-select-container>
+						<label>Stop Registration Page</label>
+						<select [(ngModel)]="config.showRegPage" clrSelect>
+							<option value="yes">Yes</option>
+							<option value="no">No</option>
+						</select>
+					</clr-select-container>
+				</div>
+				<div class="clr-col-10">
+					<clr-textarea-container style="height: 200px; width: 300px">
+						<label>Disabled Registration Message</label>
+						<textarea
+							style="height: 200px; width: 300px"
+							clrTextarea
+							type="text"
+							[(ngModel)]="config.regPageStopMsg"
+							name="description"
+							required
+						></textarea>
+					</clr-textarea-container>
+				</div>
+			</div>
 
-      <div class="clr-row mb2">
-        <div class="clr-col-2">
-          <clr-select-container>
-            <label>Stop Registration Page</label>
-            <select [(ngModel)]="config.showRegPage" clrSelect  >
-              <option value="yes">Yes</option>
-              <option value="no">No</option>
-            </select>
-          </clr-select-container>
-        </div>
-        <div class="clr-col-10">
-          <clr-textarea-container style="height: 200px;width: 300px;" >
-            <label>Disabled Registration Message</label>
-            <textarea style="height: 200px;width: 300px;"  clrTextarea type="text"  [(ngModel)]="config.regPageStopMsg"  name="description" required></textarea>
-          </clr-textarea-container>
-        </div>
-      </div>
+			<div class="clr-row">
+				<div class="clr-col-2">
+					<clr-select-container>
+						<label>Select Orientation</label>
+						<select [(ngModel)]="config.orientation" clrSelect>
+							<option
+								*ngFor="let orient of config.orientationTypes"
+								[value]="orient"
+							>
+								{{ orient }}
+							</option>
+						</select>
+					</clr-select-container>
+				</div>
 
-      <div class="clr-row">
-        <div class="clr-col-2">
-          <clr-select-container>
-            <label>Select Orientation</label>
-            <select [(ngModel)]="config.orientation" clrSelect  >
-              <option *ngFor="let orient of config.orientationTypes"
-                      [value]="orient">{{orient}}</option>
-            </select>
-          </clr-select-container>
-        </div>
+				<div class="clr-col-2">
+					<clr-select-container>
+						<label>Select Paper Unit</label>
+						<select [(ngModel)]="config.unit" clrSelect>
+							<option *ngFor="let unit of config.unitTypes" [value]="unit">
+								{{ unit }}
+							</option>
+						</select>
+					</clr-select-container>
+				</div>
 
-        <div class="clr-col-2">
-          <clr-select-container>
-            <label>Select Paper Unit</label>
-            <select [(ngModel)]="config.unit" clrSelect  >
-              <option *ngFor="let unit of config.unitTypes"
-                      [value]="unit">{{unit}}</option>
-            </select>
-          </clr-select-container>
-        </div>
+				<div class="clr-col-2">
+					<clr-select-container>
+						<label>Select Font</label>
+						<select [(ngModel)]="config.font" clrSelect>
+							<option *ngFor="let font of config.fontTypes" [value]="font">
+								{{ font }}
+							</option>
+						</select>
+					</clr-select-container>
+				</div>
 
-        <div class="clr-col-2">
-          <clr-select-container>
-            <label>Select Font</label>
-            <select [(ngModel)]="config.font" clrSelect  >
-              <option *ngFor="let font of config.fontTypes"
-                      [value]="font">{{font}}</option>
-            </select>
-          </clr-select-container>
-        </div>
+				<div class="clr-col-3">
+					<clr-input-container>
+						<label>Paper Width</label>
+						<input
+							clrInput
+							type="number"
+							[(ngModel)]="config.size.width"
+							name="example"
+						/>
+					</clr-input-container>
+				</div>
 
-        <div class="clr-col-3">
-          <clr-input-container>
-            <label>Paper Width</label>
-            <input clrInput type="number"  [(ngModel)]="config.size.width" name="example"/>
-          </clr-input-container>
-        </div>
+				<div class="clr-col-3">
+					<clr-input-container>
+						<label>Paper height</label>
+						<input
+							clrInput
+							type="number"
+							[(ngModel)]="config.size.height"
+							name="example"
+						/>
+					</clr-input-container>
+				</div>
+			</div>
 
-        <div class="clr-col-3">
-          <clr-input-container>
-            <label>Paper height</label>
-            <input clrInput type="number" [(ngModel)]="config.size.height" name="example"/>
-          </clr-input-container>
-        </div>
-      </div>
+			<h5 class="b">Student Name</h5>
+			<div class="clr-row">
+				<div class="clr-col-2">
+					<clr-input-container>
+						<label>X-Position</label>
+						<input
+							clrInput
+							type="number"
+							[(ngModel)]="config.printData.StudentName.x"
+							name="example"
+						/>
+					</clr-input-container>
+				</div>
+				<div class="clr-col-2">
+					<clr-input-container>
+						<label>Y-Position</label>
+						<input
+							clrInput
+							type="number"
+							[(ngModel)]="config.printData.StudentName.y"
+							name="example"
+						/>
+					</clr-input-container>
+				</div>
+				<div class="clr-col-2">
+					<clr-input-container>
+						<label>Angle</label>
+						<input
+							clrInput
+							type="number"
+							[(ngModel)]="config.printData.StudentName.transform"
+							name="example"
+						/>
+					</clr-input-container>
+				</div>
+				<div class="clr-col-2">
+					<clr-input-container>
+						<label>color</label>
+						<input
+							clrInput
+							type="text"
+							[(ngModel)]="config.printData.StudentName.color"
+							name="example"
+						/>
+					</clr-input-container>
+				</div>
 
-      <h5 class=" b">Student Name</h5>
-      <div class="clr-row">
-        <div class="clr-col-2">
-          <clr-input-container>
-            <label>X-Position</label>
-            <input clrInput type="number" [(ngModel)]="config.printData.StudentName.x" name="example"/>
-          </clr-input-container>
-        </div>
-        <div class="clr-col-2">
-          <clr-input-container>
-            <label>Y-Position</label>
-            <input clrInput type="number" [(ngModel)]="config.printData.StudentName.y" name="example"/>
-          </clr-input-container>
-        </div>
-        <div class="clr-col-2">
-          <clr-input-container>
-            <label>Angle</label>
-            <input clrInput type="number" [(ngModel)]="config.printData.StudentName.transform" name="example"/>
-          </clr-input-container>
-        </div>
-        <div class="clr-col-2">
-          <clr-input-container>
-            <label>color</label>
-            <input clrInput type="text" [(ngModel)]="config.printData.StudentName.color" name="example"/>
-          </clr-input-container>
-        </div>
+				<div class="clr-col-2">
+					<clr-input-container>
+						<label>Font-Size</label>
+						<input
+							clrInput
+							type="number"
+							[(ngModel)]="config.printData.StudentName.fontSize"
+							name="example"
+						/>
+					</clr-input-container>
+				</div>
+			</div>
 
-        <div class="clr-col-2">
-          <clr-input-container>
-            <label>Font-Size</label>
-            <input clrInput type="number" [(ngModel)]="config.printData.StudentName.fontSize" name="example"/>
-          </clr-input-container>
-        </div>
-      </div>
+			<h5 class="b">Father/Mother Name</h5>
+			<div class="clr-row">
+				<div class="clr-col-2">
+					<clr-input-container>
+						<label>X-Position</label>
+						<input
+							clrInput
+							type="number"
+							[(ngModel)]="config.printData.FatherName.x"
+							name="example"
+						/>
+					</clr-input-container>
+				</div>
+				<div class="clr-col-2">
+					<clr-input-container>
+						<label>Y-Position</label>
+						<input
+							clrInput
+							type="number"
+							[(ngModel)]="config.printData.FatherName.y"
+							name="example"
+						/>
+					</clr-input-container>
+				</div>
+				<div class="clr-col-2">
+					<clr-input-container>
+						<label>Angle</label>
+						<input
+							clrInput
+							type="number"
+							[(ngModel)]="config.printData.FatherName.transform"
+							name="example"
+						/>
+					</clr-input-container>
+				</div>
+				<div class="clr-col-2">
+					<clr-input-container>
+						<label>color</label>
+						<input
+							clrInput
+							type="text"
+							[(ngModel)]="config.printData.FatherName.color"
+							name="example"
+						/>
+					</clr-input-container>
+				</div>
 
+				<div class="clr-col-2">
+					<clr-input-container>
+						<label>Font-Size</label>
+						<input
+							clrInput
+							type="number"
+							[(ngModel)]="config.printData.FatherName.fontSize"
+							name="example"
+						/>
+					</clr-input-container>
+				</div>
+			</div>
 
-      <h5 class=" b">Father/Mother Name</h5>
-      <div class="clr-row">
-        <div class="clr-col-2">
-          <clr-input-container>
-            <label>X-Position</label>
-            <input clrInput type="number" [(ngModel)]="config.printData.FatherName.x" name="example"/>
-          </clr-input-container>
-        </div>
-        <div class="clr-col-2">
-          <clr-input-container>
-            <label>Y-Position</label>
-            <input clrInput type="number" [(ngModel)]="config.printData.FatherName.y" name="example"/>
-          </clr-input-container>
-        </div>
-        <div class="clr-col-2">
-          <clr-input-container>
-            <label>Angle</label>
-            <input clrInput type="number" [(ngModel)]="config.printData.FatherName.transform" name="example"/>
-          </clr-input-container>
-        </div>
-        <div class="clr-col-2">
-          <clr-input-container>
-            <label>color</label>
-            <input clrInput type="text" [(ngModel)]="config.printData.FatherName.color" name="example"/>
-          </clr-input-container>
-        </div>
+			<h5 class="b">Participation</h5>
+			<div class="clr-row">
+				<div class="clr-col-2">
+					<clr-input-container>
+						<label>X-Position</label>
+						<input
+							clrInput
+							type="number"
+							[(ngModel)]="config.printData.Class_Event.x"
+							name="example"
+						/>
+					</clr-input-container>
+				</div>
+				<div class="clr-col-2">
+					<clr-input-container>
+						<label>Y-Position</label>
+						<input
+							clrInput
+							type="number"
+							[(ngModel)]="config.printData.Class_Event.y"
+							name="example"
+						/>
+					</clr-input-container>
+				</div>
+				<div class="clr-col-2">
+					<clr-input-container>
+						<label>Angle</label>
+						<input
+							clrInput
+							type="number"
+							[(ngModel)]="config.printData.Class_Event.transform"
+							name="example"
+						/>
+					</clr-input-container>
+				</div>
+				<div class="clr-col-2">
+					<clr-input-container>
+						<label>color</label>
+						<input
+							clrInput
+							type="text"
+							[(ngModel)]="config.printData.Class_Event.color"
+							name="example"
+						/>
+					</clr-input-container>
+				</div>
 
-        <div class="clr-col-2">
-          <clr-input-container>
-            <label>Font-Size</label>
-            <input clrInput type="number" [(ngModel)]="config.printData.FatherName.fontSize" name="example"/>
-          </clr-input-container>
-        </div>
-      </div>
+				<div class="clr-col-2">
+					<clr-input-container>
+						<label>Font-Size</label>
+						<input
+							clrInput
+							type="number"
+							[(ngModel)]="config.printData.Class_Event.fontSize"
+							name="example"
+						/>
+					</clr-input-container>
+				</div>
+			</div>
 
-      <h5 class=" b">Participation</h5>
-      <div class="clr-row">
-        <div class="clr-col-2">
-          <clr-input-container>
-            <label>X-Position</label>
-            <input clrInput type="number" [(ngModel)]="config.printData.Class_Event.x" name="example"/>
-          </clr-input-container>
-        </div>
-        <div class="clr-col-2">
-          <clr-input-container>
-            <label>Y-Position</label>
-            <input clrInput type="number" [(ngModel)]="config.printData.Class_Event.y" name="example"/>
-          </clr-input-container>
-        </div>
-        <div class="clr-col-2">
-          <clr-input-container>
-            <label>Angle</label>
-            <input clrInput type="number" [(ngModel)]="config.printData.Class_Event.transform" name="example"/>
-          </clr-input-container>
-        </div>
-        <div class="clr-col-2">
-          <clr-input-container>
-            <label>color</label>
-            <input clrInput type="text" [(ngModel)]="config.printData.Class_Event.color" name="example"/>
-          </clr-input-container>
-        </div>
+			<h5 class="b">Date/Year</h5>
+			<div class="clr-row">
+				<div class="clr-col-2">
+					<clr-input-container>
+						<label>X-Position</label>
+						<input
+							clrInput
+							type="number"
+							[(ngModel)]="config.printData.PassYear.x"
+							name="example"
+						/>
+					</clr-input-container>
+				</div>
+				<div class="clr-col-2">
+					<clr-input-container>
+						<label>Y-Position</label>
+						<input
+							clrInput
+							type="number"
+							[(ngModel)]="config.printData.PassYear.y"
+							name="example"
+						/>
+					</clr-input-container>
+				</div>
+				<div class="clr-col-2">
+					<clr-input-container>
+						<label>Angle</label>
+						<input
+							clrInput
+							type="number"
+							[(ngModel)]="config.printData.PassYear.transform"
+							name="example"
+						/>
+					</clr-input-container>
+				</div>
+				<div class="clr-col-2">
+					<clr-input-container>
+						<label>color</label>
+						<input
+							clrInput
+							type="text"
+							[(ngModel)]="config.printData.PassYear.color"
+							name="example"
+						/>
+					</clr-input-container>
+				</div>
 
-        <div class="clr-col-2">
-          <clr-input-container>
-            <label>Font-Size</label>
-            <input clrInput type="number" [(ngModel)]="config.printData.Class_Event.fontSize" name="example"/>
-          </clr-input-container>
-        </div>
-      </div>
+				<div class="clr-col-2">
+					<clr-input-container>
+						<label>Font-Size</label>
+						<input
+							clrInput
+							type="number"
+							[(ngModel)]="config.printData.PassYear.fontSize"
+							name="example"
+						/>
+					</clr-input-container>
+				</div>
+			</div>
 
+			<div
+				*ngIf="showConfigSuccess"
+				class="alert alert-success mt3"
+				role="alert"
+			>
+				<div class="alert-items">
+					<div class="alert-item static">
+						<div class="alert-icon-wrapper">
+							<cds-icon class="alert-icon" shape="check-circle"></cds-icon>
+						</div>
+						<span class="alert-text"> Configuration updated successfully </span>
+					</div>
+				</div>
+			</div>
 
-      <h5 class=" b">Date/Year</h5>
-      <div class="clr-row">
-        <div class="clr-col-2">
-          <clr-input-container>
-            <label>X-Position</label>
-            <input clrInput type="number" [(ngModel)]="config.printData.PassYear.x" name="example"/>
-          </clr-input-container>
-        </div>
-        <div class="clr-col-2">
-          <clr-input-container>
-            <label>Y-Position</label>
-            <input clrInput type="number" [(ngModel)]="config.printData.PassYear.y" name="example"/>
-          </clr-input-container>
-        </div>
-        <div class="clr-col-2">
-          <clr-input-container>
-            <label>Angle</label>
-            <input clrInput type="number" [(ngModel)]="config.printData.PassYear.transform" name="example"/>
-          </clr-input-container>
-        </div>
-        <div class="clr-col-2">
-          <clr-input-container>
-            <label>color</label>
-            <input clrInput type="text" [(ngModel)]="config.printData.PassYear.color" name="example"/>
-          </clr-input-container>
-        </div>
-
-        <div class="clr-col-2">
-          <clr-input-container>
-            <label>Font-Size</label>
-            <input clrInput type="number" [(ngModel)]="config.printData.PassYear.fontSize" name="example"/>
-          </clr-input-container>
-        </div>
-      </div>
-
-      <div  *ngIf="showConfigSuccess" class="alert alert-success mt3" role="alert">
-        <div class="alert-items">
-          <div class="alert-item static">
-            <div class="alert-icon-wrapper">
-              <cds-icon class="alert-icon" shape="check-circle"></cds-icon>
-            </div>
-            <span class="alert-text"> Configuration updated successfully </span>
-          </div>
-        </div>
-      </div>
-
-      <div class="clr-row mt4">
-        <div class="clr-col-2">
-          <button type="button" class="btn btn-primary" (click)="updateConfig()">Update Configuration</button>
-
-        </div>
-      </div>
-
-    </clr-accordion-content>
-  </clr-accordion-panel>
+			<div class="clr-row mt4">
+				<div class="clr-col-2">
+					<button
+						type="button"
+						class="btn btn-primary"
+						(click)="updateConfig()"
+					>
+						Update Configuration
+					</button>
+				</div>
+			</div>
+		</clr-accordion-content>
+	</clr-accordion-panel>
 </clr-accordion>
 
-
-
-
 <div *ngIf="certificates.length > 0 && dataLoaded">
-  <div  class="flex flex-row justify-between items-center">
-    <div>
-      <h3 class="b ma0">Certificates Issued</h3>
-      <p class="b ma0">Showing all {{certificates.length}} results</p>
-    </div>
+	<div class="flex flex-row justify-between items-center">
+		<div>
+			<h3 class="b ma0">Certificates Issued</h3>
+			<p class="b ma0">Showing all {{ certificates.length }} results</p>
+		</div>
+	</div>
 
-  </div>
+	<clr-datagrid>
+		<clr-dg-column [clrDgField]="'student.StudentName'"
+			>Student Name</clr-dg-column
+		>
+		<clr-dg-column [clrDgField]="'activity.ActivityTyp'"
+			>Activity Type</clr-dg-column
+		>
+		<clr-dg-column [clrDgField]="'FatherName'">Issued For</clr-dg-column>
+		<clr-dg-column [clrDgField]="'createdAt'">Issued Date</clr-dg-column>
+		<clr-dg-column [clrDgField]="'user.username'">Issued By</clr-dg-column>
+		<!--    <clr-dg-column [clrDgField]="'City'">City</clr-dg-column>-->
+		<!--    <clr-dg-column [clrDgField]="'State'">State</clr-dg-column>-->
+		<!--    <clr-dg-column [clrDgField]="'MobileNumber'">Mobile Number</clr-dg-column>-->
+		<!--    <clr-dg-column [clrDgField]="'createdAt'">Date Created</clr-dg-column>-->x
+		<!--    <clr-dg-column [clrDgField]="'createdAt'">Actions</clr-dg-column>-->
 
-  <clr-datagrid >
-    <clr-dg-column [clrDgField]="'FamilyName'">Student Name</clr-dg-column>
-    <clr-dg-column [clrDgField]="'FatherName'">Activity Type</clr-dg-column>
-    <clr-dg-column [clrDgField]="'FatherName'">Issued For</clr-dg-column>
-    <clr-dg-column [clrDgField]="'StudentName'">Issued Date</clr-dg-column>
-    <clr-dg-column [clrDgField]="'Address'">Issued By</clr-dg-column>
-<!--    <clr-dg-column [clrDgField]="'City'">City</clr-dg-column>-->
-<!--    <clr-dg-column [clrDgField]="'State'">State</clr-dg-column>-->
-<!--    <clr-dg-column [clrDgField]="'MobileNumber'">Mobile Number</clr-dg-column>-->
-<!--    <clr-dg-column [clrDgField]="'createdAt'">Date Created</clr-dg-column>-->
-<!--    <clr-dg-column [clrDgField]="'createdAt'">Actions</clr-dg-column>-->
+		<clr-dg-row *clrDgItems="let certificate of certificates">
+			<clr-dg-cell
+				>{{ certificate.student.FamilyName }}
+				{{ certificate.student.StudentName }}</clr-dg-cell
+			>
+			<clr-dg-cell> {{ certificate.activity.ActivityType }} </clr-dg-cell>
+			<clr-dg-cell *ngIf="certificate.activity.ActivityType === 'event'">
+				{{ certificate.activity.EventTitle }} /
+				{{ certificate.activity.EventDescription }} /
+				{{ certificate.activity.EventReward }}
+			</clr-dg-cell>
 
-    <clr-dg-row *clrDgItems="let certificate of certificates">
-      <clr-dg-cell>{{ certificate.student.FamilyName }} {{ certificate.student.StudentName }}</clr-dg-cell>
-      <clr-dg-cell> {{certificate.activity.ActivityType}} </clr-dg-cell>
-      <clr-dg-cell *ngIf="certificate.activity.ActivityType === 'event' " > {{certificate.activity.EventTitle}} / {{certificate.activity.EventDescription}} / {{certificate.activity.EventReward}}  </clr-dg-cell>
-
-      <clr-dg-cell *ngIf="certificate.activity.ActivityType === 'education' " >
-        {{certificate.activity.EducationPassed}} /
-        {{certificate.activity.BoardType}} /
-        {{certificate.activity.BoardStream}}
-      </clr-dg-cell>
-      <clr-dg-cell>{{ getDate(certificate.createdAt) }}</clr-dg-cell>
-      <clr-dg-cell>{{ certificate.user.username }}</clr-dg-cell>
-<!--      <clr-dg-cell>{{ certificate.City }}</clr-dg-cell>-->
-<!--      <clr-dg-cell>{{ certificate.State }}</clr-dg-cell>-->
-<!--      <clr-dg-cell>{{ certificate.MobileNumber }}</clr-dg-cell>-->
-<!--      <clr-dg-cell>{{ getDate(certificate.createdAt)}}</clr-dg-cell>-->
-<!--      <clr-dg-cell>-->
-<!--        <button class="btn-primary btn btn-sm " (click)="editStudent(certificate)">Edit</button>-->
-<!--        <button  class="btn-danger btn btn-sm " (click)="deleteModel(certificate)">Delete</button>-->
-<!--      </clr-dg-cell>-->
-    </clr-dg-row>
-    <clr-dg-footer>
-      <clr-dg-pagination #pagination [clrDgPageSize]="10">
-        <clr-dg-page-size [clrPageSizeOptions]="[10, 20, 50, 100]">Users per page</clr-dg-page-size>
-        {{ pagination.firstItem + 1 }} - {{ pagination.lastItem + 1 }} of {{ pagination.totalItems }} certificates
-      </clr-dg-pagination>
-    </clr-dg-footer>
-  </clr-datagrid>
+			<clr-dg-cell *ngIf="certificate.activity.ActivityType === 'education'">
+				{{ certificate.activity.EducationPassed }} /
+				{{ certificate.activity.BoardType }} /
+				{{ certificate.activity.BoardStream }}
+			</clr-dg-cell>
+			<clr-dg-cell>{{ getDate(certificate.createdAt) }}</clr-dg-cell>
+			<clr-dg-cell>{{ certificate.user.username }}</clr-dg-cell>
+			<!--      <clr-dg-cell>{{ certificate.City }}</clr-dg-cell>-->
+			<!--      <clr-dg-cell>{{ certificate.State }}</clr-dg-cell>-->
+			<!--      <clr-dg-cell>{{ certificate.MobileNumber }}</clr-dg-cell>-->
+			<!--      <clr-dg-cell>{{ getDate(certificate.createdAt)}}</clr-dg-cell>-->
+			<!--      <clr-dg-cell>-->
+			<!--        <button class="btn-primary btn btn-sm " (click)="editStudent(certificate)">Edit</button>-->
+			<!--        <button  class="btn-danger btn btn-sm " (click)="deleteModel(certificate)">Delete</button>-->
+			<!--      </clr-dg-cell>-->
+		</clr-dg-row>
+		<clr-dg-footer>
+			<clr-dg-pagination #pagination [clrDgPageSize]="10">
+				<clr-dg-page-size [clrPageSizeOptions]="[10, 20, 50, 100]"
+					>Users per page</clr-dg-page-size
+				>
+				{{ pagination.firstItem + 1 }} - {{ pagination.lastItem + 1 }} of
+				{{ pagination.totalItems }} certificates
+			</clr-dg-pagination>
+		</clr-dg-footer>
+	</clr-datagrid>
 </div>
 
-
-<div *ngIf="certificates.length <= 0 && dataLoaded" class="h-100 w-100 flex flex-column justify-center items-center">
-  <h3 class="ma0 b">No Certificates Found</h3>
-  <p class="ma0 text-center mb2">Please add atleast one certificate to view the recods here</p>
-  <button (click)="openModal()" class="btn btn-primary btn-icon">
-    <cds-icon shape="plus" solid="true"></cds-icon>
-    Add Student</button>
+<div
+	*ngIf="certificates.length <= 0 && dataLoaded"
+	class="h-100 w-100 flex flex-column justify-center items-center"
+>
+	<h3 class="ma0 b">No Certificates Found</h3>
+	<p class="ma0 text-center mb2">
+		Please add atleast one certificate to view the recods here
+	</p>
+	<button (click)="openModal()" class="btn btn-primary btn-icon">
+		<cds-icon shape="plus" solid="true"></cds-icon>
+		Add Student
+	</button>
 </div>
 
-<div *ngIf="certificates.length <= 0 && !dataLoaded" class="h-100 w-100 flex flex-column justify-center items-center">
-  <span class="spinner spinner-sm">Loading...</span>
-  <span>Loading...</span>
+<div
+	*ngIf="certificates.length <= 0 && !dataLoaded"
+	class="h-100 w-100 flex flex-column justify-center items-center"
+>
+	<span class="spinner spinner-sm">Loading...</span>
+	<span>Loading...</span>
 </div>
