@@ -1,172 +1,220 @@
-<form [formGroup]="selectForm">
-	<div class="clr-row">
-		<div class="clr-col-2">
-			<!--        <clr-input-container class="ma0">-->
-			<!--            <label>Enter Education Passed</label>-->
-			<!--            <input clrInput type="text" [(ngModel)]="educationPassed" name="example"/>-->
-			<!--        </clr-input-container>-->
-			<clr-select-container class="ma0">
-				<label>Education Passed <span style="color: red">*</span></label>
-				<select class="w-100" clrSelect formControlName="EducationPassed">
-					<option *ngFor="let edu of eduPassed" [value]="edu.EducationPassed">
-						{{ edu.EducationPassed }}
-					</option>
-				</select>
-			</clr-select-container>
-		</div>
-		<div class="clr-col-2">
-			<!--        <clr-input-container class="ma0">-->
-			<!--            <label>Enter Education Passed</label>-->
-			<!--            <input clrInput type="text" [(ngModel)]="educationPassed" name="example"/>-->
-			<!--        </clr-input-container>-->
-			<clr-select-container class="ma0">
-				<label>Board Stream<span style="color: red">*</span></label>
-				<select class="w-100" clrSelect formControlName="BoardStream">
-					<option *ngFor="let edu of eduStreamFiltered" [value]="edu.Stream">
-						{{ edu.Stream }}
-					</option>
-				</select>
-			</clr-select-container>
-		</div>
-		<div class="clr-col-2">
-			<clr-input-container class="ma0">
-				<label>Enter Year</label>
-				<input clrInput type="text" formControlName="year" name="example" />
-			</clr-input-container>
-		</div>
-		<div class="clr-col">
-			<button
-				(click)="getAllStudents()"
-				class="btn btn-primary clr-align-self-end"
-			>
-				<!--            <cds-icon shape="plus" solid="true"></cds-icon>-->
-				Search
-			</button>
-		</div>
-	</div>
+<p style="color: red;margin-bottom: 16px;margin-top: 0px;">*Type manually Education Passed and Board Stream in given input fields only if EducationPassed and BoardStream is from Other</p>
+<div class="clr-row clr-justify-content-between">
+<form class="clr-col" [formGroup]="selectForm">
+  <div class="clr-row  clr-justify-content-between">
+    <div class="clr-col">
+      <!--        <clr-input-container class="ma0">-->
+      <!--            <label>Enter Education Passed</label>-->
+      <!--            <input clrInput type="text" [(ngModel)]="educationPassed" name="example"/>-->
+      <!--        </clr-input-container>-->
+      <clr-select-container class="ma0">
+        <label>Education Passed <span style="color: red">*</span></label>
+        <select class="w-100" clrSelect formControlName="EducationPassed">
+          <option *ngFor="let edu of eduPassed" [value]="edu.EducationPassed">
+            {{ edu.EducationPassed }}
+          </option>
+        </select>
+      </clr-select-container>
+    </div>
+    <div class="clr-col">
+      <!--        <clr-input-container class="ma0">-->
+      <!--            <label>Enter Education Passed</label>-->
+      <!--            <input clrInput type="text" [(ngModel)]="educationPassed" name="example"/>-->
+      <!--        </clr-input-container>-->
+      <clr-select-container class="ma0">
+        <label>Board Stream<span style="color: red">*</span></label>
+        <select class="w-100" clrSelect formControlName="BoardStream">
+          <option *ngFor="let edu of eduStreamFiltered" [value]="edu.Stream">
+            {{ edu.Stream }}
+          </option>
+        </select>
+      </clr-select-container>
+    </div>
+    <div class="clr-col">
+      <clr-input-container class="ma0">
+        <label>Enter Year</label>
+        <input clrInput type="text" formControlName="year" name="example" />
+      </clr-input-container>
+    </div>
+    <div class="clr-col">
+      <button
+        (click)="getAllStudents()"
+        class="btn btn-primary clr-align-self-end"
+      >
+        <!--            <cds-icon shape="plus" solid="true"></cds-icon>-->
+        Search
+      </button>
+    </div>
+  </div>
 </form>
 
+<form class="" [formGroup]="selectForm">
+  <div class="clr-row clr-justify-content-between">
+    <div class="clr-col">
+      <clr-input-container class="ma0">
+        <label>Enter Education Passed</label>
+        <input
+          clrInput
+          type="text"
+          formControlName="EducationPassed"
+          name="example"
+        />
+      </clr-input-container>
+    </div>
+    <div class="clr-col">
+      <clr-input-container class="ma0">
+        <label>Enter Board Stream</label>
+        <input
+          clrInput
+          type="text"
+          formControlName="BoardStream"
+          name="example"
+        />
+      </clr-input-container>
+    </div>
+    <div class="clr-col">
+      <clr-input-container class="ma0">
+        <label>Enter Year</label>
+        <input clrInput type="text" formControlName="year" name="example" />
+      </clr-input-container>
+    </div>
+    <div class="clr-col">
+      <button
+        (click)="getAllStudents()"
+        class="btn btn-primary clr-align-self-end"
+      >
+        <!--            <cds-icon shape="plus" solid="true"></cds-icon>-->
+        Search
+      </button>
+    </div>
+  </div>
+</form>
+</div>
 <div class="mt3" *ngIf="unfiltered.length > 0 && dataLoaded">
-	<div class="flex flex-row justify-between items-center">
-		<div>
-			<h3 class="b ma0">Top Students</h3>
-			<p class="b ma0">Showing all top {{ students.length }} results</p>
-		</div>
-		<div class="flex flex-row" style="gap: 1rem">
-			<clr-select-container class="ma0">
-				<label>Certificates Issued<span style="color: red">*</span></label>
-				<select
-					(change)="onFilterChange()"
-					[(ngModel)]="certificateFilter"
-					class="w-100"
-					clrSelect
-				>
-					<option value="All">All</option>
-					<option value="Issued">Issued</option>
-					<option value="Not Issued">Not Issued</option>
-				</select>
-			</clr-select-container>
-			<button (click)="printAll()" class="btn btn-primary clr-align-self-end">
-				Print All
-			</button>
-		</div>
-	</div>
+  <div class="flex flex-row justify-between items-center">
+    <div>
+      <h3 class="b ma0">Top Students</h3>
+      <p class="b ma0">Showing all top {{ students.length }} results</p>
+    </div>
+    <div class="flex flex-row" style="gap: 1rem">
+      <clr-select-container class="ma0">
+        <label>Certificates Issued<span style="color: red">*</span></label>
+        <select
+          (change)="onFilterChange()"
+          [(ngModel)]="certificateFilter"
+          class="w-100"
+          clrSelect
+        >
+          <option value="All">All</option>
+          <option value="Issued">Issued</option>
+          <option value="Not Issued">Not Issued</option>
+        </select>
+      </clr-select-container>
+      <button (click)="printAll()" class="btn btn-primary clr-align-self-end">
+        Print All
+      </button>
+    </div>
+  </div>
 
-	<table class="table">
-		<thead>
-			<tr>
-				<ng-container *ngFor="let header of headers">
-					<th *ngIf="header !== 'studentId' && header !== 'activityId'">{{ header }}</th>
-				</ng-container>
-				<th>Actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr *ngFor="let student of students">
-				<ng-container *ngFor="let header of headers">
-					<td *ngIf="header !== 'studentId' && header !== 'activityId'">{{ student[header] }}</td>
-				</ng-container>
-				<td>
-					<clr-dropdown>
-						<button
-							class="btn-icon btn btn-primary btn-sm"
-							clrDropdownTrigger
-							aria-label="toggle settings menu"
-						>
-							<cds-icon shape="cog"></cds-icon>
-							<cds-icon shape="angle" direction="down"></cds-icon>
-						</button>
-						<clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
-							<a (click)="genCertificate(student)" clrDropdownItem
-								>Issue Certificate</a
-							>
-						</clr-dropdown-menu>
-					</clr-dropdown>
-				</td>
-			</tr>
-		</tbody>
-	</table>
+  <table class="table">
+    <thead>
+      <tr>
+        <ng-container *ngFor="let header of headers">
+          <th *ngIf="header !== 'studentId' && header !== 'activityId'">
+            {{ header }}
+          </th>
+        </ng-container>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let student of students">
+        <ng-container *ngFor="let header of headers">
+          <td *ngIf="header !== 'studentId' && header !== 'activityId'">
+            {{ student[header] }}
+          </td>
+        </ng-container>
+        <td>
+          <clr-dropdown>
+            <button
+              class="btn-icon btn btn-primary btn-sm"
+              clrDropdownTrigger
+              aria-label="toggle settings menu"
+            >
+              <cds-icon shape="cog"></cds-icon>
+              <cds-icon shape="angle" direction="down"></cds-icon>
+            </button>
+            <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
+              <a (click)="genCertificate(student)" clrDropdownItem
+                >Issue Certificate</a
+              >
+            </clr-dropdown-menu>
+          </clr-dropdown>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
-	<!--    <clr-datagrid>-->
-	<!--        <clr-dg-column [clrDgField]="'FamilyName'">Family Name</clr-dg-column>-->
-	<!--        <clr-dg-column [clrDgField]="'StudentName'">Student Name</clr-dg-column>-->
-	<!--        &lt;!&ndash;    <clr-dg-column [clrDgField]="'StudentName'">Studying SSC</clr-dg-column>&ndash;&gt;-->
-	<!--        <clr-dg-column [clrDgField]="'FatherName'">Father Name</clr-dg-column>-->
-	<!--        <clr-dg-column [clrDgField]="'Address'">Address</clr-dg-column>-->
-	<!--        <clr-dg-column [clrDgField]="'City'">City</clr-dg-column>-->
-	<!--        <clr-dg-column [clrDgField]="'State'">State</clr-dg-column>-->
-	<!--        <clr-dg-column [clrDgField]="'MobileNumber'">Mobile Number</clr-dg-column>-->
-	<!--        <clr-dg-column [clrDgField]="'createdAt'">Date Created</clr-dg-column>-->
-	<!--        <clr-dg-column [clrDgField]="'createdAt'">Actions</clr-dg-column>-->
+  <!--    <clr-datagrid>-->
+  <!--        <clr-dg-column [clrDgField]="'FamilyName'">Family Name</clr-dg-column>-->
+  <!--        <clr-dg-column [clrDgField]="'StudentName'">Student Name</clr-dg-column>-->
+  <!--        &lt;!&ndash;    <clr-dg-column [clrDgField]="'StudentName'">Studying SSC</clr-dg-column>&ndash;&gt;-->
+  <!--        <clr-dg-column [clrDgField]="'FatherName'">Father Name</clr-dg-column>-->
+  <!--        <clr-dg-column [clrDgField]="'Address'">Address</clr-dg-column>-->
+  <!--        <clr-dg-column [clrDgField]="'City'">City</clr-dg-column>-->
+  <!--        <clr-dg-column [clrDgField]="'State'">State</clr-dg-column>-->
+  <!--        <clr-dg-column [clrDgField]="'MobileNumber'">Mobile Number</clr-dg-column>-->
+  <!--        <clr-dg-column [clrDgField]="'createdAt'">Date Created</clr-dg-column>-->
+  <!--        <clr-dg-column [clrDgField]="'createdAt'">Actions</clr-dg-column>-->
 
-	<!--        <clr-dg-row *clrDgItems="let student of students">-->
-	<!--            <clr-dg-cell>{{ student.FamilyName }}</clr-dg-cell>-->
-	<!--            <clr-dg-cell>{{ student.StudentName }}</clr-dg-cell>-->
-	<!--            &lt;!&ndash;      <clr-dg-cell>{{ student.StudyingSsc === 1 ? 'Yes' : 'No' }}</clr-dg-cell>&ndash;&gt;-->
-	<!--            <clr-dg-cell>{{ student.FatherName }}</clr-dg-cell>-->
-	<!--            <clr-dg-cell>{{ student.Address }}</clr-dg-cell>-->
-	<!--            <clr-dg-cell>{{ student.City }}</clr-dg-cell>-->
-	<!--            <clr-dg-cell>{{ student.State }}</clr-dg-cell>-->
-	<!--            <clr-dg-cell>{{ student.MobileNumber }}</clr-dg-cell>-->
-	<!--            <clr-dg-cell>{{ getDate(student.createdAt)}}</clr-dg-cell>-->
-	<!--            <clr-dg-cell>-->
-	<!--                <clr-dropdown>-->
-	<!--                    <button class="btn-icon btn btn-primary btn-sm" clrDropdownTrigger aria-label="toggle settings menu">-->
-	<!--                        <cds-icon shape="cog"></cds-icon>-->
-	<!--                        <cds-icon shape="angle" direction="down"></cds-icon>-->
-	<!--                    </button>-->
-	<!--                    <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">-->
-	<!--                        <a  (click)="editStudent(student)" clrDropdownItem>Edit</a>-->
-	<!--                        <a *ngIf="user && user.role.name === 'admin' " (click)="deleteModel(student)" clrDropdownItem>Delete</a>-->
-	<!--                    </clr-dropdown-menu>-->
-	<!--                </clr-dropdown>-->
+  <!--        <clr-dg-row *clrDgItems="let student of students">-->
+  <!--            <clr-dg-cell>{{ student.FamilyName }}</clr-dg-cell>-->
+  <!--            <clr-dg-cell>{{ student.StudentName }}</clr-dg-cell>-->
+  <!--            &lt;!&ndash;      <clr-dg-cell>{{ student.StudyingSsc === 1 ? 'Yes' : 'No' }}</clr-dg-cell>&ndash;&gt;-->
+  <!--            <clr-dg-cell>{{ student.FatherName }}</clr-dg-cell>-->
+  <!--            <clr-dg-cell>{{ student.Address }}</clr-dg-cell>-->
+  <!--            <clr-dg-cell>{{ student.City }}</clr-dg-cell>-->
+  <!--            <clr-dg-cell>{{ student.State }}</clr-dg-cell>-->
+  <!--            <clr-dg-cell>{{ student.MobileNumber }}</clr-dg-cell>-->
+  <!--            <clr-dg-cell>{{ getDate(student.createdAt)}}</clr-dg-cell>-->
+  <!--            <clr-dg-cell>-->
+  <!--                <clr-dropdown>-->
+  <!--                    <button class="btn-icon btn btn-primary btn-sm" clrDropdownTrigger aria-label="toggle settings menu">-->
+  <!--                        <cds-icon shape="cog"></cds-icon>-->
+  <!--                        <cds-icon shape="angle" direction="down"></cds-icon>-->
+  <!--                    </button>-->
+  <!--                    <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">-->
+  <!--                        <a  (click)="editStudent(student)" clrDropdownItem>Edit</a>-->
+  <!--                        <a *ngIf="user && user.role.name === 'admin' " (click)="deleteModel(student)" clrDropdownItem>Delete</a>-->
+  <!--                    </clr-dropdown-menu>-->
+  <!--                </clr-dropdown>-->
 
-	<!--            </clr-dg-cell>-->
+  <!--            </clr-dg-cell>-->
 
-	<!--        </clr-dg-row>-->
-	<!--        <clr-dg-footer>-->
-	<!--            <clr-dg-pagination #pagination [clrDgPageSize]="10">-->
-	<!--                <clr-dg-page-size [clrPageSizeOptions]="[10, 20, 50, 100]">Users per page</clr-dg-page-size>-->
-	<!--                {{ pagination.firstItem + 1 }} - {{ pagination.lastItem + 1 }} of {{ pagination.totalItems }} students-->
-	<!--            </clr-dg-pagination>-->
-	<!--        </clr-dg-footer>-->
-	<!--    </clr-datagrid>-->
+  <!--        </clr-dg-row>-->
+  <!--        <clr-dg-footer>-->
+  <!--            <clr-dg-pagination #pagination [clrDgPageSize]="10">-->
+  <!--                <clr-dg-page-size [clrPageSizeOptions]="[10, 20, 50, 100]">Users per page</clr-dg-page-size>-->
+  <!--                {{ pagination.firstItem + 1 }} - {{ pagination.lastItem + 1 }} of {{ pagination.totalItems }} students-->
+  <!--            </clr-dg-pagination>-->
+  <!--        </clr-dg-footer>-->
+  <!--    </clr-datagrid>-->
 </div>
 
 <div
-	*ngIf="unfiltered.length <= 0 && dataLoaded"
-	class="h-100 w-100 flex flex-column justify-center items-center"
+  *ngIf="unfiltered.length <= 0 && dataLoaded"
+  class="h-100 w-100 flex flex-column justify-center items-center"
 >
-	<h3 class="ma0 b">No Students Found</h3>
-	<p class="ma0 text-center mb2">
-		Please add atleast one student to view the recods here
-	</p>
+  <h3 class="ma0 b">No Students Found</h3>
+  <p class="ma0 text-center mb2">
+    Please add atleast one student to view the recods here
+  </p>
 </div>
 
 <div
-	*ngIf="unfiltered.length <= 0 && !dataLoaded"
-	class="h-100 w-100 flex flex-column justify-center items-center"
+  *ngIf="unfiltered.length <= 0 && !dataLoaded"
+  class="h-100 w-100 flex flex-column justify-center items-center"
 >
-	<span class="spinner spinner-sm">Loading...</span>
-	<span>Loading...</span>
+  <span class="spinner spinner-sm">Loading...</span>
+  <span>Loading...</span>
 </div>
